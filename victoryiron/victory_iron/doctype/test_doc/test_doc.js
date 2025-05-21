@@ -3,7 +3,7 @@
 
 frappe.ui.form.on("Test doc", {
     refresh(frm) {
-        console.log("first")
+        console.log("see console");
 
     },
 });

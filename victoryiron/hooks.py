@@ -243,4 +243,6 @@ app_license = "mit"
 # }
 
 
-# fixtures = [{"doctype": "User", "filters": [["email", "in", ["erp@clapgrow.com"]]]}, "User Role"]
+fixtures = [{"dt": "Custom Field", "filters": [["dt", "=", "Item"]]}]
+
+doctype_js = {"Item": "public/js/item_custom.js"}

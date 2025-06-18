@@ -243,10 +243,7 @@ app_license = "mit"
 # }
 
 
-# fixtures = [{"dt": "Custom Field", "filters": [["dt", "=", "Item"]]}]
-
-
-fixtures = [{"dt": "Custom Field", "filters": [["dt", "in", ["Item", "Supplier"]]]}]
+fixtures = ["Custom Field"]
 
 
 doctype_js = {"Item": "public/js/item_custom.js", "Supplier": "public/js/supplier_custom.js"}

@@ -243,6 +243,14 @@ app_license = "mit"
 # }
 
 
+# scheduler_events = {
+#     "hourly": [
+#         "victoryiron.biometric_attendance.api_sync.sync_daily_attendance"
+
+#     ]
+# }
+
+
 fixtures = ["Custom Field"]
 
 

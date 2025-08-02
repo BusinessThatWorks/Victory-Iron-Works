@@ -253,5 +253,7 @@ app_license = "mit"
 
 fixtures = ["Custom Field"]
 
+fixtures = [{"doctype": "Custom Field", "filters": {"module": "victoryiron"}}]
+
 
 doctype_js = {"Item": "public/js/item_custom.js", "Supplier": "public/js/supplier_custom.js"}

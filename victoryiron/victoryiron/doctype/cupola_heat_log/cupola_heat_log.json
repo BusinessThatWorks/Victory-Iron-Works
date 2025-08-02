@@ -1,0 +1,179 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-08-01 14:38:59.712528",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_mklc",
+  "date",
+  "charge_no",
+  "column_break_nlsi",
+  "grade",
+  "time",
+  "section_break_wgif",
+  "cupola_temp",
+  "column_break_ympi",
+  "temp_time",
+  "section_break_grnv",
+  "amended_from",
+  "column_break_lsuy",
+  "consumption_tab",
+  "table_uouv",
+  "section_break_nsri",
+  "total_valuation_cost",
+  "column_break_ldvp",
+  "column_break_yuse",
+  "total_quantity",
+  "section_break_aull",
+  "hard_coke_1",
+  "column_break_jedv",
+  "coke_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_grnv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Cupola Heat Log",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_lsuy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_mklc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "charge_no",
+   "fieldtype": "Int",
+   "label": "Charge No "
+  },
+  {
+   "fieldname": "column_break_nlsi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "grade",
+   "fieldtype": "Select",
+   "label": "Grade",
+   "options": "CI\nDI"
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time"
+  },
+  {
+   "fieldname": "section_break_wgif",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "hard_coke_1",
+   "fieldtype": "Int",
+   "label": "Hard Coke 1"
+  },
+  {
+   "fieldname": "column_break_ympi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "coke_type",
+   "fieldtype": "Data",
+   "label": "Coke Type"
+  },
+  {
+   "description": "(\u00b0C)",
+   "fieldname": "cupola_temp",
+   "fieldtype": "Float",
+   "label": "Cupola Temp"
+  },
+  {
+   "fieldname": "temp_time",
+   "fieldtype": "Time",
+   "label": "Temp Time"
+  },
+  {
+   "fieldname": "consumption_tab",
+   "fieldtype": "Tab Break",
+   "label": "Consumption"
+  },
+  {
+   "fieldname": "table_uouv",
+   "fieldtype": "Table",
+   "options": "Consumption Table"
+  },
+  {
+   "fieldname": "section_break_nsri",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_valuation_cost",
+   "fieldtype": "Currency",
+   "label": "Total Valuation Cost"
+  },
+  {
+   "fieldname": "column_break_ldvp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_yuse",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity"
+  },
+  {
+   "fieldname": "section_break_aull",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_jedv",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-01 15:54:22.455946",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Cupola Heat Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

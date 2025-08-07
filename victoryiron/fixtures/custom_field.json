@@ -665,7 +665,7 @@
   "name": "Item-custom_catagory",
   "no_copy": 0,
   "non_negative": 0,
-  "options": "Catagory-Item",
+  "options": "Category-Item",
   "permlevel": 0,
   "placeholder": null,
   "precision": "",

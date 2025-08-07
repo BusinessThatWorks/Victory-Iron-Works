@@ -19,7 +19,7 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Catagory-Item",
+   "options": "Category-Item",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
@@ -34,7 +34,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-07 15:09:41.671805",
+ "modified": "2025-08-07 18:15:01.275327",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Category-Item",

@@ -13,6 +13,7 @@
   "furnace_lining_noid",
   "section_break_lspd",
   "metal_received_from_cupola",
+  "total_quantity",
   "section_break_cyvo",
   "grade",
   "temperature_before_tapping",
@@ -51,7 +52,16 @@
   "column_break_ktta",
   "fe_silicon",
   "column_break_vexs",
-  "fe_mn"
+  "fe_mn",
+  "section_break_giil",
+  "table_vgmx",
+  "total_charge_mix_quantity",
+  "total_charge_mix_calculation",
+  "section_break_xciz",
+  "temp_tips",
+  "column_break_cvos",
+  "carbon_cup",
+  "amended_from"
  ],
  "fields": [
   {
@@ -291,13 +301,68 @@
    "fieldtype": "Table",
    "label": "Metal Received From Cupola",
    "options": "Metal Received From Cupola"
+  },
+  {
+   "fieldname": "section_break_giil",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_vgmx",
+   "fieldtype": "Table",
+   "options": "Consumption Table"
+  },
+  {
+   "fieldname": "section_break_xciz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "In Pcs",
+   "fieldname": "temp_tips",
+   "fieldtype": "Int",
+   "label": "Temp Tips"
+  },
+  {
+   "fieldname": "column_break_cvos",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "In Pcs",
+   "fieldname": "carbon_cup",
+   "fieldtype": "Int",
+   "label": "Carbon Cup"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Induction Holding Furnace Cum Mg Treatment Log",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity",
+   "precision": "2"
+  },
+  {
+   "fieldname": "total_charge_mix_quantity",
+   "fieldtype": "Float",
+   "label": "Total Charge Mix Quantity"
+  },
+  {
+   "fieldname": "total_charge_mix_calculation",
+   "fieldtype": "Float",
+   "label": "Total Charge Mix Calculation"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-11 12:17:31.856093",
+ "modified": "2025-08-11 12:32:45.392039",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Induction Holding Furnace Cum Mg Treatment Log",

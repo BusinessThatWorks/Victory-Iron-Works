@@ -9,23 +9,13 @@
   "furnace_lining_noid",
   "column_break_onls",
   "shift_type",
-  "section_break_cjat",
-  "metal_received_from_cupola_kg",
-  "start_time",
-  "column_break_hlal",
-  "metal_received_from_ind_furnace_kg",
-  "end_time",
-  "column_break_bekr",
+  "section_break_jqpa",
+  "metal_received_from_cupola",
   "reserved_metal_quantity_kg",
-  "column_break_ecxc",
-  "furnace_start_time",
-  "furnace_end_time",
-  "furnace_units",
-  "cooling_tower",
-  "total_units",
   "section_break_fjgs",
   "amended_from",
   "bath_composition_tab",
+  "section_break_pelp",
   "ce",
   "column_break_evks",
   "si",
@@ -37,7 +27,18 @@
   "carbon_cup",
   "section_break_rryk",
   "charge_mix_component",
-  "total_charge_mix_amount"
+  "total_charge_mix_amount",
+  "power_consumption_tab",
+  "furnace_start_time",
+  "column_break_eljy",
+  "furnace_end_time",
+  "column_break_oldz",
+  "section_break_rmdw",
+  "furnace_units",
+  "column_break_lhyn",
+  "cooling_tower",
+  "column_break_dwhx",
+  "total_units"
  ],
  "fields": [
   {
@@ -61,48 +62,10 @@
    "options": "\nDay Shift\nNIght Shift"
   },
   {
-   "fieldname": "section_break_cjat",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "metal_received_from_cupola_kg",
-   "fieldtype": "Float",
-   "label": "Metal received from Cupola (KG)\t",
-   "precision": "2"
-  },
-  {
-   "fieldname": "start_time",
-   "fieldtype": "Time",
-   "label": "Start Time"
-  },
-  {
-   "fieldname": "column_break_hlal",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "metal_received_from_ind_furnace_kg",
-   "fieldtype": "Float",
-   "label": "Metal received from Ind. Furnace (KG)\t",
-   "precision": "2"
-  },
-  {
-   "fieldname": "end_time",
-   "fieldtype": "Time",
-   "label": "End Time"
-  },
-  {
-   "fieldname": "column_break_bekr",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "reserved_metal_quantity_kg",
    "fieldtype": "Float",
    "label": "Reserved Metal quantity (KG)\t",
    "precision": "2"
-  },
-  {
-   "fieldname": "column_break_ecxc",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "furnace_start_time",
@@ -181,7 +144,7 @@
   {
    "fieldname": "tab_3_tab",
    "fieldtype": "Tab Break",
-   "label": "Tab 3"
+   "label": "Additionals"
   },
   {
    "description": "In Pcs",
@@ -214,13 +177,53 @@
    "fieldtype": "Currency",
    "label": "Total Charge Mix Amount",
    "precision": "2"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_pelp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "power_consumption_tab",
+   "fieldtype": "Tab Break",
+   "label": "Power Consumption"
+  },
+  {
+   "fieldname": "column_break_eljy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_oldz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_rmdw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_lhyn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_dwhx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_jqpa",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "metal_received_from_cupola",
+   "fieldtype": "Table",
+   "label": "Metal Received From Cupola",
+   "options": "Metal Received From Cupola"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-02 15:01:22.585094",
+ "modified": "2025-08-11 10:51:33.447652",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Induction Holding Furnace Cum Mg Treatment Log",

@@ -1,0 +1,55 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-08-11 10:46:02.549675",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "metal_received_from_cupola",
+  "column_break_vmwm",
+  "start_time",
+  "column_break_nzzs",
+  "end_time"
+ ],
+ "fields": [
+  {
+   "description": "In Kg",
+   "fieldname": "metal_received_from_cupola",
+   "fieldtype": "Data",
+   "label": "Metal Received From Cupola"
+  },
+  {
+   "fieldname": "column_break_vmwm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "column_break_nzzs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "label": "End Time"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-08-11 10:46:58.704721",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Metal Received From Cupola",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

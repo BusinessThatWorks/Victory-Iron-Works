@@ -30,8 +30,6 @@
   "moulding_system",
   "column_break_qbvy",
   "fracture_test",
-  "section_break_tpuw",
-  "amended_from",
   "power_consumption_tab",
   "furnace_on_time",
   "column_break_rwdw",
@@ -61,16 +59,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Induction Holding Furnace Cum Mg Treatment Log",
-   "print_hide": 1,
-   "read_only": 1,
-   "search_index": 1
-  },
-  {
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Date"
@@ -96,10 +84,6 @@
   },
   {
    "fieldname": "section_break_lspd",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "section_break_tpuw",
    "fieldtype": "Section Break"
   },
   {
@@ -313,7 +297,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-11 12:11:14.834524",
+ "modified": "2025-08-11 12:17:31.856093",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Induction Holding Furnace Cum Mg Treatment Log",

@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestInductionFurnaceLog(FrappeTestCase):
+class TestInductionHoldingFurnaceCumMgTreatmentLogOLD(FrappeTestCase):
 	pass

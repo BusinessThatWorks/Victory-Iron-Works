@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class InductionFurnaceLog(Document):
+class InductionHoldingFurnaceCumMgTreatmentLogOLD(Document):
 	pass

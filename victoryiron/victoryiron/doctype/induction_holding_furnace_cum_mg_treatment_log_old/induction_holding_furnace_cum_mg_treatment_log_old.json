@@ -1,0 +1,250 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-07-29 14:01:50.767292",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "furnace_lining_noid",
+  "column_break_onls",
+  "shift_type",
+  "section_break_jqpa",
+  "metal_received_from_cupola",
+  "reserved_metal_quantity_kg",
+  "section_break_fjgs",
+  "amended_from",
+  "bath_composition_tab",
+  "section_break_pelp",
+  "ce",
+  "column_break_evks",
+  "si",
+  "column_break_skgu",
+  "c",
+  "tab_3_tab",
+  "temp_tip",
+  "column_break_fvke",
+  "carbon_cup",
+  "section_break_rryk",
+  "charge_mix_component",
+  "total_charge_mix_amount",
+  "power_consumption_tab",
+  "furnace_start_time",
+  "column_break_eljy",
+  "furnace_end_time",
+  "column_break_oldz",
+  "section_break_rmdw",
+  "furnace_units",
+  "column_break_lhyn",
+  "cooling_tower",
+  "column_break_dwhx",
+  "total_units"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "furnace_lining_noid",
+   "fieldtype": "Data",
+   "label": "Furnace Lining No/ID"
+  },
+  {
+   "fieldname": "column_break_onls",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shift_type",
+   "fieldtype": "Select",
+   "label": "Shift Type",
+   "options": "\nDay Shift\nNIght Shift"
+  },
+  {
+   "fieldname": "reserved_metal_quantity_kg",
+   "fieldtype": "Float",
+   "label": "Reserved Metal quantity (KG)\t",
+   "precision": "2"
+  },
+  {
+   "fieldname": "furnace_start_time",
+   "fieldtype": "Time",
+   "label": "Furnace Start Time"
+  },
+  {
+   "fieldname": "furnace_end_time",
+   "fieldtype": "Time",
+   "label": "Furnace End Time",
+   "precision": "2"
+  },
+  {
+   "fieldname": "furnace_units",
+   "fieldtype": "Float",
+   "label": "Furnace Units\t",
+   "precision": "2"
+  },
+  {
+   "fieldname": "cooling_tower",
+   "fieldtype": "Float",
+   "label": "Cooling Tower",
+   "precision": "2"
+  },
+  {
+   "fieldname": "total_units",
+   "fieldtype": "Float",
+   "label": "Total Units",
+   "precision": "2"
+  },
+  {
+   "fieldname": "section_break_fjgs",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Induction Holding Furnace Cum Mg Treatment Log",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "bath_composition_tab",
+   "fieldtype": "Tab Break",
+   "label": "Bath Composition"
+  },
+  {
+   "fieldname": "ce",
+   "fieldtype": "Float",
+   "label": "%CE",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_evks",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "si",
+   "fieldtype": "Float",
+   "label": "%SI",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_skgu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "c",
+   "fieldtype": "Float",
+   "label": "%C",
+   "precision": "2"
+  },
+  {
+   "fieldname": "tab_3_tab",
+   "fieldtype": "Tab Break",
+   "label": "Additionals"
+  },
+  {
+   "description": "In Pcs",
+   "fieldname": "temp_tip",
+   "fieldtype": "Int",
+   "label": "Temp Tip"
+  },
+  {
+   "fieldname": "column_break_fvke",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "In Pcs",
+   "fieldname": "carbon_cup",
+   "fieldtype": "Int",
+   "label": "Carbon Cup"
+  },
+  {
+   "fieldname": "section_break_rryk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "charge_mix_component",
+   "fieldtype": "Table",
+   "label": "Charge MIx Component",
+   "options": "Consumption Table"
+  },
+  {
+   "fieldname": "total_charge_mix_amount",
+   "fieldtype": "Currency",
+   "label": "Total Charge Mix Amount",
+   "precision": "2"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_pelp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "power_consumption_tab",
+   "fieldtype": "Tab Break",
+   "label": "Power Consumption"
+  },
+  {
+   "fieldname": "column_break_eljy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_oldz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_rmdw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_lhyn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_dwhx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_jqpa",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "metal_received_from_cupola",
+   "fieldtype": "Table",
+   "label": "Metal Received From Cupola",
+   "options": "Metal Received From Cupola"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-11 10:51:33.447652",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Induction Holding Furnace Cum Mg Treatment Log OLD",
+ "owner": "erp@clapgrow.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

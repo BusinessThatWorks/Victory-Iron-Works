@@ -250,7 +250,8 @@
   {
    "fieldname": "moulding_system",
    "fieldtype": "Select",
-   "label": "Moulding System"
+   "label": "Moulding System",
+   "options": "\nHand Moulding\nMachine Moulding"
   },
   {
    "fieldname": "column_break_qbvy",
@@ -260,7 +261,7 @@
    "fieldname": "fracture_test",
    "fieldtype": "Select",
    "label": "Fracture Test",
-   "options": "OK\nFAIL"
+   "options": "\nOK\nFAIL"
   },
   {
    "fieldname": "additional_tab",
@@ -362,7 +363,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-11 12:32:45.392039",
+ "modified": "2025-08-12 16:13:23.810603",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Induction Holding Furnace Cum Mg Treatment Log",

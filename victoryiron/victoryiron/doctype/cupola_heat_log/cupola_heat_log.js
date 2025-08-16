@@ -18,7 +18,6 @@ frappe.ui.form.on('Cupola Heat Log', {
         update_child_totals(frm);
     }
 });
-
 frappe.ui.form.on('Consumption Table', {
     item_name: function (frm, cdt, cdn) {
         let row = frappe.get_doc(cdt, cdn);
@@ -29,7 +28,6 @@ frappe.ui.form.on('Consumption Table', {
             frappe.model.set_value(cdt, cdn, 'total_valuation', 0);
             return;
         }
-
         // Fetch valuation_rate from Item doctype
         frappe.call({
             method: "frappe.client.get_value",

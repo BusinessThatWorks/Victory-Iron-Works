@@ -10,6 +10,7 @@
   "uom",
   "column_break_cjow",
   "quantity",
+  "store_stock",
   "column_break_xcxh",
   "valuation_rate",
   "total_valuation"
@@ -51,14 +52,21 @@
   {
    "fieldname": "total_valuation",
    "fieldtype": "Float",
-   "label": "Total Valuation"
+   "label": "Total Valuation",
+   "precision": "2"
+  },
+  {
+   "fieldname": "store_stock",
+   "fieldtype": "Float",
+   "label": "Store Stock",
+   "precision": "2"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-08-02 15:00:45.122479",
+ "modified": "2025-08-12 16:35:12.040683",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Consumption Table",

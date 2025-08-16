@@ -16,8 +16,9 @@
   {
    "description": "In Kg",
    "fieldname": "metal_received_from_cupola",
-   "fieldtype": "Data",
-   "label": "Metal Received From Cupola"
+   "fieldtype": "Float",
+   "label": "Metal Received From Cupola",
+   "precision": "2"
   },
   {
    "fieldname": "column_break_vmwm",
@@ -42,7 +43,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-08-11 10:46:58.704721",
+ "modified": "2025-08-12 17:17:12.598183",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Metal Received From Cupola",

@@ -19,12 +19,12 @@
   "amended_from",
   "column_break_lsuy",
   "consumption_tab",
-  "table_uouv",
+  "consumption_table",
   "section_break_nsri",
-  "total_valuation_cost",
+  "total_charge_mix_calculation",
   "column_break_ldvp",
   "column_break_yuse",
-  "total_quantity",
+  "total_charge_mix_quantity",
   "section_break_aull",
   "hard_coke_1",
   "column_break_jedv",
@@ -113,18 +113,8 @@
    "label": "Consumption"
   },
   {
-   "fieldname": "table_uouv",
-   "fieldtype": "Table",
-   "options": "Consumption Table"
-  },
-  {
    "fieldname": "section_break_nsri",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "total_valuation_cost",
-   "fieldtype": "Currency",
-   "label": "Total Valuation Cost"
   },
   {
    "fieldname": "column_break_ldvp",
@@ -135,24 +125,36 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "total_quantity",
-   "fieldtype": "Float",
-   "label": "Total Quantity"
-  },
-  {
    "fieldname": "section_break_aull",
    "fieldtype": "Section Break"
   },
   {
    "fieldname": "column_break_jedv",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "consumption_table",
+   "fieldtype": "Table",
+   "options": "Consumption Table"
+  },
+  {
+   "fieldname": "total_charge_mix_calculation",
+   "fieldtype": "Currency",
+   "label": "Total Valuation Cost",
+   "precision": "2"
+  },
+  {
+   "fieldname": "total_charge_mix_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity",
+   "precision": "2"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-01 15:54:22.455946",
+ "modified": "2025-08-12 17:49:30.701395",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Heat Log",

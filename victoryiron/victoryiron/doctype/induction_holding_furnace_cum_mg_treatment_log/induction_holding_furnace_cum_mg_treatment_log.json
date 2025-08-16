@@ -54,7 +54,7 @@
   "column_break_vexs",
   "fe_mn",
   "section_break_giil",
-  "table_vgmx",
+  "consumption_table",
   "total_charge_mix_quantity",
   "total_charge_mix_calculation",
   "section_break_xciz",
@@ -308,11 +308,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "table_vgmx",
-   "fieldtype": "Table",
-   "options": "Consumption Table"
-  },
-  {
    "fieldname": "section_break_xciz",
    "fieldtype": "Section Break"
   },
@@ -357,13 +352,18 @@
    "fieldname": "total_charge_mix_calculation",
    "fieldtype": "Float",
    "label": "Total Charge Mix Calculation"
+  },
+  {
+   "fieldname": "consumption_table",
+   "fieldtype": "Table",
+   "options": "Consumption Table"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-12 16:13:23.810603",
+ "modified": "2025-08-12 16:29:03.122440",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Induction Holding Furnace Cum Mg Treatment Log",

@@ -1,18 +1,19 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2025-08-19 08:13:55.147638",
+ "autoname": "format:{date}",
+ "creation": "2025-08-19 12:54:02.569720",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "chemical_analysis_of_cast_metal_section",
-  "table_tfrb",
-  "section_break_az3v",
-  "amended_from"
+  "section_break_q7b5",
+  "amended_from",
+  "date",
+  "table_mzbv"
  ],
  "fields": [
   {
-   "fieldname": "section_break_az3v",
+   "fieldname": "section_break_q7b5",
    "fieldtype": "Section Break"
   },
   {
@@ -20,30 +21,31 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Chemical Cast Report Of Cast Metal",
+   "options": "Chemical Analysis Of Cast Metal",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
   },
   {
-   "fieldname": "table_tfrb",
-   "fieldtype": "Table",
-   "options": "Chemical Cast Report Of Cast Metal table"
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
   },
   {
-   "fieldname": "chemical_analysis_of_cast_metal_section",
-   "fieldtype": "Section Break",
-   "label": "Chemical Analysis of Cast Metal"
+   "fieldname": "table_mzbv",
+   "fieldtype": "Table",
+   "options": "Chemical Cast Report Of Cast Metal table"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-19 08:25:20.983439",
+ "modified": "2025-08-19 12:56:52.720232",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Chemical Analysis Of Cast Metal",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -63,5 +65,6 @@
  "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "track_changes": 1
 }

@@ -1,0 +1,275 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-08-19 07:33:20.945147",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_details_section",
+  "grade",
+  "grade_produced",
+  "column_break_pdwz",
+  "time",
+  "cupola_temp",
+  "temp_time",
+  "material_consumed_section",
+  "hard_coke",
+  "column_break_ukaz",
+  "coke_type",
+  "section_break_qzug",
+  "flux",
+  "column_break_svhn",
+  "ds_block",
+  "column_break_fdsw",
+  "manganese",
+  "column_break_zezf",
+  "silicon",
+  "section_break_gbaj",
+  "pig__10",
+  "column_break_jqrf",
+  "pig__10_to_15",
+  "column_break_dhhg",
+  "pig__15_to_20",
+  "column_break_mbaz",
+  "pig__20_to_25",
+  "column_break_wfbx",
+  "pig___25_",
+  "section_break_urtg",
+  "ci_fr",
+  "column_break_xrrl",
+  "di_fr",
+  "column_break_ybvd",
+  "mould_box_scrap",
+  "section_break_udkk",
+  "ms_scrap",
+  "di_pipe",
+  "column_break_kuda",
+  "m_ci_scrap",
+  "column_break_ymli",
+  "ci_sliper",
+  "section_break_prbg",
+  "total"
+ ],
+ "fields": [
+  {
+   "fieldname": "basic_details_section",
+   "fieldtype": "Section Break",
+   "label": "Basic Details"
+  },
+  {
+   "fieldname": "grade",
+   "fieldtype": "Select",
+   "label": "Grade",
+   "options": "\nCI\nDI"
+  },
+  {
+   "fieldname": "column_break_pdwz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time"
+  },
+  {
+   "fieldname": "material_consumed_section",
+   "fieldtype": "Section Break",
+   "label": "Material Consumed"
+  },
+  {
+   "fieldname": "hard_coke",
+   "fieldtype": "Int",
+   "label": "Hard Coke"
+  },
+  {
+   "fieldname": "column_break_ukaz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "coke_type",
+   "fieldtype": "Select",
+   "label": "Coke Type",
+   "options": "\nMaharaja\nMaithan"
+  },
+  {
+   "fieldname": "grade_produced",
+   "fieldtype": "Select",
+   "label": "Grade Produced"
+  },
+  {
+   "description": "In \u00b0C",
+   "fieldname": "cupola_temp",
+   "fieldtype": "Float",
+   "label": "Cupola Temp"
+  },
+  {
+   "fieldname": "section_break_qzug",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "flux",
+   "fieldtype": "Int",
+   "label": "FLUX"
+  },
+  {
+   "fieldname": "column_break_svhn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ds_block",
+   "fieldtype": "Int",
+   "label": "DS BLOCK"
+  },
+  {
+   "fieldname": "column_break_fdsw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "manganese",
+   "fieldtype": "Int",
+   "label": "Manganese "
+  },
+  {
+   "fieldname": "column_break_zezf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "silicon",
+   "fieldtype": "Int",
+   "label": "Silicon "
+  },
+  {
+   "fieldname": "section_break_gbaj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "pig__10",
+   "fieldtype": "Int",
+   "label": "PIG  <1.0"
+  },
+  {
+   "fieldname": "column_break_jqrf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pig__10_to_15",
+   "fieldtype": "Int",
+   "label": "PIG  1.0 TO 1.5"
+  },
+  {
+   "fieldname": "column_break_dhhg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pig__15_to_20",
+   "fieldtype": "Int",
+   "label": "PIG  1.5 TO 2.0"
+  },
+  {
+   "fieldname": "column_break_mbaz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pig__20_to_25",
+   "fieldtype": "Int",
+   "label": "PIG  2.0 TO 2.5"
+  },
+  {
+   "fieldname": "column_break_wfbx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pig___25_",
+   "fieldtype": "Int",
+   "label": "PIG   2.5 >"
+  },
+  {
+   "fieldname": "section_break_urtg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "ci_fr",
+   "fieldtype": "Int",
+   "label": "CI_FR"
+  },
+  {
+   "fieldname": "column_break_xrrl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "di_fr",
+   "fieldtype": "Int",
+   "label": "DI_FR"
+  },
+  {
+   "fieldname": "column_break_ybvd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mould_box_scrap",
+   "fieldtype": "Int",
+   "label": "Mould_Box_Scrap"
+  },
+  {
+   "fieldname": "section_break_udkk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "ms_scrap",
+   "fieldtype": "Int",
+   "label": "MS_SCRAP"
+  },
+  {
+   "fieldname": "di_pipe",
+   "fieldtype": "Int",
+   "label": "DI_PIPE"
+  },
+  {
+   "fieldname": "column_break_kuda",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "m_ci_scrap",
+   "fieldtype": "Int",
+   "label": "M_CI_SCRAP"
+  },
+  {
+   "fieldname": "column_break_ymli",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ci_sliper",
+   "fieldtype": "Int",
+   "label": "CI_Sliper"
+  },
+  {
+   "fieldname": "temp_time",
+   "fieldtype": "Time",
+   "label": "Temp Time"
+  },
+  {
+   "fieldname": "section_break_prbg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Int",
+   "label": "Total"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-08-19 08:00:04.751975",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Cupola Consumption Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

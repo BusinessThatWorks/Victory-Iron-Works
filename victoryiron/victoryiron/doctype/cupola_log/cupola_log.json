@@ -1,0 +1,185 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-08-19 07:48:42.395593",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "column_break_gaae",
+  "cupola_number",
+  "timings_section",
+  "lightup",
+  "out",
+  "column_break_kuqh",
+  "blower",
+  "drop",
+  "column_break_qvec",
+  "blowermelting",
+  "section_break_yio5",
+  "amended_from",
+  "consumption_tab",
+  "table_ogdy",
+  "section_break_nmti",
+  "punching",
+  "column_break_ufqo",
+  "crc",
+  "column_break_nozj",
+  "steam_coal",
+  "column_break_dpic",
+  "fire_wood",
+  "column_break_orjj",
+  "fire_bricks"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_yio5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Cupola Log",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "timings_section",
+   "fieldtype": "Section Break",
+   "label": "Timings"
+  },
+  {
+   "fieldname": "lightup",
+   "fieldtype": "Time",
+   "label": "1: Light Up :"
+  },
+  {
+   "fieldname": "out",
+   "fieldtype": "Time",
+   "label": "4. Metal out at :"
+  },
+  {
+   "fieldname": "column_break_kuqh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "blower",
+   "fieldtype": "Time",
+   "label": "2. Blower on for Ignition : "
+  },
+  {
+   "fieldname": "drop",
+   "fieldtype": "Time",
+   "label": "5. Cupola drop at :"
+  },
+  {
+   "fieldname": "column_break_qvec",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "blowermelting",
+   "fieldtype": "Time",
+   "label": "3. Blower on for Melting :"
+  },
+  {
+   "fieldname": "cupola_number",
+   "fieldtype": "Int",
+   "label": "Cupola Number"
+  },
+  {
+   "fieldname": "consumption_tab",
+   "fieldtype": "Tab Break",
+   "label": "Consumption"
+  },
+  {
+   "fieldname": "table_ogdy",
+   "fieldtype": "Table",
+   "options": "Cupola Consumption Table"
+  },
+  {
+   "fieldname": "section_break_nmti",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "punching",
+   "fieldtype": "Int",
+   "label": "PUNCHING"
+  },
+  {
+   "fieldname": "column_break_ufqo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "crc",
+   "fieldtype": "Int",
+   "label": "CRC"
+  },
+  {
+   "fieldname": "column_break_nozj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "steam_coal",
+   "fieldtype": "Int",
+   "label": "Steam Coal"
+  },
+  {
+   "fieldname": "column_break_dpic",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fire_wood",
+   "fieldtype": "Int",
+   "label": "Fire Wood"
+  },
+  {
+   "fieldname": "column_break_orjj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fire_bricks",
+   "fieldtype": "Int",
+   "label": "Fire Bricks"
+  },
+  {
+   "fieldname": "column_break_gaae",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-19 07:56:27.719109",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Cupola Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

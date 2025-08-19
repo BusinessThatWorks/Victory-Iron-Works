@@ -1,0 +1,167 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-08-19 08:14:23.256270",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date_of_casting",
+  "type_of_metal",
+  "column_break_mhcb",
+  "treatment_no_di",
+  "specgrade",
+  "chemical_composition_section",
+  "c",
+  "p",
+  "column_break_cztt",
+  "si",
+  "mg",
+  "column_break_qbdb",
+  "mn",
+  "cc",
+  "column_break_aovc",
+  "s",
+  "cr",
+  "section_break_ezoz",
+  "nodularity_",
+  "column_break_ssda",
+  "nodule_count",
+  "column_break_djqc",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "date_of_casting",
+   "fieldtype": "Date",
+   "label": "Date Of Casting "
+  },
+  {
+   "fieldname": "column_break_mhcb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "treatment_no_di",
+   "fieldtype": "Data",
+   "label": "Treatment No (DI)"
+  },
+  {
+   "fieldname": "type_of_metal",
+   "fieldtype": "Select",
+   "label": "Type Of Metal",
+   "options": "DI"
+  },
+  {
+   "fieldname": "specgrade",
+   "fieldtype": "Int",
+   "label": "Spec/Grade"
+  },
+  {
+   "fieldname": "chemical_composition_section",
+   "fieldtype": "Section Break",
+   "label": "Chemical Composition"
+  },
+  {
+   "fieldname": "c",
+   "fieldtype": "Float",
+   "label": "C%",
+   "precision": "3"
+  },
+  {
+   "fieldname": "column_break_cztt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "si",
+   "fieldtype": "Float",
+   "label": "SI%",
+   "precision": "3"
+  },
+  {
+   "fieldname": "column_break_qbdb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mn",
+   "fieldtype": "Float",
+   "label": "Mn%",
+   "precision": "3"
+  },
+  {
+   "fieldname": "column_break_aovc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "s",
+   "fieldtype": "Float",
+   "label": "S%",
+   "precision": "3"
+  },
+  {
+   "fieldname": "p",
+   "fieldtype": "Float",
+   "label": "P%",
+   "precision": "3"
+  },
+  {
+   "fieldname": "mg",
+   "fieldtype": "Float",
+   "label": "Mg%",
+   "precision": "3"
+  },
+  {
+   "fieldname": "cc",
+   "fieldtype": "Float",
+   "label": "CC",
+   "precision": "3"
+  },
+  {
+   "fieldname": "cr",
+   "fieldtype": "Float",
+   "label": "CR",
+   "precision": "3"
+  },
+  {
+   "fieldname": "section_break_ezoz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "nodularity_",
+   "fieldtype": "Float",
+   "label": "Nodularity %",
+   "precision": "3"
+  },
+  {
+   "fieldname": "column_break_ssda",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nodule_count",
+   "fieldtype": "Int",
+   "label": "Nodule Count"
+  },
+  {
+   "fieldname": "column_break_djqc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Data",
+   "label": "Remarks"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-08-19 08:23:59.536690",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Chemical Cast Report Of Cast Metal table",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

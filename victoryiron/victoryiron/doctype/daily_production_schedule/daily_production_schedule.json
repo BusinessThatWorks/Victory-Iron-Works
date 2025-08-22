@@ -1,0 +1,79 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-08-22 14:20:16.306886",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_qvqy",
+  "date",
+  "column_break_ywvv",
+  "amended_from",
+  "daily_production_schedule_section",
+  "daily_production_schedule"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_qvqy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Daily Production Schedule",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_ywvv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "daily_production_schedule_section",
+   "fieldtype": "Section Break",
+   "label": "Daily Production Schedule"
+  },
+  {
+   "fieldname": "daily_production_schedule",
+   "fieldtype": "Table",
+   "label": "Daily Production Schedule",
+   "options": "Daily Production Schedule Table"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-22 14:22:56.882522",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Daily Production Schedule",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

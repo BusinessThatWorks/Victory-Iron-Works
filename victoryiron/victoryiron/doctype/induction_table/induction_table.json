@@ -1,0 +1,125 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-08-22 14:43:09.982292",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "additional_section",
+  "grade",
+  "column_break_wnwt",
+  "treatment_no",
+  "section_break_cdgu",
+  "temperature_before_tapping",
+  "column_break_utnj",
+  "metal_tapped_at",
+  "section_break_qtwp",
+  "tapped_metal_quantity",
+  "inoculant_addition_per_ladle",
+  "column_break_htoo",
+  "punching_addition_per_ladle",
+  "column_break_kbzm",
+  "fesimg_addition_per_ladle",
+  "moulding_system"
+ ],
+ "fields": [
+  {
+   "fieldname": "additional_section",
+   "fieldtype": "Section Break",
+   "label": "Additional"
+  },
+  {
+   "fieldname": "grade",
+   "fieldtype": "Select",
+   "label": "Grade",
+   "options": "\nCI\nDI"
+  },
+  {
+   "fieldname": "column_break_wnwt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "treatment_no",
+   "fieldtype": "Data",
+   "label": "Treatment No"
+  },
+  {
+   "fieldname": "section_break_cdgu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "\u00b0C",
+   "fieldname": "temperature_before_tapping",
+   "fieldtype": "Float",
+   "label": "Temperature before tapping "
+  },
+  {
+   "fieldname": "column_break_utnj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "metal_tapped_at",
+   "fieldtype": "Time",
+   "label": "Metal Tapped At"
+  },
+  {
+   "fieldname": "section_break_qtwp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "in Kg",
+   "fieldname": "tapped_metal_quantity",
+   "fieldtype": "Float",
+   "label": "Tapped metal quantity",
+   "precision": "2"
+  },
+  {
+   "description": "In Kg",
+   "fieldname": "inoculant_addition_per_ladle",
+   "fieldtype": "Float",
+   "label": "Inoculant addition per ladle",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_htoo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "In Kg",
+   "fieldname": "punching_addition_per_ladle",
+   "fieldtype": "Float",
+   "label": "Punching addition per ladle"
+  },
+  {
+   "fieldname": "column_break_kbzm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "In Kg",
+   "fieldname": "fesimg_addition_per_ladle",
+   "fieldtype": "Float",
+   "label": "Fe.Si.Mg addition per ladle"
+  },
+  {
+   "fieldname": "moulding_system",
+   "fieldtype": "Select",
+   "label": "Moulding System",
+   "options": "\nMachine Mould\nHand Mould"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-08-22 14:52:38.265453",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Induction Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

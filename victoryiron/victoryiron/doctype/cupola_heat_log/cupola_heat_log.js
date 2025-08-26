@@ -28,7 +28,7 @@ frappe.ui.form.on('Consumption Table', {
             frappe.model.set_value(cdt, cdn, 'total_valuation', 0);
             return;
         }
-        // Fetch valuation_rate from Item doctype
+        
         frappe.call({
             method: "frappe.client.get_value",
             args: {

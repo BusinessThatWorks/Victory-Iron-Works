@@ -11,6 +11,8 @@
   "casting_type",
   "column_break_qknx",
   "moulding_type",
+  "column_break_asyp",
+  "moulding_person_name",
   "section_break_huyj",
   "drawing_no",
   "weight",
@@ -229,13 +231,23 @@
    "in_standard_filter": 1,
    "label": "Moulding Type ",
    "options": "\nHand Moulding\nMachine Moulding"
+  },
+  {
+   "fieldname": "column_break_asyp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "moulding_person_name",
+   "fieldtype": "Link",
+   "label": "Moulding Person Name",
+   "options": "Moulding Person Name"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-08-26 11:55:45.186274",
+ "modified": "2025-08-26 13:07:08.520211",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Daily Production Schedule Table",

@@ -8,7 +8,7 @@
 // });
 
 frappe.ui.form.on('Cupola Heat Log', {
-    // When child table changes: recalc parent
+    // When child table changes: recalc
     consumption_table_add: function (frm, cdt, cdn) {
         console.log('Row added to consumption_table');
         update_child_totals(frm);

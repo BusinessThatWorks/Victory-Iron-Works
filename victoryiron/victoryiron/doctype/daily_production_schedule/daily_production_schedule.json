@@ -1,7 +1,6 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{date}",
  "creation": "2025-08-22 14:20:16.306886",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -11,19 +10,7 @@
   "column_break_ywvv",
   "amended_from",
   "daily_production_schedule_section",
-  "daily_production_schedule",
-  "total_weight_section",
-  "total_far_weight",
-  "column_break_gbkc",
-  "total_planned_weight",
-  "column_break_zvgq",
-  "total_uncast_weight",
-  "column_break_pitb",
-  "total_casting_weight",
-  "column_break_civk",
-  "total_finish_weight",
-  "column_break_kkpt",
-  "total_rejected_weight"
+  "daily_production_schedule"
  ],
  "fields": [
   {
@@ -43,7 +30,6 @@
   {
    "fieldname": "date",
    "fieldtype": "Date",
-   "in_standard_filter": 1,
    "label": "Date"
   },
   {
@@ -60,88 +46,16 @@
    "fieldtype": "Table",
    "label": "Daily Production Schedule",
    "options": "Daily Production Schedule Table"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "total_weight_section",
-   "fieldtype": "Section Break",
-   "label": "Total Weight"
-  },
-  {
-   "fieldname": "column_break_gbkc",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_zvgq",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_pitb",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_civk",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_kkpt",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "total_far_weight",
-   "fieldtype": "Float",
-   "label": "Total Far Weight",
-   "precision": "2"
-  },
-  {
-   "fieldname": "total_planned_weight",
-   "fieldtype": "Float",
-   "hidden": 1,
-   "label": "Total Planned Weight",
-   "precision": "2",
-   "read_only": 1
-  },
-  {
-   "fieldname": "total_uncast_weight",
-   "fieldtype": "Float",
-   "hidden": 1,
-   "label": "Total Uncast Weight",
-   "precision": "2",
-   "read_only": 1
-  },
-  {
-   "fieldname": "total_finish_weight",
-   "fieldtype": "Float",
-   "hidden": 1,
-   "label": "Total Finish Weight",
-   "read_only": 1
-  },
-  {
-   "fieldname": "total_rejected_weight",
-   "fieldtype": "Float",
-   "hidden": 1,
-   "label": "Total Rejected Weight",
-   "precision": "2",
-   "read_only": 1
-  },
-  {
-   "fieldname": "total_casting_weight",
-   "fieldtype": "Float",
-   "hidden": 1,
-   "label": "Total Casting Weight",
-   "precision": "2",
-   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-26 12:18:07.466773",
+ "modified": "2025-08-22 14:22:56.882522",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Daily Production Schedule",
- "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -161,6 +75,5 @@
  "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": [],
- "track_changes": 1
+ "states": []
 }

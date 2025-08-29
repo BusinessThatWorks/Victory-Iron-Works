@@ -150,5 +150,3 @@ function update_total_quantity(frm) {
     console.log(`Updated total_quantity in parent: ${total_metal_received}`);
     frm.refresh_field('total_quantity');
 }
-
-

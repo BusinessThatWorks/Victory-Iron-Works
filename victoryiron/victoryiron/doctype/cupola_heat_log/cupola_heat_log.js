@@ -8,7 +8,7 @@
 // });
 
 frappe.ui.form.on('Cupola Heat Log', {
-    // When child table changes: recal
+    // When child table changes: recalc parent totals
     consumption_table_add: function (frm, cdt, cdn) {
         console.log('Row added to consumption_table');
         update_child_totals(frm);
@@ -28,7 +28,7 @@ frappe.ui.form.on('Consumption Table', {
             frappe.model.set_value(cdt, cdn, 'total_valuation', 0);
             return;
         }
-        
+        // Fetch valuation_rate from Item doctype
         frappe.call({
             method: "frappe.client.get_value",
             args: {

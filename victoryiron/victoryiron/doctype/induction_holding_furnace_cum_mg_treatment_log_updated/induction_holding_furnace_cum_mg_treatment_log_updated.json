@@ -1,7 +1,8 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2025-08-01 14:28:05.918357",
+ "creation": "2025-08-22 15:11:08.737726",
+ "default_view": "List",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -14,23 +15,8 @@
   "section_break_lspd",
   "metal_received_from_cupola",
   "total_quantity",
-  "section_break_cyvo",
-  "grade",
-  "temperature_before_tapping",
-  "tapped_metal_quantity",
-  "column_break_eskn",
-  "treatment_no",
-  "metal_tapped_at",
-  "section_break_fqqh",
-  "punching_addition_per_ladle",
-  "column_break_irbt",
-  "fesimg_addition_per_ladle",
-  "column_break_lazt",
-  "inoculant_addition_per_ladle",
-  "section_break_qrsl",
-  "moulding_system",
-  "column_break_qbvy",
-  "fracture_test",
+  "section_break_ewya",
+  "table_mzhs",
   "power_consumption_tab",
   "furnace_on_time",
   "column_break_rwdw",
@@ -53,10 +39,6 @@
   "fe_silicon",
   "column_break_vexs",
   "fe_mn",
-  "section_break_giil",
-  "consumption_table",
-  "total_charge_mix_quantity",
-  "total_charge_mix_calculation",
   "section_break_xciz",
   "temp_tips",
   "column_break_cvos",
@@ -97,9 +79,65 @@
    "fieldtype": "Section Break"
   },
   {
+   "fieldname": "metal_received_from_cupola",
+   "fieldtype": "Table",
+   "label": "Metal Received From Cupola",
+   "options": "Metal Received From Cupola"
+  },
+  {
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity",
+   "precision": "2"
+  },
+  {
    "fieldname": "power_consumption_tab",
    "fieldtype": "Tab Break",
    "label": "Power Consumption"
+  },
+  {
+   "fieldname": "furnace_on_time",
+   "fieldtype": "Time",
+   "label": "Furnace On Time"
+  },
+  {
+   "fieldname": "column_break_rwdw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "furnace_off_time",
+   "fieldtype": "Time",
+   "label": "Furnace Off Time"
+  },
+  {
+   "fieldname": "section_break_witz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "furnace_unit",
+   "fieldtype": "Float",
+   "label": "Furnace Unit",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_pxix",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cooling_tower",
+   "fieldtype": "Float",
+   "label": "Cooling Tower",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_ekiq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_unit",
+   "fieldtype": "Float",
+   "label": "Total Unit",
+   "precision": "2"
   },
   {
    "fieldname": "bath_composition_tab",
@@ -131,137 +169,6 @@
    "fieldtype": "Float",
    "label": "%Si",
    "precision": "2"
-  },
-  {
-   "fieldname": "furnace_on_time",
-   "fieldtype": "Time",
-   "label": "Furnace On Time"
-  },
-  {
-   "fieldname": "furnace_unit",
-   "fieldtype": "Float",
-   "label": "Furnace Unit",
-   "precision": "2"
-  },
-  {
-   "fieldname": "column_break_rwdw",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "furnace_off_time",
-   "fieldtype": "Time",
-   "label": "Furnace Off Time"
-  },
-  {
-   "fieldname": "cooling_tower",
-   "fieldtype": "Float",
-   "label": "Cooling Tower",
-   "precision": "2"
-  },
-  {
-   "fieldname": "section_break_witz",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_pxix",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_ekiq",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "total_unit",
-   "fieldtype": "Float",
-   "label": "Total Unit",
-   "precision": "2"
-  },
-  {
-   "fieldname": "section_break_cyvo",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "grade",
-   "fieldtype": "Select",
-   "label": "Grade",
-   "options": "\nCI\nDI"
-  },
-  {
-   "fieldname": "temperature_before_tapping",
-   "fieldtype": "Float",
-   "label": "Temperature before tapping"
-  },
-  {
-   "fieldname": "column_break_eskn",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "treatment_no",
-   "fieldtype": "Data",
-   "label": "Treatment No"
-  },
-  {
-   "fieldname": "tapped_metal_quantity",
-   "fieldtype": "Float",
-   "label": "Tapped Metal Quantity"
-  },
-  {
-   "fieldname": "metal_tapped_at",
-   "fieldtype": "Time",
-   "label": "Metal Tapped At"
-  },
-  {
-   "fieldname": "section_break_fqqh",
-   "fieldtype": "Section Break"
-  },
-  {
-   "description": "In Kg",
-   "fieldname": "punching_addition_per_ladle",
-   "fieldtype": "Float",
-   "label": "Punching addition per ladle",
-   "precision": "2"
-  },
-  {
-   "fieldname": "column_break_irbt",
-   "fieldtype": "Column Break"
-  },
-  {
-   "description": "In Kg",
-   "fieldname": "fesimg_addition_per_ladle",
-   "fieldtype": "Float",
-   "label": "Fe.Si.Mg addition per ladle",
-   "precision": "2"
-  },
-  {
-   "fieldname": "column_break_lazt",
-   "fieldtype": "Column Break"
-  },
-  {
-   "description": "In Kg",
-   "fieldname": "inoculant_addition_per_ladle",
-   "fieldtype": "Float",
-   "label": "Inoculant addition per ladle",
-   "precision": "2"
-  },
-  {
-   "fieldname": "section_break_qrsl",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "moulding_system",
-   "fieldtype": "Select",
-   "label": "Moulding System",
-   "options": "\nHand Moulding\nMachine Moulding"
-  },
-  {
-   "fieldname": "column_break_qbvy",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "fracture_test",
-   "fieldtype": "Select",
-   "label": "Fracture Test",
-   "options": "\nOK\nFAIL"
   },
   {
    "fieldname": "additional_tab",
@@ -298,16 +205,6 @@
    "precision": "2"
   },
   {
-   "fieldname": "metal_received_from_cupola",
-   "fieldtype": "Table",
-   "label": "Metal Received From Cupola",
-   "options": "Metal Received From Cupola"
-  },
-  {
-   "fieldname": "section_break_giil",
-   "fieldtype": "Section Break"
-  },
-  {
    "fieldname": "section_break_xciz",
    "fieldtype": "Section Break"
   },
@@ -338,35 +235,33 @@
    "search_index": 1
   },
   {
-   "fieldname": "total_quantity",
-   "fieldtype": "Float",
-   "label": "Total Quantity",
-   "precision": "2"
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Induction Holding Furnace Cum Mg Treatment Log",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   },
   {
-   "fieldname": "total_charge_mix_quantity",
-   "fieldtype": "Float",
-   "label": "Total Charge Mix Quantity"
+   "fieldname": "section_break_ewya",
+   "fieldtype": "Section Break"
   },
   {
-   "fieldname": "total_charge_mix_calculation",
-   "fieldtype": "Float",
-   "label": "Total Charge Mix Calculation"
-  },
-  {
-   "fieldname": "consumption_table",
+   "fieldname": "table_mzhs",
    "fieldtype": "Table",
-   "options": "Consumption Table"
+   "options": "Induction Table"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-12 16:29:03.122440",
+ "modified": "2025-08-22 17:48:33.936095",
  "modified_by": "Administrator",
  "module": "victoryiron",
- "name": "Induction Holding Furnace Cum Mg Treatment Log",
+ "name": "Induction Holding Furnace Cum Mg Treatment Log Updated",
  "owner": "Administrator",
  "permissions": [
   {

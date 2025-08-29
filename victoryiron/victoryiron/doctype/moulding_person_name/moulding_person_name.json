@@ -1,0 +1,69 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{name1}",
+ "creation": "2025-08-26 13:05:09.787597",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_vb2n",
+  "amended_from",
+  "column_break_vquj",
+  "name1"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_vb2n",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Moulding Person Name",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_vquj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-26 13:06:00.054379",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Moulding Person Name",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

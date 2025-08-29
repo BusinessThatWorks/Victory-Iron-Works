@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class InductionHoldingFurnaceCumMgTreatmentLogUpdated(Document):
+class MouldingPersonName(Document):
 	pass

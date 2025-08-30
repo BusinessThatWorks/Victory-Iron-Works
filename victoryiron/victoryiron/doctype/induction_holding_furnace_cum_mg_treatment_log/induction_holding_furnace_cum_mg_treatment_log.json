@@ -47,6 +47,7 @@
   "c",
   "column_break_tgqb",
   "si",
+<<<<<<< HEAD
   "additional_tab",
   "carbon",
   "column_break_ktta",
@@ -62,6 +63,18 @@
   "column_break_cvos",
   "carbon_cup",
   "amended_from"
+=======
+  "tab_4_tab",
+  "carbon_in_kg",
+  "temp_tips_in_pcs",
+  "column_break_svte",
+  "fe_silicon_in_kg",
+  "carbon_cup_in_pcs",
+  "column_break_lbuv",
+  "fe_mn_in_kg",
+  "column_break_rmal",
+  "crc_in_kg"
+>>>>>>> 756895f3825728693daf67bb633e8c48c5eedad4
  ],
  "fields": [
   {
@@ -356,14 +369,39 @@
   {
    "fieldname": "consumption_table",
    "fieldtype": "Table",
+<<<<<<< HEAD
    "options": "Consumption Table"
+=======
+   "label": "Induction Table log",
+   "options": "Induction Table"
+  },
+  {
+   "fieldname": "metal_received_from_cupola",
+   "fieldtype": "Table",
+   "label": "Metal Received From Cupola ",
+   "options": "Metal Received From Cupola"
+  },
+  {
+   "fieldname": "column_break_rmal",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "crc_in_kg",
+   "fieldtype": "Float",
+   "label": "CRC (In Kg)",
+   "precision": "2"
+>>>>>>> 756895f3825728693daf67bb633e8c48c5eedad4
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
+<<<<<<< HEAD
  "modified": "2025-08-12 16:29:03.122440",
+=======
+ "modified": "2025-08-30 10:35:55.814891",
+>>>>>>> 756895f3825728693daf67bb633e8c48c5eedad4
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Induction Holding Furnace Cum Mg Treatment Log",

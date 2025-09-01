@@ -1,0 +1,93 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-09-01 10:20:05.975117",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_n7hk",
+  "treatment_no",
+  "column_break_yjqo",
+  "box_poured",
+  "pouring_temperature",
+  "1st_box",
+  "column_break_mwcb",
+  "last_box",
+  "section_break_oton",
+  "mould_pouring_time",
+  "section_break_nujq",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_n7hk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "treatment_no",
+   "fieldtype": "Data",
+   "label": "Treatment No"
+  },
+  {
+   "fieldname": "column_break_yjqo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "box_poured",
+   "fieldtype": "Data",
+   "label": "Box Poured "
+  },
+  {
+   "fieldname": "pouring_temperature",
+   "fieldtype": "Section Break",
+   "label": "Pouring Temperature \u00b0C"
+  },
+  {
+   "fieldname": "1st_box",
+   "fieldtype": "Float",
+   "label": "1st Box"
+  },
+  {
+   "fieldname": "column_break_mwcb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_box",
+   "fieldtype": "Float",
+   "label": "Last Box"
+  },
+  {
+   "fieldname": "section_break_oton",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "mould_pouring_time",
+   "fieldtype": "Time",
+   "label": "Mould Pouring Time"
+  },
+  {
+   "fieldname": "section_break_nujq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Data",
+   "label": "Remarks"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-09-01 10:24:16.113648",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Pouring Traceability Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

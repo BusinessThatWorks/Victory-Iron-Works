@@ -1,0 +1,15 @@
+{
+    "content": "",
+    "doctype": "Page",
+    "module": "victoryiron",
+    "name": "attendance-dashboard",
+    "developer_mode_only": 0,
+    "system_page": 0,
+    "title": "Attendance Dashboard",
+    "icon": "octicon octicon-graph",
+    "roles": [
+        {
+            "role": "System Manager"
+        }
+    ]
+}

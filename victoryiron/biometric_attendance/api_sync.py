@@ -89,6 +89,9 @@ def _upsert_daily_attendance(
 
 	doc = frappe.get_doc(doc_fields)
 	doc.insert(ignore_permissions=True)
+	# Submit the Attendance so it doesn't remain in draft
+	doc.flags.ignore_permissions = True
+	doc.submit()
 	frappe.db.commit()
 	return True
 

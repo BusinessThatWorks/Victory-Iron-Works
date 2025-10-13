@@ -1,39 +1,3 @@
-# # import requests
-# # import frappe
-# # from datetime import datetime, timedelta
-
-# # def sync_biometric_attendance():
-# #     start_date = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
-# #     end_date = datetime.now().strftime('%Y-%m-%d')
-
-# #     api_url = f"https://www.ontimeemployeemanager.com/RawDataAPI/api/Attendance/EmployeeAttendance_PeriodWise?StartDate={start_date}&EndDate={end_date}"
-
-# #     try:
-# #         response = requests.get(api_url, timeout=30)
-# #         data = response.json()
-
-# #         if data.get("STATUS") == "true":
-# #             for entry in data.get("Data", []):
-# #                 # Avoid duplicates
-# #                 if not frappe.db.exists("Biometric Attendance", {
-# #                     "card_number": entry.get("card_number"),
-# #                     "punch_date": entry.get("Punch_Date")
-# #                 }):
-# #                     doc = frappe.get_doc({
-# #                         "doctype": "Biometric Attendance",
-# #                         "card_number": entry.get("card_number"),
-# #                         "employee_name": entry.get("NAME"),
-# #                         "punch_date": entry.get("Punch_Date"),
-# #                         "is_fingerprint": entry.get("Is_Fingure_Based"),
-# #                         "is_rf": entry.get("Is_RF_Based")
-# #                     })
-# #                     doc.insert(ignore_permissions=True)
-# #         else:
-# #             frappe.log_error(str(data.get("Error")), "Biometric Attendance API Error")
-# #     except Exception as e:
-# #         frappe.log_error(str(e), "Biometric Attendance API Sync Failed")
-
-
 import frappe
 import requests
 from datetime import datetime, timedelta
@@ -46,7 +10,7 @@ def _find_employee(employee_id: str | None, employee_name: str | None):
 		emp = frappe.db.get_value(
 			"Employee",
 			{"status": ["in", ["Active", "Onboarding"]], "employee_name": employee_name},
-			["name", "employee_name", "card_number"],
+			["name", "employee_name", "card_number", "holiday_list"],
 			as_dict=True,
 		)
 	# Fallback by card number
@@ -54,10 +18,23 @@ def _find_employee(employee_id: str | None, employee_name: str | None):
 		emp = frappe.db.get_value(
 			"Employee",
 			{"status": ["in", ["Active", "Onboarding"]], "card_number": employee_id},
-			["name", "employee_name", "card_number"],
+			["name", "employee_name", "card_number", "holiday_list"],
 			as_dict=True,
 		)
 	return emp
+
+
+def _is_holiday(employee_holiday_list: str | None, attendance_date: str) -> bool:
+	"""Check if the given date is a holiday for the employee's holiday list"""
+	if not employee_holiday_list:
+		return False
+
+	# Check if the date exists in the Holiday child table of the employee's holiday list
+	holiday_exists = frappe.db.exists(
+		"Holiday",
+		{"parent": employee_holiday_list, "parenttype": "Holiday List", "holiday_date": attendance_date},
+	)
+	return bool(holiday_exists)
 
 
 def _upsert_daily_attendance(
@@ -145,6 +122,14 @@ def sync_daily_attendance():
 						skipped += 1
 						continue
 
+					att_date = datetime.strptime(punch_in_str, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
+
+					# Check if this date is a holiday for the employee
+					if _is_holiday(emp.get("holiday_list"), att_date):
+						print(f"⏭️ Skipping {emp.employee_name} on {att_date} - Holiday")
+						skipped += 1
+						continue
+
 					hours = 0.0
 					if punch_in_str and punch_out_str:
 						try:
@@ -155,7 +140,6 @@ def sync_daily_attendance():
 						except Exception:
 							hours = 0.0
 
-					att_date = datetime.strptime(punch_in_str, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
 					created = _upsert_daily_attendance(emp.name, att_date, hours, punch_in_str, punch_out_str)
 					if created:
 						inserted += 1
@@ -240,6 +224,14 @@ def sync_attendance_range(start_date: str | None = None, end_date: str | None = 
 					skipped += 1
 					continue
 
+				att_date = datetime.strptime(punch_in_str, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
+
+				# Check if this date is a holiday for the employee
+				if _is_holiday(emp.get("holiday_list"), att_date):
+					print(f"⏭️ Skipping {emp.employee_name} on {att_date} - Holiday")
+					skipped += 1
+					continue
+
 				hours = 0.0
 				if punch_in_str and punch_out_str:
 					try:
@@ -250,7 +242,6 @@ def sync_attendance_range(start_date: str | None = None, end_date: str | None = 
 					except Exception:
 						hours = 0.0
 
-				att_date = datetime.strptime(punch_in_str, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
 				created = _upsert_daily_attendance(emp.name, att_date, hours, punch_in_str, punch_out_str)
 				if created:
 					inserted += 1

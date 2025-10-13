@@ -15,9 +15,10 @@ frappe.query_reports["Monthly Attendance Matrix"] = {
             default: frappe.datetime.month_end()
         },
         {
-            fieldname: "employee_id",
-            label: "Employee ID",
-            fieldtype: "Data"
+            fieldname: "employee",
+            label: "Employee",
+            fieldtype: "Link",
+            options: "Employee"
         }
     ]
 };

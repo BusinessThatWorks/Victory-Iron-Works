@@ -256,7 +256,7 @@ scheduler_events = {
 	"cron": {"0 12 * * *": ["victoryiron.biometric_attendance.api_sync.sync_daily_attendance"]}
 }
 
-fixtures = ["Custom Field"]
+# fixtures = ["Custom Field"]
 
 fixtures = [{"doctype": "Custom Field", "filters": {"module": "victoryiron"}}]
 

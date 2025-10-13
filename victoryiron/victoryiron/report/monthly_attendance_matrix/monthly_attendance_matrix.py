@@ -5,7 +5,8 @@ import frappe
 
 def execute(filters=None):
 	filters = filters or {}
-	employee_id = filters.get("employee_id")
+	# accept either new 'employee' (Link) or legacy 'employee_id' (Data)
+	employee = filters.get("employee") or filters.get("employee_id")
 	from_date = filters.get("from_date") or frappe.utils.get_first_day(datetime.today()).strftime("%Y-%m-%d")
 	to_date = filters.get("to_date") or frappe.utils.get_last_day(datetime.today()).strftime("%Y-%m-%d")
 
@@ -39,9 +40,11 @@ def execute(filters=None):
 
 	conditions = ["attendance_date >= %s", "attendance_date <= %s"]
 	params = [from_date, to_date]
-	if employee_id:
-		conditions.append("employee = %s")
-		params.append(employee_id)
+	if employee:
+		# Support partial matching for both employee ID and name
+		conditions.append("(employee like %s or employee_name like %s)")
+		like_val = f"%{employee}%"
+		params.extend([like_val, like_val])
 	where = " and ".join(conditions)
 
 	# Get in/out per employee per day from HR Attendance
@@ -54,9 +57,9 @@ def execute(filters=None):
 		       coalesce(punch_out_time, out_time) as last_out,
 		       status
 		from `tabAttendance`
-        where {where}
+       where {where}
 		order by employee, attendance_date
-        """,
+       """,
 		params,
 		as_dict=True,
 	)

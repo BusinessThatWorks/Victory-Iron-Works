@@ -80,7 +80,11 @@ def execute(filters=None):
 		hours = 0.0
 		if r.first_in and r.last_out:
 			hours = round((r.last_out - r.first_in).total_seconds() / 3600.0, 1)
-		status = "P" if (r.status == "Present" or hours > 0.0) else "A"
+		# Map statuses for matrix display: Present -> P, Absent -> A, On Leave -> O
+		if r.status == "On Leave":
+			status = "O"
+		else:
+			status = "P" if (r.status == "Present" or hours > 0.0) else "A"
 		# map exact date to index
 		try:
 			idx = (datetime.strptime(str(r.day), "%Y-%m-%d").date() - from_dt.date()).days + 1

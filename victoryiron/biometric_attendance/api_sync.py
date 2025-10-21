@@ -101,20 +101,24 @@ def sync_daily_attendance():
 					punch_in_time = entry.get("Punch_In_Time")
 					punch_out_time = entry.get("Punch_Out_Time")
 
-					if not employee_id or not punch_in_time:
+					if not employee_id:
 						continue  # Skip invalid records
 
-					try:
-						punch_in_dt = datetime.strptime(punch_in_time, "%Y-%m-%dT%H:%M:%S")
-						punch_in_str = punch_in_dt.strftime("%Y-%m-%d %H:%M:%S")
-
-						punch_out_str = None
-						if punch_out_time and punch_out_time != "0000-00-00T00:00:00":
+					punch_in_str = None
+					punch_out_str = None
+					if punch_in_time:
+						try:
+							punch_in_dt = datetime.strptime(punch_in_time, "%Y-%m-%dT%H:%M:%S")
+							punch_in_str = punch_in_dt.strftime("%Y-%m-%d %H:%M:%S")
+						except ValueError:
+							print(f"❌ Invalid date format: {punch_in_time}")
+							continue
+					if punch_out_time and punch_out_time != "0000-00-00T00:00:00":
+						try:
 							punch_out_dt = datetime.strptime(punch_out_time, "%Y-%m-%dT%H:%M:%S")
 							punch_out_str = punch_out_dt.strftime("%Y-%m-%d %H:%M:%S")
-					except ValueError:
-						print(f"❌ Invalid date format: {punch_in_time}")
-						continue
+						except ValueError:
+							punch_out_str = None
 
 					# Map only to valid Employees and create HR Attendance
 					emp = _find_employee(employee_id, employee_name)
@@ -122,7 +126,23 @@ def sync_daily_attendance():
 						skipped += 1
 						continue
 
-					att_date = datetime.strptime(punch_in_str, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
+					# Determine attendance date from punch-in or API's Attendance_Date
+					att_date = None
+					if punch_in_str:
+						att_date = datetime.strptime(punch_in_str, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
+					else:
+						raw_att_date = attendance_date
+						if raw_att_date:
+							# Try common formats
+							for fmt in ("%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"):
+								try:
+									att_date = datetime.strptime(raw_att_date, fmt).strftime("%Y-%m-%d")
+									break
+								except ValueError:
+									continue
+						# Fallback to the query date if still unknown
+						if not att_date:
+							att_date = date_str
 
 					# Check if this date is a holiday for the employee
 					if _is_holiday(emp.get("holiday_list"), att_date):
@@ -140,7 +160,14 @@ def sync_daily_attendance():
 						except Exception:
 							hours = 0.0
 
-					created = _upsert_daily_attendance(emp.name, att_date, hours, punch_in_str, punch_out_str)
+					# Create Absent when no punches, but only if not holiday and no existing Attendance
+					created = _upsert_daily_attendance(
+						emp.name,
+						att_date,
+						hours,
+						punch_in_str if punch_in_str else None,
+						punch_out_str if punch_out_str else None,
+					)
 					if created:
 						inserted += 1
 					else:

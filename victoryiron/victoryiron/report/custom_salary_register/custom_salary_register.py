@@ -8,6 +8,7 @@ import calendar
 from datetime import datetime, timedelta
 
 import erpnext
+from frappe.query_builder.functions import Count
 
 salary_slip = frappe.qb.DocType("Salary Slip")
 salary_detail = frappe.qb.DocType("Salary Detail")
@@ -112,20 +113,30 @@ def execute(filters=None):
 	doj_map = get_employee_doj_map()
 
 	data = []
+	from_date = filters.get("from_date")
+	to_date = filters.get("to_date")
+
 	for ss in salary_slips:
-		# Calculate weekly off days for this employee
-		weekly_off_count = get_weekly_off_days(ss.employee, ss.start_date, ss.end_date)
+		# Calculate weekly off days based on the filter date range
+		weekly_off_count = get_weekly_off_days(ss.employee, from_date, to_date)
+
+		# Attendance-based counts within the filter date range
+		present_count, on_leave_count, absent_count = get_attendance_counts(
+			ss.employee, from_date, to_date
+		)
+
+		# Inclusive total days in the filter range
+		total_days_in_range = get_inclusive_days(from_date, to_date)
 
 		row = {
 			"salary_slip_id": ss.name,
 			"employee": ss.employee,
 			"employee_name": ss.employee_name,
-			"actual_days_present": 0.0,  # TODO: Calculate from attendance records
+			"actual_days_present": float(present_count),
 			"weekly_off": weekly_off_count,
-			"authorised_leave": 0.0,  # TODO: Calculate from leave applications
-			"unauthorised_leave": 0.0,  # TODO: Calculate unauthorised leave
-			"od": 0.0,  # TODO: Calculate OD (On Duty) days
-			"total_days_payable": 0.0,  # TODO: Calculate total payable days
+			"authorised_leave": float(on_leave_count),
+			"unauthorised_leave": float(absent_count),
+			"total_days_payable": float(total_days_in_range),
 			"data_of_joining": doj_map.get(ss.employee),
 			"branch": ss.branch,
 			"department": ss.department,
@@ -165,6 +176,73 @@ def execute(filters=None):
 		data.append(row)
 
 	return columns, data
+
+
+def get_inclusive_days(from_date, to_date):
+	"""Return inclusive number of days between two dates represented as YYYY-MM-DD strings or date objects."""
+	try:
+		if isinstance(from_date, str):
+			start_dt = datetime.strptime(from_date, "%Y-%m-%d").date()
+		else:
+			start_dt = from_date
+
+		if isinstance(to_date, str):
+			end_dt = datetime.strptime(to_date, "%Y-%m-%d").date()
+		else:
+			end_dt = to_date
+
+		if not start_dt or not end_dt:
+			return 0
+		return (end_dt - start_dt).days + 1 if end_dt >= start_dt else 0
+	except Exception:
+		return 0
+
+
+def get_attendance_counts(employee, from_date, to_date):
+	"""Return tuple (present_count, on_leave_count, absent_count) for an employee within date range."""
+	attendance = frappe.qb.DocType("Attendance")
+	# Count Present
+	present_q = (
+		frappe.qb.from_(attendance)
+		.where(
+			(attendance.employee == employee)
+			& (attendance.attendance_date >= from_date)
+			& (attendance.attendance_date <= to_date)
+			& (attendance.status == "Present")
+		)
+		.select(Count(attendance.name))
+	)
+	# Count On Leave
+	on_leave_q = (
+		frappe.qb.from_(attendance)
+		.where(
+			(attendance.employee == employee)
+			& (attendance.attendance_date >= from_date)
+			& (attendance.attendance_date <= to_date)
+			& (attendance.status == "On Leave")
+		)
+		.select(Count(attendance.name))
+	)
+	# Count Absent
+	absent_q = (
+		frappe.qb.from_(attendance)
+		.where(
+			(attendance.employee == employee)
+			& (attendance.attendance_date >= from_date)
+			& (attendance.attendance_date <= to_date)
+			& (attendance.status == "Absent")
+		)
+		.select(Count(attendance.name))
+	)
+
+	try:
+		present = present_q.run()[0][0] if present_q else 0
+		on_leave = on_leave_q.run()[0][0] if on_leave_q else 0
+		absent = absent_q.run()[0][0] if absent_q else 0
+	except Exception:
+		present, on_leave, absent = 0, 0, 0
+
+	return present, on_leave, absent
 
 
 def get_earning_and_deduction_types(salary_slips):
@@ -233,12 +311,6 @@ def get_columns(earning_types, ded_types):
 			"fieldname": "unauthorised_leave",
 			"fieldtype": "Float",
 			"width": 130,
-		},
-		{
-			"label": _("OD"),
-			"fieldname": "od",
-			"fieldtype": "Float",
-			"width": 80,
 		},
 		{
 			"label": _("Total No of Days Payable"),

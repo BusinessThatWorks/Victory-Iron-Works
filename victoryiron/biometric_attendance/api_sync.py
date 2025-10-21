@@ -29,7 +29,7 @@ def _is_holiday(employee_holiday_list: str | None, attendance_date: str) -> bool
 	if not employee_holiday_list:
 		return False
 
-	# Check if the date exists in the Holiday child table of the employee's holiday list
+	# Check if the date exists in the Holiday child table of  employee's holiday list
 	holiday_exists = frappe.db.exists(
 		"Holiday",
 		{"parent": employee_holiday_list, "parenttype": "Holiday List", "holiday_date": attendance_date},

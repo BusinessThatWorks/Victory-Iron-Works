@@ -52,7 +52,6 @@
   "tab_5_tab",
   "ladle_consumption_tab",
   "total_ladle_consumption_valuation",
-  "table_vkjb",
   "labour_expense_tab",
   "total_man_power",
   "total_labour_cost"
@@ -317,18 +316,13 @@
   {
    "fieldname": "column_break_fnas",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "table_vkjb",
-   "fieldtype": "Table",
-   "options": "Heat-Ladle Consumption Table"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-22 10:09:23.039022",
+ "modified": "2025-10-22 10:19:56.459141",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Heat",

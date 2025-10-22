@@ -51,8 +51,8 @@
   "burning_loss",
   "tab_5_tab",
   "ladle_consumption_tab",
-  "heat_ladle_consumption_table",
   "total_ladle_consumption_valuation",
+  "table_vkjb",
   "labour_expense_tab",
   "total_man_power",
   "total_labour_cost"
@@ -261,12 +261,6 @@
    "label": "Ladle Consumption"
   },
   {
-   "fieldname": "heat_ladle_consumption_table",
-   "fieldtype": "Table",
-   "label": "Heat Ladle Consumption Table",
-   "options": "Heat-ladle consumption table"
-  },
-  {
    "fieldname": "total_ladle_consumption_valuation",
    "fieldtype": "Float",
    "label": "Total Ladle Consumption Valuation",
@@ -323,13 +317,18 @@
   {
    "fieldname": "column_break_fnas",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "table_vkjb",
+   "fieldtype": "Table",
+   "options": "Ladle consumption table"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-22 10:44:33.638872",
+ "modified": "2025-10-22 10:52:47.210145",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Heat",

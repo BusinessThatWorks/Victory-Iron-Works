@@ -262,3 +262,8 @@ fixtures = [{"doctype": "Custom Field", "filters": {"module": "victoryiron"}}]
 
 
 doctype_js = {"Item": "public/js/item_custom.js", "Supplier": "public/js/supplier_custom.js"}
+
+# Page JS
+page_js = {
+	"attendance-dashboard": "victoryiron/victoryiron/page/attendance_dashboard/attendance_dashboard.js"
+}

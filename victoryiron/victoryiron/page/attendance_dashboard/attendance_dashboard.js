@@ -82,7 +82,14 @@ frappe.pages['attendance-dashboard'].on_page_load = function (wrapper) {
             fields: [
                 { fieldtype: 'Date', fieldname: 'start_date', label: 'From Date', reqd: 1, default: frappe.datetime.month_start() },
                 { fieldtype: 'Date', fieldname: 'end_date', label: 'To Date', reqd: 1, default: frappe.datetime.get_today() },
-                { fieldtype: 'HTML', fieldname: 'help', options: '<div class="text-muted">Fetches and stores attendance for the selected range.</div>' }
+                {
+                    fieldtype: 'Link',
+                    fieldname: 'employee',
+                    label: 'Employee (Optional)',
+                    options: 'Employee',
+                    description: 'Leave empty to backfill for all employees'
+                },
+                { fieldtype: 'HTML', fieldname: 'help', options: '<div class="text-muted">Fetches and stores attendance for the selected range. If employee is selected, only that employee\'s data will be fetched.</div>' }
             ],
             primary_action_label: 'Start Backfill',
             primary_action(values) {
@@ -91,7 +98,11 @@ frappe.pages['attendance-dashboard'].on_page_load = function (wrapper) {
                 dlg.disable_primary_action();
                 frappe.call({
                     method: 'victoryiron.biometric_attendance.api_sync.sync_attendance_range',
-                    args: { start_date: values.start_date, end_date: values.end_date },
+                    args: {
+                        start_date: values.start_date,
+                        end_date: values.end_date,
+                        employee: values.employee || null
+                    },
                     callback() {
                         frappe.show_alert({ message: 'Backfill triggered. Check console/logs for progress.', indicator: 'green' });
                         dlg.hide();
@@ -109,5 +120,3 @@ frappe.pages['attendance-dashboard'].on_page_load = function (wrapper) {
 
     fetch_data();
 };
-
-

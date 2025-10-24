@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestBiometricAttendance(FrappeTestCase):
+class TestPouringTraceabilityTable(FrappeTestCase):
 	pass

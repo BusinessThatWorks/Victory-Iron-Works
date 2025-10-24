@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class BiometricAttendance(Document):
+class Heat(Document):
 	pass

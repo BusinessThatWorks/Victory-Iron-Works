@@ -11,7 +11,7 @@
 
 
 frappe.ui.form.on('Induction Holding Furnace Cum Mg Treatment Log', {
-    // When furnace_unit or cooling_tower changes, update total_unit
+    // When furnace_unit or cooling_tower changes
     furnace_unit: function (frm) {
         update_total_unit(frm);
     },
@@ -150,5 +150,3 @@ function update_total_quantity(frm) {
     console.log(`Updated total_quantity in parent: ${total_metal_received}`);
     frm.refresh_field('total_quantity');
 }
-
-

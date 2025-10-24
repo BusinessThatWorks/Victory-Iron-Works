@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class InductionHoldingFurnaceCumMgTreatmentLog(Document):
+class PouringTraceability(Document):
 	pass

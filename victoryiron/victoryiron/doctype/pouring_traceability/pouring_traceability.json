@@ -1,20 +1,23 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2025-08-22 14:20:16.306886",
+ "autoname": "format:{date} - {moulding_machine}",
+ "creation": "2025-09-01 10:19:26.132831",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_qvqy",
+  "section_break_s7ji",
   "date",
-  "column_break_ywvv",
+  "column_break_plmw",
   "amended_from",
-  "daily_production_schedule_section",
-  "daily_production_schedule"
+  "column_break_loob",
+  "moulding_machine",
+  "section_break_xqfn",
+  "pouring_traceability"
  ],
  "fields": [
   {
-   "fieldname": "section_break_qvqy",
+   "fieldname": "section_break_s7ji",
    "fieldtype": "Section Break"
   },
   {
@@ -22,7 +25,7 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Daily Production Schedule",
+   "options": "Pouring Traceability",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
@@ -33,29 +36,39 @@
    "label": "Date"
   },
   {
-   "fieldname": "column_break_ywvv",
+   "fieldname": "column_break_plmw",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "daily_production_schedule_section",
-   "fieldtype": "Section Break",
-   "label": "Daily Production Schedule"
+   "fieldname": "column_break_loob",
+   "fieldtype": "Column Break"
   },
   {
-   "fieldname": "daily_production_schedule",
+   "fieldname": "moulding_machine",
+   "fieldtype": "Select",
+   "label": "Moulding Machine",
+   "options": "\nHP-1\nHP-2\nSS-A\nSS-B\nJOY\nJOGENDRA"
+  },
+  {
+   "fieldname": "section_break_xqfn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "pouring_traceability",
    "fieldtype": "Table",
-   "label": "Daily Production Schedule",
-   "options": "Daily Production Schedule Table"
+   "label": "Pouring Traceability",
+   "options": "Pouring Traceability Table"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-22 14:22:56.882522",
+ "modified": "2025-09-01 10:27:52.001628",
  "modified_by": "Administrator",
  "module": "victoryiron",
- "name": "Daily Production Schedule",
+ "name": "Pouring Traceability",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

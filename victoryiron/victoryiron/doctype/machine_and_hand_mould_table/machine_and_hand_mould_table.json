@@ -1,0 +1,121 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{item_name1}",
+ "creation": "2025-08-27 22:30:01.010770",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "moulding_system_section",
+  "machine_mould",
+  "section_break_ntuc",
+  "item_name1",
+  "mould_batch_section",
+  "start_no",
+  "column_break_fjzp",
+  "end_no",
+  "column_break_dkfi",
+  "total_rejected_mould_qty",
+  "column_break_lbvh",
+  "total_good_mould_qty",
+  "section_break_hdx4",
+  "amended_from",
+  "column_break_ohcz"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_hdx4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Machine And Hand Mould Table",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "machine_mould",
+   "fieldtype": "Select",
+   "label": "Machine Mould",
+   "options": "\nHP 1\nHP 2\nSS-A\nSS-B"
+  },
+  {
+   "fieldname": "column_break_ohcz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_ntuc",
+   "fieldtype": "Section Break",
+   "label": "Item"
+  },
+  {
+   "fieldname": "item_name1",
+   "fieldtype": "Link",
+   "label": "Item Name",
+   "options": "Item"
+  },
+  {
+   "fieldname": "moulding_system_section",
+   "fieldtype": "Section Break",
+   "label": "Moulding System"
+  },
+  {
+   "fieldname": "mould_batch_section",
+   "fieldtype": "Section Break",
+   "label": "Mould Batch"
+  },
+  {
+   "fieldname": "start_no",
+   "fieldtype": "Int",
+   "label": "Start No"
+  },
+  {
+   "fieldname": "column_break_fjzp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "end_no",
+   "fieldtype": "Int",
+   "label": "End No"
+  },
+  {
+   "fieldname": "column_break_dkfi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_rejected_mould_qty",
+   "fieldtype": "Int",
+   "label": "Total Rejected Mould Qty"
+  },
+  {
+   "fieldname": "column_break_lbvh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_good_mould_qty",
+   "fieldtype": "Int",
+   "label": "Total Good Mould Qty"
+  }
+ ],
+ "grid_page_length": 100,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-09-24 10:54:18.687523",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Machine And Hand Mould Table",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

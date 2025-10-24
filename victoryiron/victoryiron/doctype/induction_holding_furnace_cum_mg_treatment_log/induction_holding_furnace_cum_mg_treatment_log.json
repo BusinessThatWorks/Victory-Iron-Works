@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{date}",
+ "autoname": "format:{date} - {furnace_lining_noid}",
  "creation": "2025-08-25 14:56:44.457097",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -42,7 +42,9 @@
   "fe_silicon_in_kg",
   "carbon_cup_in_pcs",
   "column_break_lbuv",
-  "fe_mn_in_kg"
+  "fe_mn_in_kg",
+  "column_break_rmal",
+  "crc_in_kg"
  ],
  "fields": [
   {
@@ -235,14 +237,24 @@
    "fieldtype": "Table",
    "label": "Metal Received From Cupola ",
    "options": "Metal Received From Cupola"
+  },
+  {
+   "fieldname": "column_break_rmal",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "crc_in_kg",
+   "fieldtype": "Float",
+   "label": "CRC (In Kg)",
+   "precision": "2"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-29 17:36:00.129026",
- "modified_by": "Administrator",
+ "modified": "2025-09-08 10:55:49.621862",
+ "modified_by": "erp@clapgrow.com",
  "module": "victoryiron",
  "name": "Induction Holding Furnace Cum Mg Treatment Log",
  "naming_rule": "Expression",

@@ -1,7 +1,6 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:{treatment_no}",
  "creation": "2025-08-22 14:43:09.982292",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -11,6 +10,8 @@
   "grade",
   "column_break_wnwt",
   "treatment_no",
+  "column_break_qrdf",
+  "date",
   "section_break_cdgu",
   "temperature_before_tapping",
   "column_break_utnj",
@@ -106,18 +107,27 @@
    "fieldname": "moulding_system",
    "fieldtype": "Select",
    "label": "Moulding System",
-   "options": "\nMachine Mould\nHand Mould"
+   "options": "\nMachine Mould\nHand Mould\nMachine/Hand Mould"
+  },
+  {
+   "fieldname": "column_break_qrdf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-08-25 17:59:29.398262",
- "modified_by": "Administrator",
+ "modified": "2025-09-08 12:13:10.800444",
+ "modified_by": "erp@clapgrow.com",
  "module": "victoryiron",
  "name": "Induction Table",
- "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",

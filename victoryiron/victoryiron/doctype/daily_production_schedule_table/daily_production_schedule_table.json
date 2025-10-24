@@ -9,10 +9,8 @@
   "buyer",
   "column_break_rfem",
   "casting_type",
-  "column_break_qknx",
-  "moulding_type",
-  "column_break_asyp",
-  "moulding_person_name",
+  "column_break_twty",
+  "moulding_system",
   "section_break_huyj",
   "drawing_no",
   "weight",
@@ -40,7 +38,7 @@
   "finish_weight",
   "rejected_section",
   "rejected_qty",
-  "rejection",
+  "rejection_",
   "column_break_yaxp",
   "rejected_weight"
  ],
@@ -58,7 +56,6 @@
   {
    "fieldname": "casting_type",
    "fieldtype": "Data",
-   "in_standard_filter": 1,
    "label": "Casting Type"
   },
   {
@@ -73,7 +70,7 @@
   },
   {
    "description": "In Kg",
-   "fetch_from": "item_name.custom_production_cast_weight",
+   "fetch_from": "item_name.weight_per_unit",
    "fieldname": "weight",
    "fieldtype": "Float",
    "label": "Weight",
@@ -216,39 +213,28 @@
    "precision": "2"
   },
   {
-   "fieldname": "rejection",
+   "fieldname": "rejection_",
    "fieldtype": "Percent",
    "label": "Rejection %",
    "precision": "2"
   },
   {
-   "fieldname": "column_break_qknx",
+   "fieldname": "column_break_twty",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "moulding_type",
+   "fieldname": "moulding_system",
    "fieldtype": "Select",
-   "in_standard_filter": 1,
-   "label": "Moulding Type ",
-   "options": "\nHand Moulding\nMachine Moulding"
-  },
-  {
-   "fieldname": "column_break_asyp",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "moulding_person_name",
-   "fieldtype": "Link",
-   "label": "Moulding Person Name",
-   "options": "Moulding Person Name"
+   "label": "Moulding System",
+   "options": "\nHand Mould\nMachine Mould\nHand & Machine Mould"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-08-26 13:07:08.520211",
- "modified_by": "Administrator",
+ "modified": "2025-09-02 14:39:12.089176",
+ "modified_by": "erp@clapgrow.com",
  "module": "victoryiron",
  "name": "Daily Production Schedule Table",
  "owner": "Administrator",

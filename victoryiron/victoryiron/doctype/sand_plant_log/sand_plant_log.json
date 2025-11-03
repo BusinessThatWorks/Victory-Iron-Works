@@ -12,8 +12,18 @@
   "batch_no",
   "column_break_invu",
   "return_sand_set",
-  "section_break_ifqi",
-  "table_jvfo",
+  "column_break_xqsp",
+  "mois",
+  "section_break_xqti",
+  "gcs",
+  "column_break_cxmb",
+  "per",
+  "column_break_rlyz",
+  "time",
+  "section_break_cbzm",
+  "ltr",
+  "column_break_exxs",
+  "water_ltr",
   "section_break_wihr",
   "mc_jolting_batch",
   "column_break_kksz",
@@ -27,14 +37,9 @@
   "column_break_fard",
   "lustrous",
   "dextrin",
-  "section_break_igq5",
   "amended_from"
  ],
  "fields": [
-  {
-   "fieldname": "section_break_igq5",
-   "fieldtype": "Section Break"
-  },
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
@@ -80,22 +85,14 @@
    "precision": "2"
   },
   {
-   "fieldname": "section_break_ifqi",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "table_jvfo",
-   "fieldtype": "Table",
-   "options": "Sand Plant Testing Table"
-  },
-  {
    "fieldname": "section_break_wihr",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Machine Wise Batch Created"
   },
   {
    "fieldname": "mc_jolting_batch",
    "fieldtype": "Int",
-   "label": "M/C Jolting Batch"
+   "label": "M/C SSEC Batch"
   },
   {
    "fieldname": "column_break_kksz",
@@ -104,7 +101,7 @@
   {
    "fieldname": "mc_hpml_batch",
    "fieldtype": "Int",
-   "label": "M/C HPML Batch"
+   "label": "M/C RTM 1500 Batch"
   },
   {
    "fieldname": "column_break_mezs",
@@ -147,13 +144,67 @@
    "fieldname": "dextrin",
    "fieldtype": "Float",
    "label": "Dextrin"
+  },
+  {
+   "fieldname": "column_break_xqsp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mois",
+   "fieldtype": "Data",
+   "label": "MOIS"
+  },
+  {
+   "fieldname": "section_break_xqti",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "gcs",
+   "fieldtype": "Int",
+   "label": "GCS "
+  },
+  {
+   "fieldname": "column_break_cxmb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "per",
+   "fieldtype": "Data",
+   "label": "PER"
+  },
+  {
+   "fieldname": "column_break_rlyz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "TIME"
+  },
+  {
+   "fieldname": "section_break_cbzm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "ltr",
+   "fieldtype": "Float",
+   "label": "LTR"
+  },
+  {
+   "fieldname": "column_break_exxs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "water_ltr",
+   "fieldtype": "Float",
+   "label": "WATER LTR"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-03 10:24:54.923030",
+ "modified": "2025-11-03 15:34:01.268303",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Sand Plant Log",

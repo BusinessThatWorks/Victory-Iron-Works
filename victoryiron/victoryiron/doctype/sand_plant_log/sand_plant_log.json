@@ -1,0 +1,180 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-11-03 10:18:04.769465",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "column_break_ccmf",
+  "shift_type",
+  "section_break_givn",
+  "batch_no",
+  "column_break_invu",
+  "return_sand_set",
+  "section_break_ifqi",
+  "table_jvfo",
+  "section_break_wihr",
+  "mc_jolting_batch",
+  "column_break_kksz",
+  "mc_hpml_batch",
+  "column_break_mezs",
+  "total_mc_batch",
+  "section_break_uszp",
+  "bentonite",
+  "new_silica_sand",
+  "total_return_sand_consumption",
+  "column_break_fard",
+  "lustrous",
+  "dextrin",
+  "section_break_igq5",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_igq5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Sand Plant Log",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_ccmf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shift_type",
+   "fieldtype": "Link",
+   "label": "Shift Type",
+   "options": "Foundry Shift Type"
+  },
+  {
+   "fieldname": "section_break_givn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "batch_no",
+   "fieldtype": "Data",
+   "label": "Batch No"
+  },
+  {
+   "fieldname": "column_break_invu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "return_sand_set",
+   "fieldtype": "Float",
+   "label": "Return Sand Set",
+   "precision": "2"
+  },
+  {
+   "fieldname": "section_break_ifqi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_jvfo",
+   "fieldtype": "Table",
+   "options": "Sand Plant Testing Table"
+  },
+  {
+   "fieldname": "section_break_wihr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "mc_jolting_batch",
+   "fieldtype": "Int",
+   "label": "M/C Jolting Batch"
+  },
+  {
+   "fieldname": "column_break_kksz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mc_hpml_batch",
+   "fieldtype": "Int",
+   "label": "M/C HPML Batch"
+  },
+  {
+   "fieldname": "column_break_mezs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_mc_batch",
+   "fieldtype": "Int",
+   "label": "Total M/C Batch"
+  },
+  {
+   "fieldname": "section_break_uszp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "bentonite",
+   "fieldtype": "Float",
+   "label": "Bentonite"
+  },
+  {
+   "fieldname": "column_break_fard",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "lustrous",
+   "fieldtype": "Float",
+   "label": "Lustrous"
+  },
+  {
+   "fieldname": "new_silica_sand",
+   "fieldtype": "Float",
+   "label": "New Silica Sand"
+  },
+  {
+   "fieldname": "total_return_sand_consumption",
+   "fieldtype": "Float",
+   "label": "Total Return Sand"
+  },
+  {
+   "fieldname": "dextrin",
+   "fieldtype": "Float",
+   "label": "Dextrin"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-11-03 10:24:54.923030",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Sand Plant Log",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

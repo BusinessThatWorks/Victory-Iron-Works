@@ -261,7 +261,11 @@ scheduler_events = {
 fixtures = [{"doctype": "Custom Field", "filters": {"module": "victoryiron"}}]
 
 
-doctype_js = {"Item": "public/js/item_custom.js", "Supplier": "public/js/supplier_custom.js"}
+doctype_js = {
+	"Item": "public/js/item_custom.js",
+	"Supplier": "public/js/supplier_custom.js",
+	"Purchase Invoice": "public/js/purchase_invoice_custom.js",
+}
 
 # Page JS
 page_js = {

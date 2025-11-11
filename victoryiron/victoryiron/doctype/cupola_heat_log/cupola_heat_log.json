@@ -60,11 +60,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "charge_no",
-   "fieldtype": "Int",
-   "label": "Charge No "
-  },
-  {
    "fieldname": "column_break_nlsi",
    "fieldtype": "Column Break"
   },
@@ -149,13 +144,18 @@
    "fieldtype": "Float",
    "label": "Total Quantity",
    "precision": "2"
+  },
+  {
+   "fieldname": "charge_no",
+   "fieldtype": "Data",
+   "label": "Charge No"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-11 14:07:23.994312",
+ "modified": "2025-11-11 16:06:41.876362",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Heat log",

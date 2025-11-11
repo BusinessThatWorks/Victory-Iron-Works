@@ -1,0 +1,132 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-11-11 14:10:00.977115",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "charge_id",
+  "column_break_odia",
+  "date",
+  "column_break_itik",
+  "time",
+  "section_break_dsiw",
+  "destination_type",
+  "liquid_metal_received_from_cupola_section",
+  "metal_received_from_cupola",
+  "actual_weight_of_metal_transferred_in_kg",
+  "section_break_odn7",
+  "amended_from",
+  "charge_mix_tab",
+  "charge_mix_used_in_cupola_section",
+  "table_zvhx"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_odn7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Ladle Metal",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "charge_id",
+   "fieldtype": "Data",
+   "label": "Charge ID"
+  },
+  {
+   "fieldname": "column_break_odia",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time"
+  },
+  {
+   "fieldname": "liquid_metal_received_from_cupola_section",
+   "fieldtype": "Section Break",
+   "label": "Liquid Metal Received From Cupola"
+  },
+  {
+   "fieldname": "metal_received_from_cupola",
+   "fieldtype": "Table",
+   "label": "Metal Received From Cupola ",
+   "options": "Ladle Metal Received From Cupola"
+  },
+  {
+   "fieldname": "actual_weight_of_metal_transferred_in_kg",
+   "fieldtype": "Float",
+   "label": "Actual Weight Of Metal Transferred (In Kg)"
+  },
+  {
+   "fieldname": "destination_type",
+   "fieldtype": "Select",
+   "label": "Destination Type",
+   "options": "\nHolding Furnace\nPouring"
+  },
+  {
+   "fieldname": "charge_mix_tab",
+   "fieldtype": "Tab Break",
+   "label": "Charge Mix"
+  },
+  {
+   "fieldname": "charge_mix_used_in_cupola_section",
+   "fieldtype": "Section Break",
+   "label": "Charge Mix Used in Cupola"
+  },
+  {
+   "fieldname": "table_zvhx",
+   "fieldtype": "Table",
+   "options": "Consumption Table"
+  },
+  {
+   "fieldname": "column_break_itik",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "section_break_dsiw",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-11-11 14:38:39.544039",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Ladle Metal",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

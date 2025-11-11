@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestCupolaHeatlog(FrappeTestCase):
+class TestCupolaOrFurnaceBath(FrappeTestCase):
 	pass

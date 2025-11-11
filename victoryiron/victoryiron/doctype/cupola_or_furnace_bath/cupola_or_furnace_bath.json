@@ -1,0 +1,187 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-11-11 14:40:33.426940",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "firingprep_data_tab",
+  "timings_section",
+  "light_up",
+  "metal_out_at",
+  "column_break_ftof",
+  "blower_on_for_ignition",
+  "cupola_drop_at",
+  "column_break_sumr",
+  "blower_on_for_melting",
+  "material_used_in_firingprep_section",
+  "punching",
+  "column_break_qjgz",
+  "crc",
+  "column_break_txct",
+  "steam_coal",
+  "column_break_mtzr",
+  "fire_wood",
+  "column_break_xebs",
+  "fire_bricks",
+  "section_break_kkhx",
+  "amended_from",
+  "bath_details_tab",
+  "bath_id",
+  "section_break_pqvs",
+  "table_wsmu"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_kkhx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Cupola Bath",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "firingprep_data_tab",
+   "fieldtype": "Tab Break",
+   "label": "Firing/Prep Data"
+  },
+  {
+   "fieldname": "bath_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Bath Details"
+  },
+  {
+   "fieldname": "bath_id",
+   "fieldtype": "Data",
+   "label": "Bath ID"
+  },
+  {
+   "fieldname": "timings_section",
+   "fieldtype": "Section Break",
+   "label": "Timings"
+  },
+  {
+   "fieldname": "light_up",
+   "fieldtype": "Time",
+   "label": "Light Up"
+  },
+  {
+   "fieldname": "metal_out_at",
+   "fieldtype": "Time",
+   "label": "Metal out at"
+  },
+  {
+   "fieldname": "column_break_ftof",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "blower_on_for_ignition",
+   "fieldtype": "Time",
+   "label": "Blower on for Ignition"
+  },
+  {
+   "fieldname": "cupola_drop_at",
+   "fieldtype": "Time",
+   "label": "Cupola drop at"
+  },
+  {
+   "fieldname": "column_break_sumr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "blower_on_for_melting",
+   "fieldtype": "Time",
+   "label": "Blower on for Melting"
+  },
+  {
+   "fieldname": "material_used_in_firingprep_section",
+   "fieldtype": "Section Break",
+   "label": "Material Used In Firing/Prep"
+  },
+  {
+   "fieldname": "punching",
+   "fieldtype": "Float",
+   "label": "Punching"
+  },
+  {
+   "fieldname": "column_break_qjgz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "crc",
+   "fieldtype": "Float",
+   "label": "CRC"
+  },
+  {
+   "fieldname": "column_break_txct",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "steam_coal",
+   "fieldtype": "Float",
+   "label": "Steam Coal"
+  },
+  {
+   "fieldname": "column_break_mtzr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fire_wood",
+   "fieldtype": "Float",
+   "label": "Fire Wood"
+  },
+  {
+   "fieldname": "column_break_xebs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fire_bricks",
+   "fieldtype": "Float",
+   "label": "Fire Bricks"
+  },
+  {
+   "fieldname": "section_break_pqvs",
+   "fieldtype": "Section Break",
+   "label": "Cupola Bath Details"
+  },
+  {
+   "fieldname": "table_wsmu",
+   "fieldtype": "Table",
+   "options": "Cupola Bath table"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-11-11 15:13:20.473458",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Cupola Or Furnace Bath",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

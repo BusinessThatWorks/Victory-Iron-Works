@@ -1,0 +1,80 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-11-11 15:09:30.807093",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ladle_metal_batch_no",
+  "column_break_naby",
+  "weight_in_kg",
+  "section_break_cycw",
+  "ce",
+  "column_break_vrww",
+  "c",
+  "column_break_xwrx",
+  "si"
+ ],
+ "fields": [
+  {
+   "fieldname": "ladle_metal_batch_no",
+   "fieldtype": "Link",
+   "label": "Ladle Metal Batch No",
+   "options": "Ladle Metal"
+  },
+  {
+   "fieldname": "column_break_naby",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "ladle_metal_batch_no.actual_weight_of_metal_transferred_in_kg",
+   "fieldname": "weight_in_kg",
+   "fieldtype": "Float",
+   "label": "Weight In Kg",
+   "precision": "2"
+  },
+  {
+   "fieldname": "section_break_cycw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "ce",
+   "fieldtype": "Float",
+   "label": "%CE",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_vrww",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "c",
+   "fieldtype": "Float",
+   "label": "%C"
+  },
+  {
+   "fieldname": "column_break_xwrx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "si",
+   "fieldtype": "Float",
+   "label": "%SI"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-11-11 15:12:23.342390",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Cupola Bath table",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

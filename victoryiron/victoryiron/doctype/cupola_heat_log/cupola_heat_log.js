@@ -1,13 +1,13 @@
 // Copyright (c) 2025, beetashokechakraborty and contributors
 // For license information, please see license.txt
 
-// frappe.ui.form.on("Cupola Heat Log", {
+// frappe.ui.form.on("Cupola Heat log", {
 // 	refresh(frm) {
 
 // 	},
 // });
 
-frappe.ui.form.on('Cupola Heat Log', {
+frappe.ui.form.on('Cupola Heat log', {
     // When child table changes: recalc parent totals
     consumption_table_add: function (frm, cdt, cdn) {
         console.log('Row added to consumption_table');

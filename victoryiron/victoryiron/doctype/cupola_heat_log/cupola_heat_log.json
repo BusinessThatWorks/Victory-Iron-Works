@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:{date} - {charge_no}",
  "creation": "2025-08-01 14:38:59.712528",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -40,7 +41,7 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Cupola Heat Log",
+   "options": "Cupola Heat log",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
@@ -154,10 +155,11 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-12 17:49:30.701395",
+ "modified": "2025-11-11 14:07:23.994312",
  "modified_by": "Administrator",
  "module": "victoryiron",
- "name": "Cupola Heat Log",
+ "name": "Cupola Heat log",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

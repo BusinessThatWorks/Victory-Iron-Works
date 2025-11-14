@@ -41,7 +41,7 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Cupola Bath",
+   "options": "Cupola Or Furnace Bath",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
@@ -160,7 +160,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-11 15:13:20.473458",
+ "modified": "2025-11-14 09:50:10.888975",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Or Furnace Bath",

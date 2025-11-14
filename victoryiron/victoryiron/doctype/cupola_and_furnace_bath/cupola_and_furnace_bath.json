@@ -29,7 +29,8 @@
   "bath_details_tab",
   "bath_id",
   "section_break_pqvs",
-  "table_wsmu"
+  "table_wsmu",
+  "cupola_final_bath_tab"
  ],
  "fields": [
   {
@@ -41,7 +42,7 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Cupola Or Furnace Bath",
+   "options": "Cupola and Furnace Bath",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
@@ -49,12 +50,12 @@
   {
    "fieldname": "firingprep_data_tab",
    "fieldtype": "Tab Break",
-   "label": "Firing/Prep Data"
+   "label": "Cupola Firing/Prep Details"
   },
   {
    "fieldname": "bath_details_tab",
    "fieldtype": "Tab Break",
-   "label": "Bath Details"
+   "label": "Furnace Bath Details"
   },
   {
    "fieldname": "bath_id",
@@ -148,22 +149,27 @@
   {
    "fieldname": "section_break_pqvs",
    "fieldtype": "Section Break",
-   "label": "Cupola Bath Details"
+   "label": "Chemical Composition %"
   },
   {
    "fieldname": "table_wsmu",
    "fieldtype": "Table",
    "options": "Cupola Bath table"
+  },
+  {
+   "fieldname": "cupola_final_bath_tab",
+   "fieldtype": "Tab Break",
+   "label": "Cupola Final Bath "
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-14 09:50:10.888975",
+ "modified": "2025-11-14 10:53:34.731471",
  "modified_by": "Administrator",
  "module": "victoryiron",
- "name": "Cupola Or Furnace Bath",
+ "name": "Cupola and Furnace Bath",
  "owner": "Administrator",
  "permissions": [
   {

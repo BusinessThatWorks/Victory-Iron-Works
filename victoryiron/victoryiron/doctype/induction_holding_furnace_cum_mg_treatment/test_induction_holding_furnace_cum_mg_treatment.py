@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestCupolaOrFurnaceBath(FrappeTestCase):
+class TestInductionHoldingFurnaceCumMgTreatment(FrappeTestCase):
 	pass

@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class CupolaOrFurnaceBath(Document):
+class InductionHoldingFurnaceCumMgTreatment(Document):
 	pass

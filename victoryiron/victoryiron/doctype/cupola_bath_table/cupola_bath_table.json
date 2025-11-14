@@ -11,10 +11,16 @@
   "weight_in_kg",
   "section_break_cycw",
   "ce",
+  "mn",
+  "cc",
   "column_break_vrww",
   "c",
+  "s",
+  "cr",
   "column_break_xwrx",
-  "si"
+  "si",
+  "p",
+  "remarks"
  ],
  "fields": [
   {
@@ -41,7 +47,7 @@
   {
    "fieldname": "ce",
    "fieldtype": "Float",
-   "label": "%CE",
+   "label": "CE%",
    "precision": "2"
   },
   {
@@ -51,7 +57,7 @@
   {
    "fieldname": "c",
    "fieldtype": "Float",
-   "label": "%C"
+   "label": "C%"
   },
   {
    "fieldname": "column_break_xwrx",
@@ -60,14 +66,44 @@
   {
    "fieldname": "si",
    "fieldtype": "Float",
-   "label": "%SI"
+   "label": "SI%"
+  },
+  {
+   "fieldname": "mn",
+   "fieldtype": "Float",
+   "label": "Mn%"
+  },
+  {
+   "fieldname": "cc",
+   "fieldtype": "Float",
+   "label": "CC%"
+  },
+  {
+   "fieldname": "s",
+   "fieldtype": "Float",
+   "label": "S%"
+  },
+  {
+   "fieldname": "cr",
+   "fieldtype": "Float",
+   "label": "CR%"
+  },
+  {
+   "fieldname": "p",
+   "fieldtype": "Float",
+   "label": "P%"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-11 15:12:23.342390",
+ "modified": "2025-11-14 10:51:33.525922",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Bath table",

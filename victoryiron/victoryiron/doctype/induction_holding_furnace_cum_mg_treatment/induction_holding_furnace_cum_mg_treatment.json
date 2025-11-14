@@ -1,0 +1,237 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-11-14 10:07:14.258366",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "column_break_elqu",
+  "furnace_lining_noid",
+  "metal_recieved_from_cupola_section",
+  "table_keoa",
+  "section_break_bxwp",
+  "grade",
+  "moulding_system",
+  "column_break_gzpr",
+  "treatment_no",
+  "column_break_xzqb",
+  "temperature_for_tapping",
+  "column_break_jmxy",
+  "metal_tapped_at",
+  "column_break_pjiq",
+  "tapped_metal_quantity",
+  "section_break_g8pk",
+  "amended_from",
+  "additional_tab",
+  "punching_addition_per_ladle",
+  "column_break_egpc",
+  "fesimg_addition_per_ladle",
+  "column_break_dgmv",
+  "inoculant_per_ladle",
+  "power_consumption_tab",
+  "furnace_on_time",
+  "column_break_ukiy",
+  "furnace_off_time",
+  "section_break_ywub",
+  "furnace_unit",
+  "column_break_tddp",
+  "cooling_tower_unit",
+  "column_break_wlch",
+  "total_unit"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_g8pk",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Induction Holding Furnace Cum Mg Treatment",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_elqu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "furnace_lining_noid",
+   "fieldtype": "Data",
+   "label": "Furnace Lining No/ID"
+  },
+  {
+   "fieldname": "section_break_bxwp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "grade",
+   "fieldtype": "Select",
+   "label": "Grade",
+   "options": "\nCI\nDI"
+  },
+  {
+   "fieldname": "moulding_system",
+   "fieldtype": "Select",
+   "label": "Moulding System",
+   "options": "\nHand Mould\nMachine Mould\nHand/Machine Mould"
+  },
+  {
+   "fieldname": "column_break_gzpr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "treatment_no",
+   "fieldtype": "Data",
+   "label": "Treatment No"
+  },
+  {
+   "fieldname": "column_break_xzqb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "temperature_for_tapping",
+   "fieldtype": "Float",
+   "label": "Temperature For Tapping"
+  },
+  {
+   "fieldname": "column_break_jmxy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "metal_tapped_at",
+   "fieldtype": "Time",
+   "label": "Metal Tapped At"
+  },
+  {
+   "fieldname": "column_break_pjiq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tapped_metal_quantity",
+   "fieldtype": "Time",
+   "label": "Tapped Metal Quantity"
+  },
+  {
+   "fieldname": "additional_tab",
+   "fieldtype": "Tab Break",
+   "label": "Additional"
+  },
+  {
+   "fieldname": "punching_addition_per_ladle",
+   "fieldtype": "Float",
+   "label": "Punching addition per ladle (In Kg) "
+  },
+  {
+   "fieldname": "column_break_egpc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fesimg_addition_per_ladle",
+   "fieldtype": "Float",
+   "label": "Fe.Si.Mg Addition per Ladle (In Kg)"
+  },
+  {
+   "fieldname": "column_break_dgmv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "inoculant_per_ladle",
+   "fieldtype": "Float",
+   "label": "Inoculant Per Ladle (In Kg)"
+  },
+  {
+   "fieldname": "power_consumption_tab",
+   "fieldtype": "Tab Break",
+   "label": "Power Consumption"
+  },
+  {
+   "fieldname": "furnace_on_time",
+   "fieldtype": "Time",
+   "label": "Furnace ON Time"
+  },
+  {
+   "fieldname": "column_break_ukiy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "furnace_off_time",
+   "fieldtype": "Time",
+   "label": "Furnace OFF Time"
+  },
+  {
+   "fieldname": "section_break_ywub",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "furnace_unit",
+   "fieldtype": "Float",
+   "label": "Furnace Unit"
+  },
+  {
+   "fieldname": "column_break_tddp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cooling_tower_unit",
+   "fieldtype": "Float",
+   "label": "Cooling Tower Unit"
+  },
+  {
+   "fieldname": "column_break_wlch",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_unit",
+   "fieldtype": "Float",
+   "label": "Total Unit"
+  },
+  {
+   "fieldname": "metal_recieved_from_cupola_section",
+   "fieldtype": "Section Break",
+   "label": "Metal Recieved From Cupola"
+  },
+  {
+   "fieldname": "table_keoa",
+   "fieldtype": "Table",
+   "options": "Metal Received From Cupola"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-11-14 10:33:52.716664",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Induction Holding Furnace Cum Mg Treatment",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

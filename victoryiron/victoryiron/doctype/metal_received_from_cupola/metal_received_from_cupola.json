@@ -6,17 +6,22 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "ladle_metal_id",
+  "column_break_cmoj",
   "metal_received_from_cupola",
   "column_break_vmwm",
   "start_time",
   "column_break_nzzs",
-  "end_time"
+  "end_time",
+  "column_break_vawj",
+  "duration"
  ],
  "fields": [
   {
    "description": "In Kg",
+   "fetch_from": "ladle_metal_id.actual_weight_of_metal_transferred_in_kg",
    "fieldname": "metal_received_from_cupola",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Metal Received From Cupola",
    "precision": "2"
   },
@@ -37,13 +42,32 @@
    "fieldname": "end_time",
    "fieldtype": "Time",
    "label": "End Time"
+  },
+  {
+   "fieldname": "ladle_metal_id",
+   "fieldtype": "Link",
+   "label": "Ladle Metal ID",
+   "options": "Ladle Metal"
+  },
+  {
+   "fieldname": "column_break_cmoj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_vawj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Data",
+   "label": "Duration"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-08-16 15:20:42.538213",
+ "modified": "2025-11-14 10:32:33.315218",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Metal Received From Cupola",

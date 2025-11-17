@@ -89,8 +89,9 @@
   },
   {
    "fieldname": "coke_type",
-   "fieldtype": "Data",
-   "label": "Coke Type"
+   "fieldtype": "Select",
+   "label": "Coke Type",
+   "options": "\nMaharaja\nMaithan"
   },
   {
    "description": "(\u00b0C)",
@@ -155,7 +156,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-11 16:06:41.876362",
+ "modified": "2025-11-17 14:43:04.801755",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Heat log",

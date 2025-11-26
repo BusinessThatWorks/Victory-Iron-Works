@@ -33,7 +33,7 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Ladle Matal",
+   "options": "Ladle Metal",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
@@ -109,7 +109,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-21 13:02:54.361503",
+ "modified": "2025-11-26 10:31:08.393389",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Ladle Metal",

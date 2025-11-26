@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class MetalReceivedFromCupola(Document):
+class FurnaceBathLog(Document):
 	pass

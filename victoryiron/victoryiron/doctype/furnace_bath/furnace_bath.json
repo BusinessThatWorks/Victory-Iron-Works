@@ -1,0 +1,120 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-11-21 12:28:52.845321",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "column_break_uspi",
+  "time",
+  "column_break_pgqr",
+  "bath_sample_status",
+  "section_break_eqfx",
+  "c",
+  "column_break_joqj",
+  "si",
+  "column_break_ddjh",
+  "cs",
+  "section_break_lber",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_eqfx",
+   "fieldtype": "Section Break",
+   "label": "Bath Test"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Furnace Bath",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "column_break_uspi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "time",
+   "fieldtype": "Time",
+   "label": "Time"
+  },
+  {
+   "fieldname": "column_break_pgqr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Not Approved",
+   "fieldname": "bath_sample_status",
+   "fieldtype": "Select",
+   "label": "Bath Sample Status",
+   "options": "\nNot Approved\nApproved"
+  },
+  {
+   "fieldname": "c",
+   "fieldtype": "Percent",
+   "label": "C%"
+  },
+  {
+   "fieldname": "column_break_joqj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "si",
+   "fieldtype": "Percent",
+   "label": "Si%"
+  },
+  {
+   "fieldname": "column_break_ddjh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cs",
+   "fieldtype": "Percent",
+   "label": "C%"
+  },
+  {
+   "fieldname": "section_break_lber",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-11-21 12:35:29.885421",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Furnace Bath",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

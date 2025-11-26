@@ -1,0 +1,71 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-11-21 13:11:43.675262",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ladle_metal_id",
+  "column_break_kipz",
+  "total_weight_in_kg",
+  "section_break_fvte",
+  "start_time",
+  "column_break_zubj",
+  "end_time"
+ ],
+ "fields": [
+  {
+   "fieldname": "ladle_metal_id",
+   "fieldtype": "Link",
+   "label": "Ladle Metal ID",
+   "link_filters": "[[\"Ladle Metal\",\"source\",\"=\",\"Cupola\"]]",
+   "options": "Ladle Metal"
+  },
+  {
+   "fieldname": "column_break_kipz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "ladle_metal_id.total_weight_in_kg",
+   "fieldname": "total_weight_in_kg",
+   "fieldtype": "Float",
+   "label": "Total Weight (In Kg)"
+  },
+  {
+   "fieldname": "section_break_fvte",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fetch_from": "ladle_metal_id.start_time",
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "column_break_zubj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "ladle_metal_id.end_time",
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "label": "End Time"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-11-21 14:51:21.322485",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Cupola Log Master",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -27,7 +27,7 @@
    "fieldname": "ladle_metal_batch_no",
    "fieldtype": "Link",
    "label": "Ladle Metal Batch No",
-   "options": "Ladle Metal"
+   "options": "Ladle Metal 1"
   },
   {
    "fieldname": "column_break_naby",
@@ -103,7 +103,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-14 10:51:33.525922",
+ "modified": "2025-11-21 12:47:43.961549",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Bath table",

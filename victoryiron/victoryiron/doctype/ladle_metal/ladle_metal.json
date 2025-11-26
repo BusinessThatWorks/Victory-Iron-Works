@@ -1,29 +1,31 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2025-11-11 14:10:00.977115",
+ "autoname": "format:{date} - {ladle_id} - {source}",
+ "creation": "2025-11-21 12:48:31.903476",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "charge_id",
-  "column_break_odia",
   "date",
-  "column_break_itik",
-  "time",
-  "section_break_dsiw",
-  "destination_type",
-  "liquid_metal_received_from_cupola_section",
-  "metal_received_from_cupola",
-  "actual_weight_of_metal_transferred_in_kg",
-  "section_break_odn7",
+  "source",
+  "column_break_fvvz",
+  "ladle_id",
+  "section_break_xsuy",
+  "total_weight_in_kg",
+  "column_break_zuta",
+  "start_time",
+  "column_break_izzp",
+  "end_time",
+  "column_break_foaj",
+  "duration",
+  "section_break_ujjh",
   "amended_from",
-  "charge_mix_tab",
-  "charge_mix_used_in_cupola_section",
-  "table_zvhx"
+  "treatment_tab",
+  "table_ssfl"
  ],
  "fields": [
   {
-   "fieldname": "section_break_odn7",
+   "fieldname": "section_break_ujjh",
    "fieldtype": "Section Break"
   },
   {
@@ -31,65 +33,10 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Ladle Metal",
+   "options": "Ladle Matal",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
-  },
-  {
-   "fieldname": "charge_id",
-   "fieldtype": "Data",
-   "label": "Charge ID"
-  },
-  {
-   "fieldname": "column_break_odia",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "time",
-   "fieldtype": "Time",
-   "label": "Time"
-  },
-  {
-   "fieldname": "liquid_metal_received_from_cupola_section",
-   "fieldtype": "Section Break",
-   "label": "Liquid Metal Received From Cupola"
-  },
-  {
-   "fieldname": "metal_received_from_cupola",
-   "fieldtype": "Table",
-   "label": "Metal Received From Cupola ",
-   "options": "Ladle Metal Received From Cupola"
-  },
-  {
-   "fieldname": "actual_weight_of_metal_transferred_in_kg",
-   "fieldtype": "Float",
-   "label": "Actual Weight Of Metal Transferred (In Kg)"
-  },
-  {
-   "fieldname": "destination_type",
-   "fieldtype": "Select",
-   "label": "Destination Type",
-   "options": "\nHolding Furnace\nPouring"
-  },
-  {
-   "fieldname": "charge_mix_tab",
-   "fieldtype": "Tab Break",
-   "label": "Charge Mix"
-  },
-  {
-   "fieldname": "charge_mix_used_in_cupola_section",
-   "fieldtype": "Section Break",
-   "label": "Charge Mix Used in Cupola"
-  },
-  {
-   "fieldname": "table_zvhx",
-   "fieldtype": "Table",
-   "options": "Consumption Table"
-  },
-  {
-   "fieldname": "column_break_itik",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "date",
@@ -97,18 +44,76 @@
    "label": "Date"
   },
   {
-   "fieldname": "section_break_dsiw",
+   "fieldname": "source",
+   "fieldtype": "Select",
+   "label": "Source",
+   "options": "\nCupola\nHolding Furnace\nInduction Furnace"
+  },
+  {
+   "fieldname": "column_break_fvvz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ladle_id",
+   "fieldtype": "Data",
+   "label": "Ladle ID"
+  },
+  {
+   "fieldname": "section_break_xsuy",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_weight_in_kg",
+   "fieldtype": "Float",
+   "label": "Total Weight (In Kg)"
+  },
+  {
+   "fieldname": "column_break_zuta",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Time",
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "column_break_izzp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Time",
+   "label": "End Time"
+  },
+  {
+   "fieldname": "column_break_foaj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Time",
+   "label": "Duration"
+  },
+  {
+   "fieldname": "treatment_tab",
+   "fieldtype": "Tab Break",
+   "label": "Treatment"
+  },
+  {
+   "fieldname": "table_ssfl",
+   "fieldtype": "Table",
+   "options": "Consumption Table"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-11 14:38:39.544039",
+ "modified": "2025-11-21 13:02:54.361503",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Ladle Metal",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -126,6 +131,7 @@
   }
  ],
  "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

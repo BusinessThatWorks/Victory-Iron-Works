@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class LadleMetal(Document):
+class CupolaLogMaster(Document):
 	pass

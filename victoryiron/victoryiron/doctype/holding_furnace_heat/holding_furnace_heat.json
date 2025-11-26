@@ -1,0 +1,219 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-11-21 12:21:34.230491",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "firingprep_details_tab",
+  "date",
+  "section_break_zzwi",
+  "furnace_lining_noid",
+  "column_break_viex",
+  "furnace_on_time",
+  "column_break_lbep",
+  "furnace_off_time",
+  "section_break_sohp",
+  "cooling_tower",
+  "column_break_qnnv",
+  "furnace_unit",
+  "column_break_fgfi",
+  "total_units",
+  "metal_out_from_cupola_tab",
+  "table_fjdd",
+  "section_break_dx0q",
+  "amended_from",
+  "holding_furnace_details_tab",
+  "table_ibpu",
+  "bath_sample_tab",
+  "table_hdkp",
+  "consumption_tab",
+  "carbon_in_kg",
+  "fe_mn_in_kg",
+  "temp_tips_in_pcs",
+  "column_break_sdwl",
+  "fe_silicon_in_kg",
+  "crc_in_kg",
+  "carbon_cup_in_pcs"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_dx0q",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Holding Furnace Heat",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "metal_out_from_cupola_tab",
+   "fieldtype": "Tab Break",
+   "label": "Metal Recieved"
+  },
+  {
+   "fieldname": "holding_furnace_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Metal Discharged"
+  },
+  {
+   "fieldname": "table_fjdd",
+   "fieldtype": "Table",
+   "options": "Cupola Log Master"
+  },
+  {
+   "fieldname": "table_ibpu",
+   "fieldtype": "Table",
+   "options": "Metal Discharge From Holding Furnace"
+  },
+  {
+   "fieldname": "bath_sample_tab",
+   "fieldtype": "Tab Break",
+   "label": "Bath Sample"
+  },
+  {
+   "fieldname": "consumption_tab",
+   "fieldtype": "Tab Break",
+   "label": "Consumption"
+  },
+  {
+   "fieldname": "table_hdkp",
+   "fieldtype": "Table",
+   "options": "Furnace Bath Log"
+  },
+  {
+   "fieldname": "firingprep_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Firing/Prep Details"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "furnace_lining_noid",
+   "fieldtype": "Data",
+   "label": "Furnace Lining No/ID"
+  },
+  {
+   "fieldname": "section_break_zzwi",
+   "fieldtype": "Section Break",
+   "label": "Furnace Details"
+  },
+  {
+   "fieldname": "furnace_on_time",
+   "fieldtype": "Time",
+   "label": "Furnace ON Time"
+  },
+  {
+   "fieldname": "column_break_viex",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "furnace_off_time",
+   "fieldtype": "Time",
+   "label": "Furnace OFF Time"
+  },
+  {
+   "fieldname": "section_break_sohp",
+   "fieldtype": "Section Break",
+   "label": "Power Consumption"
+  },
+  {
+   "fieldname": "cooling_tower",
+   "fieldtype": "Float",
+   "label": "Cooling Tower"
+  },
+  {
+   "fieldname": "column_break_qnnv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "furnace_unit",
+   "fieldtype": "Float",
+   "label": "Furnace Unit"
+  },
+  {
+   "fieldname": "column_break_fgfi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_units",
+   "fieldtype": "Float",
+   "label": "Total Unit"
+  },
+  {
+   "fieldname": "column_break_lbep",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "carbon_in_kg",
+   "fieldtype": "Float",
+   "label": "Carbon (In Kg)"
+  },
+  {
+   "fieldname": "fe_mn_in_kg",
+   "fieldtype": "Float",
+   "label": "Fe Mn (In Kg)"
+  },
+  {
+   "fieldname": "temp_tips_in_pcs",
+   "fieldtype": "Float",
+   "label": "Temp Tips (In Pcs)"
+  },
+  {
+   "fieldname": "column_break_sdwl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fe_silicon_in_kg",
+   "fieldtype": "Float",
+   "label": "Fe Silicon (In Kg)"
+  },
+  {
+   "fieldname": "crc_in_kg",
+   "fieldtype": "Float",
+   "label": "CRC (In Kg)"
+  },
+  {
+   "fieldname": "carbon_cup_in_pcs",
+   "fieldtype": "Float",
+   "label": "Carbon Cup (In Pcs)"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-11-21 16:28:04.616524",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Holding Furnace Heat",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

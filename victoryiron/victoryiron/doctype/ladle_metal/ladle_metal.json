@@ -8,8 +8,10 @@
  "field_order": [
   "date",
   "source",
+  "destination",
   "column_break_fvvz",
   "ladle_id",
+  "ladle_type",
   "section_break_xsuy",
   "total_weight_in_kg",
   "column_break_zuta",
@@ -21,7 +23,17 @@
   "section_break_ujjh",
   "amended_from",
   "treatment_tab",
-  "table_ssfl"
+  "treatment_before_temp",
+  "column_break_dnzm",
+  "treatment_no",
+  "column_break_kpxz",
+  "grade_type",
+  "section_break_wvof",
+  "punching",
+  "column_break_lezt",
+  "inoculant",
+  "column_break_nrct",
+  "fesimg"
  ],
  "fields": [
   {
@@ -97,19 +109,77 @@
   {
    "fieldname": "treatment_tab",
    "fieldtype": "Tab Break",
-   "label": "Treatment"
+   "label": "Treatment Details"
   },
   {
-   "fieldname": "table_ssfl",
-   "fieldtype": "Table",
-   "options": "Consumption Table"
+   "fieldname": "ladle_type",
+   "fieldtype": "Link",
+   "label": "Ladle Type",
+   "options": "Ladle Master"
+  },
+  {
+   "fieldname": "destination",
+   "fieldtype": "Select",
+   "label": "Destination",
+   "options": "\nHand Mould\nMachine Mould\nHand & Machine Mould"
+  },
+  {
+   "fieldname": "punching",
+   "fieldtype": "Float",
+   "label": "Punching"
+  },
+  {
+   "fieldname": "column_break_lezt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "inoculant",
+   "fieldtype": "Float",
+   "label": "Inoculant"
+  },
+  {
+   "fieldname": "column_break_nrct",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fesimg",
+   "fieldtype": "Float",
+   "label": "Fe.Si.Mg "
+  },
+  {
+   "fieldname": "treatment_before_temp",
+   "fieldtype": "Float",
+   "label": "Treatment Before Temp "
+  },
+  {
+   "fieldname": "column_break_dnzm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "treatment_no",
+   "fieldtype": "Data",
+   "label": "Treatment No"
+  },
+  {
+   "fieldname": "section_break_wvof",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_kpxz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "grade_type",
+   "fieldtype": "Select",
+   "label": "Grade Type",
+   "options": "\nCI\nDI"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-26 10:31:08.393389",
+ "modified": "2025-12-03 14:46:41.891116",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Ladle Metal",

@@ -7,6 +7,9 @@
  "field_order": [
   "firingprep_details_tab",
   "date",
+  "column_break_mkok",
+  "column_break_mait",
+  "get_todays_data",
   "section_break_zzwi",
   "furnace_lining_noid",
   "column_break_viex",
@@ -185,13 +188,26 @@
    "fieldname": "carbon_cup_in_pcs",
    "fieldtype": "Float",
    "label": "Carbon Cup (In Pcs)"
+  },
+  {
+   "fieldname": "column_break_mkok",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_mait",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "get_todays_data",
+   "fieldtype": "Button",
+   "label": "Get Today's Data"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-21 16:28:04.616524",
+ "modified": "2025-12-04 12:34:32.523441",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Holding Furnace Heat",

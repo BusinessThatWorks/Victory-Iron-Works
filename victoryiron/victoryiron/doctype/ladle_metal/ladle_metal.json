@@ -12,6 +12,7 @@
   "column_break_fvvz",
   "ladle_id",
   "ladle_type",
+  "grade_type",
   "section_break_xsuy",
   "total_weight_in_kg",
   "column_break_zuta",
@@ -27,7 +28,6 @@
   "column_break_dnzm",
   "treatment_no",
   "column_break_kpxz",
-  "grade_type",
   "section_break_wvof",
   "punching",
   "column_break_lezt",
@@ -53,13 +53,17 @@
   {
    "fieldname": "date",
    "fieldtype": "Date",
-   "label": "Date"
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
   },
   {
    "fieldname": "source",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Source",
-   "options": "\nCupola\nHolding Furnace\nInduction Furnace"
+   "options": "\nCupola\nHolding Furnace\nInduction Furnace",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_fvvz",
@@ -68,7 +72,9 @@
   {
    "fieldname": "ladle_id",
    "fieldtype": "Data",
-   "label": "Ladle ID"
+   "in_list_view": 1,
+   "label": "Ladle ID",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_xsuy",
@@ -115,13 +121,16 @@
    "fieldname": "ladle_type",
    "fieldtype": "Link",
    "label": "Ladle Type",
-   "options": "Ladle Master"
+   "options": "Ladle Master",
+   "reqd": 1
   },
   {
    "fieldname": "destination",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "Destination",
-   "options": "\nHand Mould\nMachine Mould\nHand & Machine Mould"
+   "options": "\nHolding Furnace\nHand Mould\nMachine Mould\nHand & Machine Mould",
+   "reqd": 1
   },
   {
    "fieldname": "punching",
@@ -172,14 +181,15 @@
    "fieldname": "grade_type",
    "fieldtype": "Select",
    "label": "Grade Type",
-   "options": "\nCI\nDI"
+   "options": "\nCI\nDI",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-03 14:46:41.891116",
+ "modified": "2025-12-05 14:16:03.919433",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Ladle Metal",

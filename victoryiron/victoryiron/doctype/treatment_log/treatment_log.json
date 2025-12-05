@@ -1,0 +1,40 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-05 14:00:46.800429",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "treatment_id",
+  "column_break_sber"
+ ],
+ "fields": [
+  {
+   "fieldname": "treatment_id",
+   "fieldtype": "Link",
+   "label": "Treatment ID",
+   "link_filters": "[]",
+   "options": "Furnace Bath"
+  },
+  {
+   "fieldname": "column_break_sber",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-12-05 14:01:52.659496",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Treatment Log",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -22,12 +22,25 @@
   "furnace_unit",
   "column_break_fgfi",
   "total_units",
+  "meter_reading_section",
+  "furnace_meter_reading_start",
+  "cooling_tower_meter_reading_start",
+  "column_break_lgkx",
+  "furnace_meter_reading_end",
+  "cooling_tower_meter_reading_end",
+  "column_break_fzne",
+  "total_furnace_unit_consumed",
+  "total_cooling_tower_unit_consumed",
   "metal_out_from_cupola_tab",
   "table_fjdd",
+  "total_metal_recieved",
   "section_break_dx0q",
   "amended_from",
   "holding_furnace_details_tab",
   "table_ibpu",
+  "total_metal_discharged",
+  "treatment_details_tab",
+  "table_ljur",
   "bath_sample_tab",
   "table_hdkp",
   "consumption_tab",
@@ -201,13 +214,76 @@
    "fieldname": "get_todays_data",
    "fieldtype": "Button",
    "label": "Get Today's Data"
+  },
+  {
+   "fieldname": "treatment_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Treatment Details"
+  },
+  {
+   "fieldname": "meter_reading_section",
+   "fieldtype": "Section Break",
+   "label": "Meter Reading"
+  },
+  {
+   "fieldname": "furnace_meter_reading_start",
+   "fieldtype": "Float",
+   "label": "Furnace Meter Reading (Start)"
+  },
+  {
+   "fieldname": "cooling_tower_meter_reading_start",
+   "fieldtype": "Float",
+   "label": "Cooling Tower Meter Reading (Start)"
+  },
+  {
+   "fieldname": "column_break_lgkx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "furnace_meter_reading_end",
+   "fieldtype": "Float",
+   "label": "Furnace Meter Reading (End)"
+  },
+  {
+   "fieldname": "cooling_tower_meter_reading_end",
+   "fieldtype": "Float",
+   "label": "Cooling Tower Meter Reading (End)"
+  },
+  {
+   "fieldname": "column_break_fzne",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_furnace_unit_consumed",
+   "fieldtype": "Float",
+   "label": "Total Furnace Unit Consumed"
+  },
+  {
+   "fieldname": "total_cooling_tower_unit_consumed",
+   "fieldtype": "Float",
+   "label": "Total Cooling Tower Unit Consumed"
+  },
+  {
+   "fieldname": "total_metal_recieved",
+   "fieldtype": "Float",
+   "label": "Total Metal Recieved"
+  },
+  {
+   "fieldname": "total_metal_discharged",
+   "fieldtype": "Float",
+   "label": "Total Metal Discharged"
+  },
+  {
+   "fieldname": "table_ljur",
+   "fieldtype": "Table",
+   "options": "Treatment Log"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-04 12:34:32.523441",
+ "modified": "2025-12-05 14:02:21.740120",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Holding Furnace Heat",

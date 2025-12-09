@@ -9,6 +9,7 @@
   "date",
   "source",
   "destination",
+  "facture_test",
   "column_break_fvvz",
   "ladle_id",
   "ladle_type",
@@ -183,13 +184,19 @@
    "label": "Grade Type",
    "options": "\nCI\nDI",
    "reqd": 1
+  },
+  {
+   "fieldname": "facture_test",
+   "fieldtype": "Select",
+   "label": "Facture Test",
+   "options": "\nOK\nNOT OK"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-05 14:16:03.919433",
+ "modified": "2025-12-06 14:28:00.130811",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Ladle Metal",

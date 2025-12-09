@@ -1,0 +1,299 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-09 14:44:05.502680",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "tooling_name",
+  "drawing_no",
+  "column_break_cqce",
+  "match_plate_number",
+  "article_no",
+  "column_break_obpf",
+  "pattern_quantity",
+  "section_break_rnjm",
+  "table_mfno",
+  "section_break_qxdo",
+  "total_casting_weight",
+  "column_break_yado",
+  "bunch_weight",
+  "column_break_tvvq",
+  "runner_riser_weight",
+  "column_break_quul",
+  "yield",
+  "section_break_atzd",
+  "date",
+  "pouring_type",
+  "riser_cutting",
+  "paint_type",
+  "core_sand_type",
+  "sand_type",
+  "sand_riser_size",
+  "column_break_udbo",
+  "grade",
+  "box_size",
+  "mounting",
+  "paint_quantity_in_litre",
+  "core_sand_quantity_in_kg",
+  "sand_quantity_in_kg",
+  "pouring_time",
+  "column_break_miun",
+  "sleeve_size",
+  "ingate_size",
+  "runner_size",
+  "sprue_size",
+  "chill_size",
+  "pouring_temp",
+  "shakeout_time",
+  "section_break_enua",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_enua",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Pattern",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "tooling_name",
+   "fieldtype": "Data",
+   "label": "Pattern Name"
+  },
+  {
+   "fieldname": "column_break_cqce",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "match_plate_number",
+   "fieldtype": "Data",
+   "label": "Match Plate Number"
+  },
+  {
+   "fieldname": "section_break_qxdo",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_casting_weight",
+   "fieldtype": "Float",
+   "label": "Total Casting Weight (In Kg)",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_yado",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bunch_weight",
+   "fieldtype": "Float",
+   "label": "Bunch Weight (In Kg)",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_tvvq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "runner_riser_weight",
+   "fieldtype": "Float",
+   "label": "Runner Riser Weight (in Kg)",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_quul",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "yield",
+   "fieldtype": "Float",
+   "label": "Yield %"
+  },
+  {
+   "fieldname": "section_break_atzd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "pouring_type",
+   "fieldtype": "Select",
+   "label": "Pouring Type"
+  },
+  {
+   "fieldname": "riser_cutting",
+   "fieldtype": "Select",
+   "label": "Riser Cutting"
+  },
+  {
+   "fieldname": "paint_type",
+   "fieldtype": "Link",
+   "label": "Paint type",
+   "options": "Item"
+  },
+  {
+   "fieldname": "core_sand_type",
+   "fieldtype": "Select",
+   "label": "Core Sand Type"
+  },
+  {
+   "fieldname": "sand_type",
+   "fieldtype": "Select",
+   "label": "Sand Type"
+  },
+  {
+   "fieldname": "sand_riser_size",
+   "fieldtype": "Data",
+   "label": "Sand Riser Size"
+  },
+  {
+   "fieldname": "column_break_udbo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "grade",
+   "fieldtype": "Link",
+   "label": "Grade",
+   "options": "Item"
+  },
+  {
+   "fieldname": "box_size",
+   "fieldtype": "Data",
+   "label": "Box Size"
+  },
+  {
+   "fieldname": "mounting",
+   "fieldtype": "Select",
+   "label": "Mounting",
+   "options": "\nMounted Pattern\nLoose Pattern"
+  },
+  {
+   "fieldname": "paint_quantity_in_litre",
+   "fieldtype": "Float",
+   "label": "Paint Quantity (in Litre)",
+   "precision": "2"
+  },
+  {
+   "fieldname": "core_sand_quantity_in_kg",
+   "fieldtype": "Float",
+   "label": "Core Sand Quantity (in Kg)"
+  },
+  {
+   "fieldname": "sand_quantity_in_kg",
+   "fieldtype": "Float",
+   "label": "Sand Quantity (In Kg)"
+  },
+  {
+   "fieldname": "pouring_time",
+   "fieldtype": "Time",
+   "label": "Pouring Time"
+  },
+  {
+   "fieldname": "column_break_miun",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sleeve_size",
+   "fieldtype": "Data",
+   "label": "Sleeve Size & Quantity"
+  },
+  {
+   "fieldname": "ingate_size",
+   "fieldtype": "Data",
+   "label": "Ingate Size & Quantity"
+  },
+  {
+   "fieldname": "runner_size",
+   "fieldtype": "Data",
+   "label": "Runner Size & Quantity"
+  },
+  {
+   "fieldname": "sprue_size",
+   "fieldtype": "Data",
+   "label": "Sprue Size & Quantity"
+  },
+  {
+   "fieldname": "chill_size",
+   "fieldtype": "Data",
+   "label": "Chill Size & Quantity"
+  },
+  {
+   "fieldname": "pouring_temp",
+   "fieldtype": "Data",
+   "label": "Pouring Temp (\u00b0C)"
+  },
+  {
+   "fieldname": "shakeout_time",
+   "fieldtype": "Time",
+   "label": "Shakeout Time"
+  },
+  {
+   "fieldname": "column_break_obpf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pattern_quantity",
+   "fieldtype": "Int",
+   "label": "Pattern Quantity "
+  },
+  {
+   "fieldname": "drawing_no",
+   "fieldtype": "Data",
+   "label": "Drawing No"
+  },
+  {
+   "fieldname": "article_no",
+   "fieldtype": "Data",
+   "label": "Article No"
+  },
+  {
+   "fieldname": "section_break_rnjm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_mfno",
+   "fieldtype": "Table",
+   "options": "Pattern Item Details"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-12-09 15:37:10.158857",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Pattern",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

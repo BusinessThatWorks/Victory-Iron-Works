@@ -50,7 +50,13 @@
   "column_break_sdwl",
   "fe_silicon_in_kg",
   "crc_in_kg",
-  "carbon_cup_in_pcs"
+  "carbon_cup_in_pcs",
+  "treatment_consumption_section",
+  "fesimg",
+  "column_break_armx",
+  "punching",
+  "column_break_mvur",
+  "inoculant"
  ],
  "fields": [
   {
@@ -277,13 +283,41 @@
    "fieldname": "table_ljur",
    "fieldtype": "Table",
    "options": "Treatment Log"
+  },
+  {
+   "fieldname": "treatment_consumption_section",
+   "fieldtype": "Section Break",
+   "label": "Treatment Consumption"
+  },
+  {
+   "fieldname": "fesimg",
+   "fieldtype": "Float",
+   "label": "Fe.Si.Mg"
+  },
+  {
+   "fieldname": "column_break_armx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "punching",
+   "fieldtype": "Float",
+   "label": "Punching"
+  },
+  {
+   "fieldname": "column_break_mvur",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "inoculant",
+   "fieldtype": "Float",
+   "label": "Inoculant"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-05 14:02:21.740120",
+ "modified": "2025-12-06 14:32:44.702721",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Holding Furnace Heat",

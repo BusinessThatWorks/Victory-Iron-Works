@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class SandPlantTestingTable(Document):
+class PatternManufacturingTable(Document):
 	pass

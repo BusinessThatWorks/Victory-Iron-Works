@@ -5,41 +5,17 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "rhino_mixer_tab",
   "date",
   "column_break_ccmf",
   "shift_type",
   "section_break_kvkj",
-  "table_hdna",
-  "section_break_cbzm",
-  "ltr",
-  "column_break_exxs",
-  "water_ltr",
-  "section_break_wihr",
-  "mc_jolting_batch",
-  "column_break_kksz",
-  "mc_hpml_batch",
-  "column_break_mezs",
-  "total_mc_batch",
-  "section_break_uszp",
-  "bentonite",
-  "new_silica_sand",
-  "total_return_sand_consumption",
-  "column_break_fard",
-  "lustrous",
-  "dextrin",
+  "table_ixsx",
+  "ssec_mixer_tab",
+  "details",
   "amended_from"
  ],
  "fields": [
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Sand Plant Log",
-   "print_hide": 1,
-   "read_only": 1,
-   "search_index": 1
-  },
   {
    "fieldname": "date",
    "fieldtype": "Date",
@@ -56,100 +32,48 @@
    "options": "Foundry Shift Type"
   },
   {
-   "fieldname": "section_break_wihr",
-   "fieldtype": "Section Break",
-   "label": "Machine Wise Batch Created"
-  },
-  {
-   "fieldname": "mc_jolting_batch",
-   "fieldtype": "Int",
-   "label": "M/C SSEC Batch"
-  },
-  {
-   "fieldname": "column_break_kksz",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "mc_hpml_batch",
-   "fieldtype": "Int",
-   "label": "M/C RTM 1500 Batch"
-  },
-  {
-   "fieldname": "column_break_mezs",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "total_mc_batch",
-   "fieldtype": "Int",
-   "label": "Total M/C Batch"
-  },
-  {
-   "fieldname": "section_break_uszp",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "bentonite",
-   "fieldtype": "Float",
-   "label": "Bentonite (In MT)"
-  },
-  {
-   "fieldname": "column_break_fard",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "lustrous",
-   "fieldtype": "Float",
-   "label": "Lustrous (In MT)"
-  },
-  {
-   "fieldname": "new_silica_sand",
-   "fieldtype": "Float",
-   "label": "New Silica Sand (In MT)"
-  },
-  {
-   "fieldname": "total_return_sand_consumption",
-   "fieldtype": "Float",
-   "label": "Total Return Sand (In MT)"
-  },
-  {
-   "fieldname": "dextrin",
-   "fieldtype": "Float",
-   "label": "Dextrin (In MT)"
-  },
-  {
-   "fieldname": "section_break_cbzm",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "ltr",
-   "fieldtype": "Float",
-   "label": "LTR"
-  },
-  {
-   "fieldname": "column_break_exxs",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "water_ltr",
-   "fieldtype": "Float",
-   "label": "WATER LTR"
-  },
-  {
    "fieldname": "section_break_kvkj",
    "fieldtype": "Section Break",
-   "label": "Sand Testing"
+   "label": "RHINO Mixer"
   },
   {
-   "fieldname": "table_hdna",
+   "fieldname": "table_ixsx",
    "fieldtype": "Table",
-   "options": "Sand Plant Testing Table"
+   "label": "Details",
+   "options": "Sand Mixer Details"
+  },
+  {
+   "fieldname": "rhino_mixer_tab",
+   "fieldtype": "Tab Break",
+   "label": "RHINO Mixer"
+  },
+  {
+   "fieldname": "ssec_mixer_tab",
+   "fieldtype": "Tab Break",
+   "label": "SSEC Mixer"
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Table",
+   "label": "Details",
+   "options": "Sand Mixer Details"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Sand Plant Log",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-04 13:51:30.800654",
+ "modified": "2025-12-10 13:46:17.006546",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Sand Plant Log",

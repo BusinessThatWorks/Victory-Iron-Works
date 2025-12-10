@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class Pattern(Document):
+class ProductionTooling(Document):
 	pass

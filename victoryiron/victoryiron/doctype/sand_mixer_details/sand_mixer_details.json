@@ -1,0 +1,203 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-10 13:25:57.935784",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "no_of_batches",
+  "column_break_emps",
+  "section_break_mllc",
+  "return_sand",
+  "column_break_nzaz",
+  "new_sand",
+  "column_break_uwdx",
+  "bentonite",
+  "column_break_kthq",
+  "coal_dust",
+  "section_break_dwor",
+  "total_new_sand",
+  "column_break_duqx",
+  "total_bentonite",
+  "column_break_pswn",
+  "total_coal_dust",
+  "column_break_lwyp",
+  "section_break_abrk",
+  "active_clay",
+  "gcs",
+  "moisture",
+  "column_break_vjiz",
+  "total_clay",
+  "compactibility",
+  "column_break_qtlk",
+  "tcac",
+  "permability",
+  "testing_section",
+  "loi",
+  "column_break_npkx",
+  "average_cycle_time"
+ ],
+ "fields": [
+  {
+   "fieldname": "no_of_batches",
+   "fieldtype": "Int",
+   "label": "No Of Batches"
+  },
+  {
+   "fieldname": "column_break_emps",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_mllc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "Kgs/Batch",
+   "fieldname": "return_sand",
+   "fieldtype": "Float",
+   "label": "Return Sand"
+  },
+  {
+   "description": "Kgs/Batch",
+   "fieldname": "coal_dust",
+   "fieldtype": "Float",
+   "label": "Coal Dust"
+  },
+  {
+   "fieldname": "column_break_nzaz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Kgs/Batch",
+   "fieldname": "new_sand",
+   "fieldtype": "Float",
+   "label": "New Sand"
+  },
+  {
+   "fieldname": "column_break_uwdx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Kgs/Batch",
+   "fieldname": "bentonite",
+   "fieldtype": "Float",
+   "label": "Bentonite"
+  },
+  {
+   "fieldname": "column_break_kthq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_dwor",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_new_sand",
+   "fieldtype": "Float",
+   "label": "Total New Sand"
+  },
+  {
+   "fieldname": "column_break_duqx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_bentonite",
+   "fieldtype": "Float",
+   "label": "Total Bentonite"
+  },
+  {
+   "fieldname": "column_break_pswn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_coal_dust",
+   "fieldtype": "Float",
+   "label": "Total Coal Dust"
+  },
+  {
+   "fieldname": "column_break_lwyp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_abrk",
+   "fieldtype": "Section Break",
+   "label": "Testing"
+  },
+  {
+   "fieldname": "active_clay",
+   "fieldtype": "Float",
+   "label": "Active Clay"
+  },
+  {
+   "fieldname": "column_break_vjiz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_clay",
+   "fieldtype": "Float",
+   "label": "Total Clay"
+  },
+  {
+   "fieldname": "column_break_qtlk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tcac",
+   "fieldtype": "Float",
+   "label": "TC-AC"
+  },
+  {
+   "fieldname": "gcs",
+   "fieldtype": "Float",
+   "label": "GCS"
+  },
+  {
+   "fieldname": "moisture",
+   "fieldtype": "Float",
+   "label": "Moisture"
+  },
+  {
+   "fieldname": "compactibility",
+   "fieldtype": "Float",
+   "label": "Compactibility"
+  },
+  {
+   "fieldname": "permability",
+   "fieldtype": "Float",
+   "label": "Permability"
+  },
+  {
+   "fieldname": "testing_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "loi",
+   "fieldtype": "Float",
+   "label": "LOI"
+  },
+  {
+   "fieldname": "column_break_npkx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "average_cycle_time",
+   "fieldtype": "Data",
+   "label": "Average Cycle Time"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-12-10 13:46:56.745235",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Sand Mixer Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

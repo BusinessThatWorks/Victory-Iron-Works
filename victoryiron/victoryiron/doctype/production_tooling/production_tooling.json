@@ -59,7 +59,7 @@
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Pattern",
+   "options": "Production Tooling",
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
@@ -67,7 +67,7 @@
   {
    "fieldname": "tooling_name",
    "fieldtype": "Data",
-   "label": "Pattern Name"
+   "label": "Tooling Name"
   },
   {
    "fieldname": "column_break_cqce",
@@ -245,7 +245,7 @@
   {
    "fieldname": "pattern_quantity",
    "fieldtype": "Int",
-   "label": "Pattern Quantity "
+   "label": "Tooling Quantity "
   },
   {
    "fieldname": "drawing_no",
@@ -271,10 +271,10 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-09 15:37:10.158857",
+ "modified": "2025-12-10 13:55:39.819106",
  "modified_by": "Administrator",
  "module": "victoryiron",
- "name": "Pattern",
+ "name": "Production Tooling",
  "owner": "Administrator",
  "permissions": [
   {

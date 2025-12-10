@@ -1,0 +1,171 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:PTRN - {item_name} - {##}",
+ "creation": "2025-12-10 13:56:04.291550",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "details_section",
+  "item_name",
+  "column_break_eylo",
+  "drawing_no",
+  "pattern_image",
+  "section_break_vpbn",
+  "cast_weight",
+  "column_break_zklg",
+  "bunch_weight",
+  "section_break_shdb",
+  "customer",
+  "column_break_igrm",
+  "consignee_name",
+  "section_break_cvrz",
+  "table_naew",
+  "section_break_axyy",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_shdb",
+   "fieldtype": "Section Break",
+   "label": "Customer Details"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Pattern Manufacturing",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Name",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_eylo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "drawing_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Drawing No",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_vpbn",
+   "fieldtype": "Section Break",
+   "label": "Production Details"
+  },
+  {
+   "fieldname": "cast_weight",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Cast Weight",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_zklg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bunch_weight",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Bunch Weight",
+   "reqd": 1
+  },
+  {
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "pattern_image",
+   "fieldtype": "Attach Image",
+   "label": "Pattern Image",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_igrm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "consignee_name",
+   "fieldtype": "Link",
+   "label": "Consignee Name",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "section_break_axyy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_cvrz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_naew",
+   "fieldtype": "Table",
+   "options": "Pattern Manufacturing Table"
+  }
+ ],
+ "grid_page_length": 50,
+ "image_field": "pattern_image",
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "make_attachments_public": 1,
+ "modified": "2025-12-10 14:12:40.421785",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Pattern Manufacturing",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Pattern & Tooling User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

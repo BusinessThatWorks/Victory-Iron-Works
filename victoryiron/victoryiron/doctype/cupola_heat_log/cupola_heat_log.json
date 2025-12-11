@@ -6,6 +6,26 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "firingprep_details_tab",
+  "timings_section",
+  "timings_column",
+  "light_up",
+  "start",
+  "end",
+  "metal_out_at",
+  "cupola_drop_at",
+  "column_break_pzqb",
+  "total_melting_hours",
+  "average_melting_rate",
+  "melting",
+  "lime_stone",
+  "section_break_rmfq",
+  "fire_bricks",
+  "column_break_noyw",
+  "fire_wood",
+  "column_break_gsto",
+  "stream_coal",
+  "details_tab",
   "section_break_mklc",
   "date",
   "charge_no",
@@ -150,13 +170,109 @@
    "fieldname": "charge_no",
    "fieldtype": "Data",
    "label": "Charge No"
+  },
+  {
+   "fieldname": "firingprep_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Firing/Prep Details"
+  },
+  {
+   "fieldname": "timings_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "light_up",
+   "fieldtype": "Time",
+   "label": "Light Up"
+  },
+  {
+   "fieldname": "start",
+   "fieldtype": "Time",
+   "label": "Blower On For Ignition - Start Time"
+  },
+  {
+   "fieldname": "end",
+   "fieldtype": "Time",
+   "label": "Blower On For Ignition - End Time"
+  },
+  {
+   "fieldname": "metal_out_at",
+   "fieldtype": "Time",
+   "label": "Metal Out At"
+  },
+  {
+   "fieldname": "cupola_drop_at",
+   "fieldtype": "Time",
+   "label": "Cupola Drop At"
+  },
+  {
+   "fieldname": "column_break_pzqb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_melting_hours",
+   "fieldtype": "Time",
+   "label": "Total Melting Hours"
+  },
+  {
+   "fieldname": "average_melting_rate",
+   "fieldtype": "Data",
+   "label": "Average Melting Rate"
+  },
+  {
+   "fieldname": "melting",
+   "fieldtype": "Data",
+   "label": "Coke: Melting Ratio"
+  },
+  {
+   "fieldname": "lime_stone",
+   "fieldtype": "Data",
+   "label": "Coke: Lime Stone Ratio"
+  },
+  {
+   "fieldname": "section_break_rmfq",
+   "fieldtype": "Section Break",
+   "label": "Consumption"
+  },
+  {
+   "fieldname": "fire_bricks",
+   "fieldtype": "Float",
+   "label": "Fire Bricks"
+  },
+  {
+   "fieldname": "column_break_noyw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fire_wood",
+   "fieldtype": "Float",
+   "label": "Fire Wood"
+  },
+  {
+   "fieldname": "column_break_gsto",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "stream_coal",
+   "fieldtype": "Float",
+   "label": "Stream Coal"
+  },
+  {
+   "fieldname": "details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "timings_section",
+   "fieldtype": "Section Break",
+   "label": "Timings"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-17 14:43:04.801755",
+ "modified": "2025-12-11 10:54:11.238870",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Heat log",

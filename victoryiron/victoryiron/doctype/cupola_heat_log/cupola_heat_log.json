@@ -182,26 +182,31 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0:00:00",
    "fieldname": "light_up",
    "fieldtype": "Time",
    "label": "Light Up"
   },
   {
+   "default": "0:00:00",
    "fieldname": "start",
    "fieldtype": "Time",
    "label": "Blower On For Ignition - Start Time"
   },
   {
+   "default": "0:00:00",
    "fieldname": "end",
    "fieldtype": "Time",
    "label": "Blower On For Ignition - End Time"
   },
   {
+   "default": "0:00:00",
    "fieldname": "metal_out_at",
    "fieldtype": "Time",
    "label": "Metal Out At"
   },
   {
+   "default": "0:00:00",
    "fieldname": "cupola_drop_at",
    "fieldtype": "Time",
    "label": "Cupola Drop At"
@@ -211,6 +216,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "default": "0:00:00",
    "fieldname": "total_melting_hours",
    "fieldtype": "Time",
    "label": "Total Melting Hours"
@@ -269,6 +275,7 @@
    "label": "Timings"
   },
   {
+   "default": "0:00:00",
    "fieldname": "blower_on_for_melting",
    "fieldtype": "Time",
    "label": "Blower On For Melting"
@@ -278,7 +285,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-11 12:26:26.417776",
+ "modified": "2025-12-12 15:40:17.038229",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Heat log",

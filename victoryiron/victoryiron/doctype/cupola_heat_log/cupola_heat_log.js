@@ -3,11 +3,36 @@
 
 // frappe.ui.form.on("Cupola Heat log", {
 // 	refresh(frm) {
-
+//
 // 	},
 // });
 
+const DEFAULT_RETURN_ITEMS = [
+	"CI Foundry Return",
+	"DI Foundry Return",
+	"Pig Iron",
+	"PIG - Less then 1.0 - Grade",
+	"MS Scrap",
+	"Sand Pig Iron",
+	"MS CI Scrap",
+	"Mould Box Scrap",
+	"Hard Coke",
+	"Flux Lime Stone",
+	"DS Block",
+	"Ferro Silicon",
+	"Ferro Manganese",
+];
+const CONSUMPTION_TABLE = "consumption_table";
+
 frappe.ui.form.on("Cupola Heat log", {
+	// Ensure default items exist when form loads or refreshes
+	onload: async function (frm) {
+		await add_default_consumption_items(frm);
+	},
+	refresh: async function (frm) {
+		await add_default_consumption_items(frm);
+	},
+
 	// When child table changes: recalc parent totals
 	consumption_table_add: function (frm, cdt, cdn) {
 		console.log("Row added to consumption_table");
@@ -28,6 +53,7 @@ frappe.ui.form.on("Cupola Heat log", {
 		calculate_total_melting_hours(frm);
 	},
 });
+
 frappe.ui.form.on("Consumption Table", {
 	item_name: function (frm, cdt, cdn) {
 		let row = frappe.get_doc(cdt, cdn);
@@ -108,6 +134,81 @@ function update_child_totals(frm) {
 		`Updated parent totals: total_charge_mix_quantity = ${total_qty}, total_charge_mix_calculation = ${total_val}`
 	);
 	frm.refresh_fields(["total_charge_mix_quantity", "total_charge_mix_calculation"]);
+}
+
+// Insert CI/DI Foundry Return rows when missing
+async function add_default_consumption_items(frm) {
+	// prevent overlapping calls on the same form instance
+	if (frm._adding_default_consumption_items) return;
+	frm._adding_default_consumption_items = true;
+
+	try {
+		const rows = frm.doc[CONSUMPTION_TABLE] || [];
+		const existing = new Set(
+			rows
+				.map((r) => (r.item_name || r.item_code || "").trim().toLowerCase())
+				.filter(Boolean)
+		);
+
+		for (const label of DEFAULT_RETURN_ITEMS) {
+			if (existing.has(label.toLowerCase())) continue;
+
+			const item = await fetch_item_by_label(label);
+			if (!item?.name) {
+				frappe.msgprint({
+					title: __("Item not found"),
+					message: __(`Could not find Item with code/name "${label}".`),
+					indicator: "red",
+				});
+				continue;
+			}
+
+			frm.add_child(CONSUMPTION_TABLE, {
+				item_name: item.name,
+				uom: item.stock_uom,
+			});
+		}
+
+		frm.refresh_field(CONSUMPTION_TABLE);
+	} finally {
+		frm._adding_default_consumption_items = false;
+	}
+}
+
+// Fetch Item by code or name (exact first, then a case-insensitive like)
+async function fetch_item_by_label(label) {
+	const key = (label || "").trim();
+	if (!key) return null;
+
+	// exact item_code
+	const by_code = await frappe.db.get_value("Item", { item_code: key }, [
+		"name",
+		"item_name",
+		"stock_uom",
+		"disabled",
+	]);
+	if (by_code?.name && !by_code.disabled) return by_code;
+
+	// exact item_name
+	const by_name = await frappe.db.get_value("Item", { item_name: key }, [
+		"name",
+		"item_name",
+		"stock_uom",
+		"disabled",
+	]);
+	if (by_name?.name && !by_name.disabled) return by_name;
+
+	// case-insensitive fallback search
+	const like_hits = await frappe.db.get_list("Item", {
+		fields: ["name", "item_name", "stock_uom", "disabled"],
+		filters: { disabled: 0 },
+		or_filters: [
+			["item_code", "like", `%${key}%`],
+			["item_name", "like", `%${key}%`],
+		],
+		limit: 1,
+	});
+	return like_hits && like_hits.length ? like_hits[0] : null;
 }
 
 /**

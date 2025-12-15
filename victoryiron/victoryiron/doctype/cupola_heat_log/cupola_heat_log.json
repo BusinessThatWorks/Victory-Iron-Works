@@ -216,7 +216,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "0:00:00",
+   "default": "0hr0min",
    "fieldname": "total_melting_hours",
    "fieldtype": "Data",
    "label": "Total Melting Hours"

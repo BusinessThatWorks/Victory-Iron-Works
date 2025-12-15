@@ -222,7 +222,7 @@ function calculate_total_melting_hours(frm) {
 
 	// If either field is empty, set total melting hours to 0
 	if (!blower_on || !cupola_drop) {
-		frm.set_value("total_melting_hours", "0:00:00");
+		frm.set_value("total_melting_hours", "0hr0min");
 		console.log("One or both time fields are empty. Total melting hours set to 0.");
 		return;
 	}
@@ -248,28 +248,24 @@ function calculate_total_melting_hours(frm) {
 			diff_seconds = 0;
 		}
 
-		// Convert seconds back to HH:MM:SS format
 		let hours = Math.floor(diff_seconds / 3600);
 		let minutes = Math.floor((diff_seconds % 3600) / 60);
 		let seconds = Math.floor(diff_seconds % 60);
 
-		// Format as HH:MM:SS
-		let time_string =
-			String(hours).padStart(2, "0") +
-			":" +
-			String(minutes).padStart(2, "0") +
-			":" +
-			String(seconds).padStart(2, "0");
+		// Format as hr/min (example: 1hr4min)
+		let hr_min_string = `${hours}hr${minutes}min`;
 
-		// Set the calculated value
-		frm.set_value("total_melting_hours", time_string);
+		// Set the calculated value in hr/min format
+		frm.set_value("total_melting_hours", hr_min_string);
 
 		// Calculate decimal hours for logging
 		let decimal_hours = (diff_seconds / 3600).toFixed(2);
-		console.log(`Total Melting Hours calculated: ${time_string} (${decimal_hours} hours)`);
+		console.log(
+			`Total Melting Hours calculated: ${hr_min_string} (${decimal_hours} hours, ${seconds}s remaining)`
+		);
 	} catch (error) {
 		console.error("Error calculating total melting hours:", error);
-		frm.set_value("total_melting_hours", "0:00:00");
+		frm.set_value("total_melting_hours", "0hr0min");
 		frappe.msgprint({
 			title: __("Calculation Error"),
 			message: __(

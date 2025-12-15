@@ -253,7 +253,7 @@ function calculate_total_melting_hours(frm) {
 		let seconds = Math.floor(diff_seconds % 60);
 
 		// Format as hr/min (example: 1hr4min)
-		let hr_min_string = `${hours}hr${minutes}min`;
+		let hr_min_string = `${hours}hr ${minutes}min`;
 
 		// Set the calculated value in hr/min format
 		frm.set_value("total_melting_hours", hr_min_string);

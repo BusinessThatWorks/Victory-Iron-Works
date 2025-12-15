@@ -23,6 +23,18 @@ const DEFAULT_RETURN_ITEMS = [
 	"Ferro Manganese",
 ];
 const CONSUMPTION_TABLE = "consumption_table";
+const RETURN_ITEM_SET = new Set(
+	[
+		"CI Foundry Return",
+		"DI Foundry Return",
+		"Pig Iron",
+		"Pig Iron - Less then 1.0 - Grade",
+		"Sand Pig Iron",
+		"Mould Box Scrap",
+		"MS Scarp",
+		"M_CI Scrap",
+	].map((i) => i.toLowerCase())
+);
 
 frappe.ui.form.on("Cupola Heat log", {
 	// Ensure default items exist when form loads or refreshes
@@ -121,17 +133,26 @@ function update_row_total_valuation(frm, cdt, cdn) {
 function update_child_totals(frm) {
 	let total_qty = 0;
 	let total_val = 0;
+	let return_qty = 0;
 
 	(frm.doc.consumption_table || []).forEach((row) => {
-		total_qty += parseFloat(row.quantity) || 0;
+		const qty = parseFloat(row.quantity) || 0;
+		total_qty += qty;
 		total_val += parseFloat(row.total_valuation) || 0;
+
+		// Only sum CI/DI Foundry Return quantities
+		const item_key = (row.item_name || row.item_code || "").trim().toLowerCase();
+		if (RETURN_ITEM_SET.has(item_key)) {
+			return_qty += qty;
+		}
 	});
 
 	frm.set_value("total_charge_mix_quantity", total_qty);
 	frm.set_value("total_charge_mix_calculation", total_val);
+	frm.set_value("total_charge_mix_quantity", return_qty); // use parent Float field for CI/DI returns only
 
 	console.log(
-		`Updated parent totals: total_charge_mix_quantity = ${total_qty}, total_charge_mix_calculation = ${total_val}`
+		`Updated parent totals: total_charge_mix_quantity (returns only) = ${return_qty}, total_charge_mix_calculation = ${total_val}`
 	);
 	frm.refresh_fields(["total_charge_mix_quantity", "total_charge_mix_calculation"]);
 }

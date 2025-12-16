@@ -28,11 +28,11 @@ const RETURN_ITEM_SET = new Set(
 		"CI Foundry Return",
 		"DI Foundry Return",
 		"Pig Iron",
-		"Pig Iron - Less then 1.0 - Grade",
+		"PIG - Less then 1.0 - Grade",
 		"Sand Pig Iron",
 		"Mould Box Scrap",
-		"MS Scarp",
-		"M_CI Scrap",
+		"MS Scrap",
+		"MS CI Scrap",
 	].map((i) => i.toLowerCase())
 );
 
@@ -117,6 +117,12 @@ frappe.ui.form.on("Consumption Table", {
 	valuation_rate: function (frm, cdt, cdn) {
 		console.log(`valuation_rate changed in row ${cdn}`);
 		update_row_total_valuation(frm, cdt, cdn);
+		update_child_totals(frm);
+	},
+
+	// Ensure parent total updates if total_valuation is edited directly
+	total_valuation: function (frm, cdt, cdn) {
+		console.log(`total_valuation changed in row ${cdn}`);
 		update_child_totals(frm);
 	},
 });

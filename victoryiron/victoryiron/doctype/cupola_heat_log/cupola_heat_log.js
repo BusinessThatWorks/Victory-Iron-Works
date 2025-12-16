@@ -91,7 +91,8 @@ frappe.ui.form.on("Consumption Table", {
 				}
 				frappe.model.set_value(cdt, cdn, "valuation_rate", rate);
 				console.log(`Fetched valuation_rate for ${row.item_name}: ${rate}`);
-				update_row_total_valuation(frm, cdt, cdn);
+				// Auto-calculate total_valuation when item changes
+				calculate_row_total_valuation(frm, cdt, cdn);
 				update_child_totals(frm);
 			},
 		});
@@ -110,41 +111,56 @@ frappe.ui.form.on("Consumption Table", {
 
 	quantity: function (frm, cdt, cdn) {
 		console.log(`quantity changed in row ${cdn}`);
-		update_row_total_valuation(frm, cdt, cdn);
+		// DO NOT recalculate total_valuation here - it may be manually entered
+		// Only update parent totals by reading existing values
 		update_child_totals(frm);
 	},
 
 	valuation_rate: function (frm, cdt, cdn) {
 		console.log(`valuation_rate changed in row ${cdn}`);
-		update_row_total_valuation(frm, cdt, cdn);
+		// Auto-calculate total_valuation when rate changes
+		calculate_row_total_valuation(frm, cdt, cdn);
 		update_child_totals(frm);
 	},
 
 	// Ensure parent total updates if total_valuation is edited directly
 	total_valuation: function (frm, cdt, cdn) {
 		console.log(`total_valuation changed in row ${cdn}`);
+		// User manually changed total_valuation - just update parent totals
 		update_child_totals(frm);
 	},
 });
 
-function update_row_total_valuation(frm, cdt, cdn) {
+/**
+ * Calculate and set total_valuation for a row based on qty * rate
+ * Only call this when you want to OVERWRITE the total_valuation
+ */
+function calculate_row_total_valuation(frm, cdt, cdn) {
 	let row = frappe.get_doc(cdt, cdn);
 	let qty = parseFloat(row.quantity) || 0;
 	let rate = parseFloat(row.valuation_rate) || 0;
 	let total = qty * rate;
 	frappe.model.set_value(cdt, cdn, "total_valuation", total);
-	console.log(`Row ${cdn} total_valuation updated: ${qty} * ${rate} = ${total}`);
+	console.log(`Row ${cdn} total_valuation calculated: ${qty} * ${rate} = ${total}`);
 }
 
+/**
+ * Update parent totals by aggregating child table values
+ * IMPORTANT: This function only READS child values and WRITES to parent
+ * It does NOT modify any child row values
+ */
 function update_child_totals(frm) {
 	let total_qty = 0;
 	let total_val = 0;
 	let return_qty = 0;
 
+	// Read-only aggregation - do NOT modify child rows
 	(frm.doc.consumption_table || []).forEach((row) => {
 		const qty = parseFloat(row.quantity) || 0;
+		const val = parseFloat(row.total_valuation) || 0;
+
 		total_qty += qty;
-		total_val += parseFloat(row.total_valuation) || 0;
+		total_val += val;
 
 		// Only sum CI/DI Foundry Return quantities
 		const item_key = (row.item_name || row.item_code || "").trim().toLowerCase();
@@ -153,13 +169,15 @@ function update_child_totals(frm) {
 		}
 	});
 
-	frm.set_value("total_charge_mix_quantity", total_qty);
+	// Update parent fields only - using set_value to avoid triggering child refresh
+	frm.set_value("total_charge_mix_quantity", return_qty); // CI/DI returns only
 	frm.set_value("total_charge_mix_calculation", total_val);
-	frm.set_value("total_charge_mix_quantity", return_qty); // use parent Float field for CI/DI returns only
 
 	console.log(
 		`Updated parent totals: total_charge_mix_quantity (returns only) = ${return_qty}, total_charge_mix_calculation = ${total_val}`
 	);
+
+	// Only refresh parent fields, NOT the child table
 	frm.refresh_fields(["total_charge_mix_quantity", "total_charge_mix_calculation"]);
 }
 

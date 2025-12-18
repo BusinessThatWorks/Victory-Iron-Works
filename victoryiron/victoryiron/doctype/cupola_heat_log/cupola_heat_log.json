@@ -45,12 +45,9 @@
   "section_break_nsri",
   "total_charge_mix_calculation",
   "column_break_ldvp",
+  "coke_type",
   "column_break_yuse",
-  "total_charge_mix_quantity",
-  "section_break_aull",
-  "hard_coke_1",
-  "column_break_jedv",
-  "coke_type"
+  "total_charge_mix_quantity"
  ],
  "fields": [
   {
@@ -100,11 +97,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "hard_coke_1",
-   "fieldtype": "Int",
-   "label": "Hard Coke 1"
-  },
-  {
    "fieldname": "column_break_ympi",
    "fieldtype": "Column Break"
   },
@@ -140,14 +132,6 @@
   },
   {
    "fieldname": "column_break_yuse",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "section_break_aull",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_jedv",
    "fieldtype": "Column Break"
   },
   {
@@ -285,7 +269,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-15 13:20:27.016809",
+ "modified": "2025-12-18 10:41:23.511931",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Heat log",

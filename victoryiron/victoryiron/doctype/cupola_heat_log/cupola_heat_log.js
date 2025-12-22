@@ -8,19 +8,19 @@
 // });
 
 const DEFAULT_RETURN_ITEMS = [
-	"CI Foundry Return",
-	"DI Foundry Return",
-	"Pig Iron",
-	"PIG - Less then 1.0 - Grade",
-	"MS Scrap",
-	"Sand Pig Iron",
-	"MS CI Scrap",
-	"Mould Box Scrap",
 	"Hard Coke",
 	"Flux Lime Stone",
+	"PIG - Less then 1.0 - Grade",
+	"Pig Iron",
+	"Sand Pig Iron",
 	"DS Block",
-	"Ferro Silicon",
 	"Ferro Manganese",
+	"Ferro Silicon",
+	"CI Foundry Return",
+	"DI Foundry Return",
+	"MS Scrap",
+	"MS CI Scrap",
+	"Mould Box Scrap",
 ];
 const CONSUMPTION_TABLE = "consumption_table";
 const RETURN_ITEM_SET = new Set(
@@ -47,11 +47,9 @@ frappe.ui.form.on("Cupola Heat log", {
 
 	// When child table changes: recalc parent totals
 	consumption_table_add: function (frm, cdt, cdn) {
-		console.log("Row added to consumption_table");
 		update_child_totals(frm);
 	},
 	consumption_table_remove: function (frm, cdt, cdn) {
-		console.log("Row removed from consumption_table");
 		update_child_totals(frm);
 	},
 
@@ -84,13 +82,13 @@ frappe.ui.form.on("Consumption Table", {
 				filters: { item_name: row.item_name },
 				fieldname: "valuation_rate",
 			},
+
 			callback: function (r) {
 				let rate = 0;
 				if (r.message) {
 					rate = r.message.valuation_rate || 0;
 				}
 				frappe.model.set_value(cdt, cdn, "valuation_rate", rate);
-				console.log(`Fetched valuation_rate for ${row.item_name}: ${rate}`);
 				// Auto-calculate total_valuation when item changes
 				calculate_row_total_valuation(frm, cdt, cdn);
 				update_child_totals(frm);
@@ -110,14 +108,12 @@ frappe.ui.form.on("Consumption Table", {
 	},
 
 	quantity: function (frm, cdt, cdn) {
-		console.log(`quantity changed in row ${cdn}`);
 		// DO NOT recalculate total_valuation here - it may be manually entered
 		// Only update parent totals by reading existing values
 		update_child_totals(frm);
 	},
 
 	valuation_rate: function (frm, cdt, cdn) {
-		console.log(`valuation_rate changed in row ${cdn}`);
 		// Auto-calculate total_valuation when rate changes
 		calculate_row_total_valuation(frm, cdt, cdn);
 		update_child_totals(frm);
@@ -125,7 +121,6 @@ frappe.ui.form.on("Consumption Table", {
 
 	// Ensure parent total updates if total_valuation is edited directly
 	total_valuation: function (frm, cdt, cdn) {
-		console.log(`total_valuation changed in row ${cdn}`);
 		// User manually changed total_valuation - just update parent totals
 		update_child_totals(frm);
 	},
@@ -141,7 +136,6 @@ function calculate_row_total_valuation(frm, cdt, cdn) {
 	let rate = parseFloat(row.valuation_rate) || 0;
 	let total = qty * rate;
 	frappe.model.set_value(cdt, cdn, "total_valuation", total);
-	console.log(`Row ${cdn} total_valuation calculated: ${qty} * ${rate} = ${total}`);
 }
 
 /**
@@ -172,10 +166,6 @@ function update_child_totals(frm) {
 	// Update parent fields only - using set_value to avoid triggering child refresh
 	frm.set_value("total_charge_mix_quantity", return_qty); // CI/DI returns only
 	frm.set_value("total_charge_mix_calculation", total_val);
-
-	console.log(
-		`Updated parent totals: total_charge_mix_quantity (returns only) = ${return_qty}, total_charge_mix_calculation = ${total_val}`
-	);
 
 	// Only refresh parent fields, NOT the child table
 	frm.refresh_fields(["total_charge_mix_quantity", "total_charge_mix_calculation"]);
@@ -212,7 +202,10 @@ async function add_default_consumption_items(frm) {
 				item_name: item.name,
 				uom: item.stock_uom,
 			});
+			console.log(item.name);
+
 		}
+		
 
 		frm.refresh_field(CONSUMPTION_TABLE);
 	} finally {
@@ -268,7 +261,6 @@ function calculate_total_melting_hours(frm) {
 	// If either field is empty, set total melting hours to 0
 	if (!blower_on || !cupola_drop) {
 		frm.set_value("total_melting_hours", "0hr0min");
-		console.log("One or both time fields are empty. Total melting hours set to 0.");
 		return;
 	}
 
@@ -305,11 +297,7 @@ function calculate_total_melting_hours(frm) {
 
 		// Calculate decimal hours for logging
 		let decimal_hours = (diff_seconds / 3600).toFixed(2);
-		console.log(
-			`Total Melting Hours calculated: ${hr_min_string} (${decimal_hours} hours, ${seconds}s remaining)`
-		);
 	} catch (error) {
-		console.error("Error calculating total melting hours:", error);
 		frm.set_value("total_melting_hours", "0hr0min");
 		frappe.msgprint({
 			title: __("Calculation Error"),

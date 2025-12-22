@@ -10,9 +10,8 @@
 const DEFAULT_RETURN_ITEMS = [
 	"Hard Coke",
 	"Flux Lime Stone",
-	"PIG - Less then 1.0 - Grade",
-	"Pig Iron",
 	"Sand Pig Iron",
+	"Pig Iron",
 	"DS Block",
 	"Ferro Manganese",
 	"Ferro Silicon",

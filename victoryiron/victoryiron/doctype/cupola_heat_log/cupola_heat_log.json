@@ -24,8 +24,10 @@
   "section_break_ibvr",
   "total_melting_hours",
   "column_break_cxyl",
-  "average_melting_rate",
+  "total_melting_hours_metal_out",
   "column_break_quro",
+  "average_melting_rate",
+  "column_break_swdh",
   "average_melting_rate_metal_out",
   "section_break_rmfq",
   "fire_bricks",
@@ -213,7 +215,7 @@
    "default": "0hr 0min",
    "fieldname": "total_melting_hours",
    "fieldtype": "Data",
-   "label": "Total Melting Hours"
+   "label": "Total Melting Hours (Blower On)"
   },
   {
    "fieldname": "average_melting_rate",
@@ -308,13 +310,22 @@
    "fieldname": "average_melting_rate_metal_out",
    "fieldtype": "Data",
    "label": "Average Melting Rate (Metal Out)"
+  },
+  {
+   "fieldname": "total_melting_hours_metal_out",
+   "fieldtype": "Data",
+   "label": "Total Melting Hours (Metal Out)"
+  },
+  {
+   "fieldname": "column_break_swdh",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-23 17:33:00.502244",
+ "modified": "2025-12-23 17:46:06.305368",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Heat log",

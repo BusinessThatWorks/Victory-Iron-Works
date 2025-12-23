@@ -30,6 +30,7 @@
   "section_break_mklc",
   "date",
   "charge_no",
+  "firingprep_details",
   "column_break_nlsi",
   "grade",
   "time",
@@ -157,6 +158,7 @@
    "label": "Charge No"
   },
   {
+   "depends_on": "eval:doc.firingprep_details == 1",
    "fieldname": "firingprep_details_tab",
    "fieldtype": "Tab Break",
    "label": "Firing/Prep Details"
@@ -228,7 +230,7 @@
   {
    "fieldname": "fire_bricks",
    "fieldtype": "Float",
-   "label": "Fire Bricks"
+   "label": "Fire Bricks (In Pcs)"
   },
   {
    "fieldname": "column_break_noyw",
@@ -237,7 +239,7 @@
   {
    "fieldname": "fire_wood",
    "fieldtype": "Float",
-   "label": "Fire Wood"
+   "label": "Fire Wood (In Kg)"
   },
   {
    "fieldname": "column_break_gsto",
@@ -246,7 +248,7 @@
   {
    "fieldname": "stream_coal",
    "fieldtype": "Float",
-   "label": "Stream Coal"
+   "label": "Steam Coal (In Kg)"
   },
   {
    "fieldname": "details_tab",
@@ -263,13 +265,19 @@
    "fieldname": "blower_on_for_melting",
    "fieldtype": "Time",
    "label": "Blower On For Melting"
+  },
+  {
+   "default": "0",
+   "fieldname": "firingprep_details",
+   "fieldtype": "Check",
+   "label": "Firing/Prep Details"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-18 10:41:23.511931",
+ "modified": "2025-12-22 17:27:34.172044",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Heat log",

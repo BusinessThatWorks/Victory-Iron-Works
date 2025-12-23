@@ -253,6 +253,7 @@ async function fetch_item_by_label(label) {
  * Calculate Total Melting Hours based on the difference between
  * Blower On for Melting and Cupola Drop At times
  */
+//blower metling hours 
 function calculate_total_melting_hours(frm) {
 	// Get the time values
 	let blower_on = frm.doc.blower_on_for_melting;
@@ -441,6 +442,94 @@ function calculate_flux_metal_ratio(frm) {
                     frm.set_value('lime_stone', `1 : ${r.message}`);
                 }
             }
+        }
+    });
+}
+frappe.ui.form.on('Cupola Heat log', {
+    metal_out_at: function(frm) {
+        calculate_total_melting_hours_metal_out(frm);
+    },
+    cupola_drop_at: function(frm) {
+        calculate_total_melting_hours_metal_out(frm);
+    },
+	total_melting_hours_metal_out: function(frm) {
+        calculate_avg_melting_rate_metal_out(frm);
+    }
+});
+
+function calculate_total_melting_hours_metal_out(frm) {
+    let metal_out = frm.doc.metal_out_at;
+    let cupola_drop = frm.doc.cupola_drop_at;
+
+    // If either field is empty, set total melting hours to 0
+    if (!metal_out || !cupola_drop) {
+        frm.set_value("total_melting_hours_metal_out", "0hr0min");
+        return;
+    }
+
+    try {
+        let start_time = parse_time_to_seconds(metal_out);
+        let end_time = parse_time_to_seconds(cupola_drop);
+
+        let diff_seconds = end_time - start_time;
+
+        // Handle crossing midnight
+        if (diff_seconds < 0) {
+            diff_seconds += 86400; // 24 hours in seconds
+        }
+
+        // Safety check
+        if (diff_seconds < 0) diff_seconds = 0;
+
+        let hours = Math.floor(diff_seconds / 3600);
+        let minutes = Math.floor((diff_seconds % 3600) / 60);
+
+        let hr_min_string = `${hours}hr ${minutes}min`;
+
+        frm.set_value("total_melting_hours_metal_out", hr_min_string);
+    } catch (error) {
+        frm.set_value("total_melting_hours_metal_out", "0hr0min");
+        frappe.msgprint({
+            title: __("Calculation Error"),
+            message: __("There was an error calculating Total Melting Hours (Metal Out). Please check the time values."),
+            indicator: "red"
+        });
+    }
+}
+
+function calculate_avg_melting_rate_metal_out(frm) {
+	console.log("calculate_avg_melting_rate_metal out loaded");
+
+    if (!frm.doc.date) {
+        frappe.msgprint(__('Please select Date first'));
+		// Uncheck the checkbox
+            frm.set_value('firingprep_details', 0);
+        return;
+    }
+
+    const melting_hours = parse_melting_hours(frm.doc.total_melting_hours_metal_out);
+
+    if (!melting_hours || melting_hours === 0) {
+        frm.set_value('average_melting_rate_metal_out', 0);
+        return;
+    }
+
+    frappe.call({
+        method: 'victoryiron.victoryiron.doctype.cupola_heat_log.cupola_heat_log.get_day_total_charge',
+        args: {
+            date: frm.doc.date
+        },
+        callback: function (r) {
+            if (r.message !== undefined) {
+                const total_qty = flt(r.message);
+                const avg_rate_kg = total_qty / melting_hours;
+				const avg_rate_ton = avg_rate_kg / 1000;
+
+				frm.set_value(
+					'average_melting_rate_metal_out',
+					avg_rate_ton.toFixed(2) + ' tons'
+				);
+			}
         }
     });
 }

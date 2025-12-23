@@ -18,13 +18,15 @@
   "blower_on_for_melting",
   "cupola_drop_at",
   "section_break_agcc",
-  "total_melting_hours",
-  "column_break_rsvg",
-  "average_melting_rate",
-  "column_break_mykt",
   "melting",
-  "column_break_laip",
+  "column_break_rsvg",
   "lime_stone",
+  "section_break_ibvr",
+  "total_melting_hours",
+  "column_break_cxyl",
+  "average_melting_rate",
+  "column_break_quro",
+  "average_melting_rate_metal_out",
   "section_break_rmfq",
   "fire_bricks",
   "column_break_noyw",
@@ -216,7 +218,7 @@
   {
    "fieldname": "average_melting_rate",
    "fieldtype": "Data",
-   "label": "Average Melting Rate"
+   "label": "Average Melting Rate (Blower On)"
   },
   {
    "fieldname": "melting",
@@ -291,19 +293,28 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_mykt",
+   "fieldname": "section_break_ibvr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_cxyl",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_laip",
+   "fieldname": "column_break_quro",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "average_melting_rate_metal_out",
+   "fieldtype": "Data",
+   "label": "Average Melting Rate (Metal Out)"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-23 15:16:41.088748",
+ "modified": "2025-12-23 17:33:00.502244",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Heat log",

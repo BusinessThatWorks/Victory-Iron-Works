@@ -6,6 +6,7 @@
 //
 // 	},
 // });
+console.log("Cupola Heat log JS loaded");
 
 const DEFAULT_RETURN_ITEMS = [
 	"Hard Coke",
@@ -321,4 +322,125 @@ function parse_time_to_seconds(time_str) {
 	let seconds = parseInt(parts[2]) || 0;
 
 	return hours * 3600 + minutes * 60 + seconds;
+}
+
+//cupola heat log average melting rate calculation
+function parse_melting_hours(value) {
+    if (!value) return 0;
+
+    // Expected format: "Xhr Ymin"
+    let hours = 0;
+    let minutes = 0;
+
+    const hrMatch = value.match(/(\d+)\s*hr/);
+    const minMatch = value.match(/(\d+)\s*min/);
+
+    if (hrMatch) {
+        hours = parseInt(hrMatch[1]);
+    }
+
+    if (minMatch) {
+        minutes = parseInt(minMatch[1]);
+    }
+
+    return hours + (minutes / 60);
+}
+frappe.ui.form.on('Cupola Heat log', {
+    firingprep_details(frm) {
+        if (frm.doc.firingprep_details) {
+            calculate_avg_melting_rate(frm);
+			calculate_coke_metal_ratio(frm);
+			calculate_flux_metal_ratio(frm);
+        } else {
+            frm.set_value('average_melting_rate', 0);
+			 frm.set_value('melting', '');
+            frm.set_value('lime_stone', '');
+        }
+    },
+
+    total_melting_hours(frm) {
+        if (frm.doc.firingprep_details) {
+            calculate_avg_melting_rate(frm);
+        }
+    }
+});
+function calculate_avg_melting_rate(frm) {
+	console.log("calculate_avg_melting_rate loaded");
+
+    if (!frm.doc.date) {
+        frappe.msgprint(__('Please select Date first'));
+		// Uncheck the checkbox
+            frm.set_value('firingprep_details', 0);
+        return;
+    }
+
+    const melting_hours = parse_melting_hours(frm.doc.total_melting_hours);
+
+    if (!melting_hours || melting_hours === 0) {
+        frm.set_value('average_melting_rate', 0);
+        return;
+    }
+
+    frappe.call({
+        method: 'victoryiron.victoryiron.doctype.cupola_heat_log.cupola_heat_log.get_day_total_charge',
+        args: {
+            date: frm.doc.date
+        },
+        callback: function (r) {
+            if (r.message !== undefined) {
+                const total_qty = flt(r.message);
+                const avg_rate_kg = total_qty / melting_hours;
+				const avg_rate_ton = avg_rate_kg / 1000;
+
+				frm.set_value(
+					'average_melting_rate',
+					avg_rate_ton.toFixed(2) + ' tons'
+				);
+			}
+        }
+    });
+}
+//cupola heat log average melting rate calculation end
+
+//cupola heat log hard cok ratio calculation
+function calculate_coke_metal_ratio(frm) {
+	console.log("calculate_coke_metal_ratio loaded");
+    if (!frm.doc.date) return;
+
+    frappe.call({
+        method: 'victoryiron.victoryiron.doctype.cupola_heat_log.cupola_heat_log.get_coke_metal_ratio',
+        args: {
+            date: frm.doc.date
+        },
+        callback: function (r) {
+            if (r.message !== undefined) {
+                if (r.message === 0) {
+                    frm.set_value('melting', '0');
+                } else {
+                    frm.set_value('melting', `1 : ${r.message}`);
+                }
+            }
+        }
+    });
+}
+//cupola heat log hard coke ratio calculation end
+
+function calculate_flux_metal_ratio(frm) {
+    if (!frm.doc.date) return;
+
+    frappe.call({
+        method: 'victoryiron.victoryiron.doctype.cupola_heat_log.cupola_heat_log.get_flux_metal_ratio',
+        args: {
+            date: frm.doc.date
+        },
+        callback: function (r) {
+            if (r.message !== undefined) {
+                if (r.message === 0) {
+                    frm.set_value('lime_stone', '0');
+                } else {
+                    frm.set_value('lime_stone', `1 : ${r.message}`);
+                }
+            }
+        }
+    });
 }

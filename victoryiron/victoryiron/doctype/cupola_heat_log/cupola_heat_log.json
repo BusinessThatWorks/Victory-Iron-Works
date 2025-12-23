@@ -119,6 +119,7 @@
    "label": "Temp Time"
   },
   {
+   "depends_on": "eval:doc.firingprep_details == 0",
    "fieldname": "consumption_tab",
    "fieldtype": "Tab Break",
    "label": "Consumption"
@@ -277,7 +278,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-22 17:27:34.172044",
+ "modified": "2025-12-23 11:13:15.804595",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Heat log",

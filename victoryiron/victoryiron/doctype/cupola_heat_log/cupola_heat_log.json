@@ -7,18 +7,23 @@
  "engine": "InnoDB",
  "field_order": [
   "firingprep_details_tab",
+  "start",
+  "column_break_ckqx",
+  "end",
   "timings_section",
   "timings_column",
   "light_up",
-  "start",
-  "end",
-  "blower_on_for_melting",
   "metal_out_at",
-  "cupola_drop_at",
   "column_break_pzqb",
+  "blower_on_for_melting",
+  "cupola_drop_at",
+  "section_break_agcc",
   "total_melting_hours",
+  "column_break_rsvg",
   "average_melting_rate",
+  "column_break_mykt",
   "melting",
+  "column_break_laip",
   "lime_stone",
   "section_break_rmfq",
   "fire_bricks",
@@ -272,13 +277,33 @@
    "fieldname": "firingprep_details",
    "fieldtype": "Check",
    "label": "Firing/Prep Details"
+  },
+  {
+   "fieldname": "column_break_ckqx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_agcc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_rsvg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_mykt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_laip",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-23 11:13:15.804595",
+ "modified": "2025-12-23 15:16:41.088748",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Heat log",

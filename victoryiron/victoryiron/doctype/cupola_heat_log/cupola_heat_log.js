@@ -261,7 +261,7 @@ function calculate_total_melting_hours(frm) {
 
 	// If either field is empty, set total melting hours to 0
 	if (!blower_on || !cupola_drop) {
-		frm.set_value("total_melting_hours", "0hr0min");
+		frm.set_value("total_melting_hours", "0 hr 0 min");
 		return;
 	}
 
@@ -291,7 +291,7 @@ function calculate_total_melting_hours(frm) {
 		let seconds = Math.floor(diff_seconds % 60);
 
 		// Format as hr/min (example: 1hr4min)
-		let hr_min_string = `${hours}hr ${minutes}min`;
+		let hr_min_string = `${hours} hr ${minutes} min`;
 
 		// Set the calculated value in hr/min format
 		frm.set_value("total_melting_hours", hr_min_string);
@@ -299,7 +299,7 @@ function calculate_total_melting_hours(frm) {
 		// Calculate decimal hours for logging
 		let decimal_hours = (diff_seconds / 3600).toFixed(2);
 	} catch (error) {
-		frm.set_value("total_melting_hours", "0hr0min");
+		frm.set_value("total_melting_hours", "0 hr 0 min");
 		frappe.msgprint({
 			title: __("Calculation Error"),
 			message: __(
@@ -463,7 +463,7 @@ function calculate_total_melting_hours_metal_out(frm) {
 
     // If either field is empty, set total melting hours to 0
     if (!metal_out || !cupola_drop) {
-        frm.set_value("total_melting_hours_metal_out", "0hr0min");
+        frm.set_value("total_melting_hours_metal_out", "0 hr 0 min");
         return;
     }
 
@@ -484,11 +484,11 @@ function calculate_total_melting_hours_metal_out(frm) {
         let hours = Math.floor(diff_seconds / 3600);
         let minutes = Math.floor((diff_seconds % 3600) / 60);
 
-        let hr_min_string = `${hours}hr ${minutes}min`;
+        let hr_min_string = `${hours} hr ${minutes} min`;
 
         frm.set_value("total_melting_hours_metal_out", hr_min_string);
     } catch (error) {
-        frm.set_value("total_melting_hours_metal_out", "0hr0min");
+        frm.set_value("total_melting_hours_metal_out", "0 hr 0 min");
         frappe.msgprint({
             title: __("Calculation Error"),
             message: __("There was an error calculating Total Melting Hours (Metal Out). Please check the time values."),

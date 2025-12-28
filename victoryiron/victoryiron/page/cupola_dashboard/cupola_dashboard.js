@@ -20,12 +20,14 @@ frappe.pages['cupola-dashboard'].on_page_load = function(wrapper) {
                 <li class="nav-item"><a class="nav-link active" data-tab="details">Details</a></li>
                 <li class="nav-item"><a class="nav-link" data-tab="firingprep">Firing Prep</a></li>
                 <li class="nav-item"><a class="nav-link" data-tab="consumption">Consumption</a></li>
+                <li class="nav-item"><a class="nav-link" data-tab="consumption_summary">Consumption Summary</a></li>
             </ul>
 
             <div class="tab-content mt-3">
                 <div class="tab-pane active" id="tab-details"></div>
                 <div class="tab-pane" id="tab-firingprep"></div>
                 <div class="tab-pane" id="tab-consumption"></div>
+                 <div class="tab-pane" id="tab-consumption_summary"></div>
             </div>
 
         </div>
@@ -34,46 +36,54 @@ frappe.pages['cupola-dashboard'].on_page_load = function(wrapper) {
     build_filters(page);
     register_tab_switch();
     reload_active_tab();
+    // UI Fix for Filter Row
+
 };
 
 function build_filters(page){
-    // Create filter container FIRST
-    let filter_html = $(`
-        <div class="row" id="filter-row">
-            <div class="col-md-3" id="from_wrap"></div>
-            <div class="col-md-3" id="to_wrap"></div>
-            <div class="col-md-2" id="clear_wrap"></div>
+    let html = `
+        <div class="container-fluid">
+            <div class="row g-3 align-items-end" id="filter-row">
+
+                <div class="col-md-2 cursor-pointer">
+                    <label>From Date</label>
+                    <input type="date" id="from_date" class="form-control">
+                </div>
+
+                <div class="col-md-2 cursor-pointer">
+                    <label>To Date</label>
+                    <input type="date" id="to_date" class="form-control">
+                </div>
+
+                <div class="col-md-2">
+                    <button class="btn btn-primary w-100" id="apply_filters">Apply</button>
+                </div>
+
+                <div class="col-md-2">
+                    <button class="btn btn-danger w-100" id="clear_filters">Clear</button>
+                </div>
+
+            </div>
         </div>
-    `);
+    `;
 
-    $(".filters #date-filters").append(filter_html);
+    $("#date-filters").html(html);
 
-    // Create fields (these go in page.fields_dict automatically)
-    page.add_field({
-        label:"From Date", fieldtype:"Date", fieldname:"from_date",
-        change(val){ filters.from_date = val; reload_active_tab(); }
+    // Events
+    $("#apply_filters").on("click", ()=>{
+        filters.from_date = $("#from_date").val();
+        filters.to_date = $("#to_date").val();
+        reload_active_tab();
     });
 
-    page.add_field({
-        label:"To Date", fieldtype:"Date", fieldname:"to_date",
-        change(val){ filters.to_date = val; reload_active_tab(); }
+    $("#clear_filters").on("click", ()=>{
+        $("#from_date").val("");
+        $("#to_date").val("");
+        filters = {from_date:null, to_date:null};
+        reload_active_tab();
     });
-
-    page.add_field({
-        label:"Clear Filter", fieldtype:"Button", fieldname:"clear_button",
-        click(){
-            filters = {from_date:null,to_date:null};
-            $('input[data-fieldname="from_date"]').val('');
-            $('input[data-fieldname="to_date"]').val('');
-            reload_active_tab();
-        }
-    });
-
-    // Now move them manually to filter section (AFTER they are created)
-    $("#from_wrap").append(page.fields_dict.from_date.$wrapper);
-    $("#to_wrap").append(page.fields_dict.to_date.$wrapper);
-    $("#clear_wrap").append(page.fields_dict.clear_button.$wrapper);
 }
+
 
 
 function register_tab_switch(){
@@ -93,6 +103,7 @@ function reload_active_tab(){
     if(active_tab === "details") load_details_tab();
     if(active_tab === "firingprep") load_firing_tab();
     if(active_tab === "consumption") load_consumption_tab();
+    if(active_tab === "consumption_summary") load_consumption_summary_tab();
 }
 
 function load_details_tab(){
@@ -115,15 +126,25 @@ function load_firing_tab(){
     });
 }
 
+// function load_consumption_tab(){
+//     frappe.call({
+//         method:"victoryiron.api.cupola_heat_dashboard.get_cupola_consumption",
+//         args:filters,
+//         callback(r){
+//             $("#tab-consumption").html(render_consumption_html(r.message));
+//         }
+//     });
+// }
 function load_consumption_tab(){
     frappe.call({
-        method:"victoryiron.api.cupola_heat_dashboard.get_cupola_consumption",
+        method:"victoryiron.api.cupola_heat_dashboard.get_cupola_consumption_pivot",
         args:filters,
         callback(r){
-            $("#tab-consumption").html(render_consumption_html(r.message));
+            $("#tab-consumption").html(render_consumption_pivot(r.message));
         }
     });
 }
+
 function render_details_html(data){
     return `
     <table class="table table-bordered">
@@ -182,27 +203,81 @@ function render_firing_html(data){
     </table>`;
 }
 
-function render_consumption_html(data){
+// function render_consumption_html(data){
+//     return `
+//     <table class="table table-bordered">
+//     <thead><tr>
+//         <th>Date</th><th>Item</th><th>Quantity</th><th>UOM</th>
+//         <th>Rate</th><th>Total</th>
+//     </tr></thead>
+//     <tbody>
+//         ${data.map(r=>`
+//         <tr>
+//             <td>${r.date}</td>
+//             <td>${r.item_name}</td>
+//             <td>${r.quantity}</td>
+//             <td>${r.uom}</td>
+//             <td>${r.valuation_rate}</td>
+//             <td>${r.total_valuation}</td>
+//         </tr>
+//         `).join('')}
+//     </tbody>
+//     </table>`;
+// }
+// function render_consumption_pivot(data){
+//     if(!data.length) return `<p>No consumption records found</p>`;
+
+//     let keys = Object.keys(data[0]).filter(k=>!["date","doc"].includes(k));
+
+//     return `
+//     <table class="table table-bordered">
+//         <thead>
+//             <tr>
+//                 <th>Date</th><th>Doc</th>
+//                 ${keys.map(k=>`<th>${k.replace("_qty"," Qty").replace("_total"," Total")}</th>`).join("")}
+//             </tr>
+//         </thead>
+//         <tbody>
+//             ${data.map(row=>`
+//                 <tr>
+//                     <td>${row.date}</td>
+//                     <td>${row.doc}</td>
+//                     ${keys.map(k=>`<td>${row[k] || "-"}</td>`).join("")}
+//                 </tr>`).join("")}
+//         </tbody>
+//     </table>`;
+// }
+function render_consumption_pivot(data){
+    if(!data.length) return "<p>No Records Found</p>";
+
+    let fixed_cols = ["date","Total Quantity","Total Valuation Cost"];
+    let item_cols = Object.keys(data[0]).filter(k=>!fixed_cols.includes(k));
+
     return `
-    <table class="table table-bordered">
-    <thead><tr>
-        <th>Date</th><th>Item</th><th>Quantity</th><th>UOM</th>
-        <th>Rate</th><th>Total</th>
-    </tr></thead>
-    <tbody>
-        ${data.map(r=>`
-        <tr>
-            <td>${r.date}</td>
-            <td>${r.item_name}</td>
-            <td>${r.quantity}</td>
-            <td>${r.uom}</td>
-            <td>${r.valuation_rate}</td>
-            <td>${r.total_valuation}</td>
-        </tr>
-        `).join('')}
-    </tbody>
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Total Quantity</th>
+                <th>Total Valuation Cost</th>
+                ${item_cols.map(c => `<th>${c.replace(/_/g," ")}</th>`).join("")}
+            </tr>
+        </thead>
+        <tbody>
+            ${data.map(r=>`
+                <tr>
+                    <td>${r.date}</td>
+                    <td>${r["Total Quantity"] ?? "-"}</td>
+                    <td>${r["Total Valuation Cost"] ?? "-"}</td>
+                    ${item_cols.map(c=>`<td>${r[c] ?? "-"}</td>`).join("")}
+                </tr>
+            `).join("")}
+        </tbody>
     </table>`;
 }
+
+
+
 
 function render_consumption_summary(data){
     if(!data || !data.length){
@@ -229,5 +304,15 @@ function render_consumption_summary(data){
             `).join("")}
         </tbody>
     </table>`;
+}
+
+function load_consumption_summary_tab(){
+    frappe.call({
+        method:"victoryiron.api.cupola_heat_dashboard.get_cupola_consumption_summary",
+        args:filters,
+        callback(r){
+            $("#tab-consumption_summary").html(render_consumption_summary(r.message));
+        }
+    });
 }
 

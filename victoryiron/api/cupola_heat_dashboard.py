@@ -5,8 +5,7 @@ import frappe
 def get_cupola_details(from_date=None, to_date=None):
     query = """
         SELECT
-            name, date, charge_no, grade, time, cupola_temp, temp_time,
-            total_charge_mix_calculation, coke_type, total_quantity
+            name, date, charge_no, grade, time, cupola_temp, temp_time
         FROM `tabCupola Heat log`
         WHERE 1=1
     """
@@ -35,7 +34,7 @@ def get_cupola_firingprep(from_date=None, to_date=None):
             total_melting_hours_metal_out,
             average_melting_rate,
             average_melting_rate_metal_out,
-            fire_bricks, fire_wood, steam_coal
+            fire_bricks, fire_wood, stream_coal
         FROM `tabCupola Heat log`
         WHERE 1=1
     """
@@ -76,3 +75,40 @@ def get_cupola_consumption(from_date=None,to_date=None):
     """, params, as_dict=True)
 
     return data
+
+@frappe.whitelist()
+def get_cupola_consumption_summary(from_date=None,to_date=None):
+    conditions = ""
+    params = []
+
+    if from_date and to_date:
+        conditions = " AND ch.date BETWEEN %s AND %s"
+        params = [from_date,to_date]
+
+    raw = frappe.db.sql(f"""
+        SELECT 
+            ch.date,
+            ct.item_name,
+            SUM(ct.quantity) as qty,
+            SUM(ct.total_valuation) as total
+        FROM `tabConsumption Table` ct
+        INNER JOIN `tabCupola Heat log` ch
+            ON ct.parent = ch.name
+        WHERE 1=1 {conditions}
+        GROUP BY ch.date, ct.item_name
+        ORDER BY ch.date
+    """, params, as_dict=True)
+
+    # Pivot conversion: date → item columns
+    summary = {}
+    for r in raw:
+        date = str(r.date)
+        item = r.item_name
+
+        if date not in summary:
+            summary[date] = {"date":date}
+
+        summary[date][item+"_qty"] = r.qty
+        summary[date][item+"_total"] = r.total
+
+    return list(summary.values())

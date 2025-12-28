@@ -1,0 +1,26 @@
+{
+ "content": null,
+ "creation": "2025-12-26 13:33:55.356632",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2025-12-26 13:33:55.356632",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "cupola-dashboard",
+ "owner": "Administrator",
+ "page_name": "cupola-dashboard",
+ "roles": [
+  {
+   "role": "Administrator"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 1,
+ "title": "Cupola Dashboard"
+}

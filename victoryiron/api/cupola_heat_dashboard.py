@@ -2,28 +2,28 @@ import frappe
 
 from datetime import datetime
 # ----------------------- 1️⃣ CUPOLA DETAILS TAB --------------------
-@frappe.whitelist()
-def get_cupola_details(from_date=None, to_date=None):
-    query = """
-        SELECT
-            name, date, charge_no, grade, time, cupola_temp, temp_time
-        FROM `tabCupola Heat log`
-        WHERE 1=1
-    """
+# @frappe.whitelist()
+# def get_cupola_details(from_date=None, to_date=None):
+#     query = """
+#         SELECT
+#             name, charge_no, grade
+#         FROM `tabCupola Heat log`
+#         WHERE 1=1
+#     """
 
-    if from_date and to_date:
-        result = frappe.db.sql(query + " AND date BETWEEN %s AND %s", (from_date, to_date), as_dict=True)
-    else:
-        result = frappe.db.sql(query, as_dict=True)
+#     if from_date and to_date:
+#         result = frappe.db.sql(query + " AND date BETWEEN %s AND %s", (from_date, to_date), as_dict=True)
+#     else:
+#         result = frappe.db.sql(query, as_dict=True)
 
-    # convert time format here
-    for row in result:
-        if row.get("time"):
-            row["time"] = datetime.strptime(str(row["time"]).split(".")[0], "%H:%M:%S").strftime("%I:%M %p")
-        if row.get("temp_time"):
-            row["temp_time"] = datetime.strptime(str(row["temp_time"]).split(".")[0], "%H:%M:%S").strftime("%I:%M %p")
+#     # convert time format here
+#     for row in result:
+#         if row.get("time"):
+#             row["time"] = datetime.strptime(str(row["time"]).split(".")[0], "%H:%M:%S").strftime("%I:%M %p")
+#         if row.get("temp_time"):
+#             row["temp_time"] = datetime.strptime(str(row["temp_time"]).split(".")[0], "%H:%M:%S").strftime("%I:%M %p")
 
-    return result
+#     return result
 
 
 # ----------------------- 2️⃣ FIRING / PREP TAB --------------------
@@ -119,46 +119,101 @@ def get_cupola_consumption_summary(from_date=None,to_date=None):
 
     return list(summary.values())
 
+# @frappe.whitelist()
+# def get_cupola_consumption_pivot(from_date=None,to_date=None):
+#     conditions = ""
+#     params = []
+
+#     if from_date and to_date:
+#         conditions = " AND ch.date BETWEEN %s AND %s"
+#         params=[from_date,to_date]
+
+#     raw = frappe.db.sql(f"""
+#         SELECT
+#             ch.name as doc,
+#             ch.date,
+#             ch.total_charge_mix_quantity,
+#             ch.total_charge_mix_calculation,
+            
+#             ct.item_name,
+#             ct.quantity
+#         FROM `tabCupola Heat log` ch
+#         LEFT JOIN `tabConsumption Table` ct ON ct.parent = ch.name
+#         WHERE 1=1 {conditions}
+#         ORDER BY ch.date, ct.idx
+#     """, params, as_dict=True)
+
+#     output = {}
+
+#     for r in raw:
+#         key = r.doc
+
+#         if key not in output:
+#             output[key] = {
+#                 "date": r.date,
+#                 "Total Quantity": r.total_charge_mix_quantity
+#             }
+
+#         # store only quantity per item
+#         if r.item_name:
+#             item = r.item_name.replace(" ", "_")
+#             output[key][f"{item}"] = r.quantity   # <-- only Qty
+
+#     return list(output.values())
+
 @frappe.whitelist()
-def get_cupola_consumption_pivot(from_date=None,to_date=None):
+def get_cupola_details_with_consumption(from_date=None, to_date=None):
+
+    # -------- Base parent data ---------
     conditions = ""
     params = []
 
     if from_date and to_date:
         conditions = " AND ch.date BETWEEN %s AND %s"
-        params=[from_date,to_date]
+        params = [from_date, to_date]
 
-    raw = frappe.db.sql(f"""
-        SELECT
-            ch.name as doc,
-            ch.date,
-            ch.total_charge_mix_quantity,
-            ch.total_charge_mix_calculation,
-            
-            ct.item_name,
-            ct.quantity
+    details = frappe.db.sql("""
+        SELECT 
+            name,
+            charge_no,
+            grade,
+            total_charge_mix_quantity,
+            coke_type,
+            total_charge_mix_calculation
         FROM `tabCupola Heat log` ch
-        LEFT JOIN `tabConsumption Table` ct ON ct.parent = ch.name
-        WHERE 1=1 {conditions}
-        ORDER BY ch.date, ct.idx
-    """, params, as_dict=True)
+        WHERE 1=1 {cond}
+    """.format(cond=conditions), params, as_dict=True)
 
-    output = {}
 
-    for r in raw:
-        key = r.doc
+    # -------- Get child items in ORIGINAL ORDER (`idx`) ---------
+    cons = frappe.db.sql("""
+        SELECT 
+            ct.parent as doc,
+            ct.item_name,
+            ct.quantity,
+            ct.idx
+        FROM `tabConsumption Table` ct
+        INNER JOIN `tabCupola Heat log` ch ON ct.parent = ch.name
+        WHERE 1=1 {cond}
+        ORDER BY ct.idx               -- 🍀 THIS alone keeps original table sequence
+    """.format(cond=conditions), params, as_dict=True)
 
-        if key not in output:
-            output[key] = {
-                "date": r.date,
-                "Total Quantity": r.total_charge_mix_quantity
-            }
+    # -------- Pivot + maintain order dynamically ---------
+    consumption_map = {}
+    item_order = []
 
-        # store only quantity per item
-        if r.item_name:
-            item = r.item_name.replace(" ", "_")
-            output[key][f"{item}"] = r.quantity   # <-- only Qty
+    for r in cons:
+        item = r.item_name.replace(" ", "_")
 
-    return list(output.values())
+        if item not in item_order:
+            item_order.append(item)
+
+        consumption_map.setdefault(r.doc, {})[item] = r.quantity
+
+    for d in details:
+        d.update(consumption_map.get(d.name, {}))
+
+    return {"rows": details, "item_order": item_order}
+
 
 

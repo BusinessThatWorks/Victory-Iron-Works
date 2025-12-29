@@ -19,14 +19,12 @@ frappe.pages['cupola-dashboard'].on_page_load = function(wrapper) {
             <ul class="nav nav-tabs mt-3" id="cupola-tabs">
                 <li class="nav-item"><a class="nav-link active" data-tab="details">Details</a></li>
                 <li class="nav-item"><a class="nav-link" data-tab="firingprep">Firing Prep</a></li>
-                <li class="nav-item"><a class="nav-link" data-tab="consumption">Consumption</a></li>
                 <li class="nav-item"><a class="nav-link" data-tab="consumption_summary">Consumption Summary</a></li>
             </ul>
 
             <div class="tab-content mt-3">
                 <div class="tab-pane active" id="tab-details"></div>
                 <div class="tab-pane" id="tab-firingprep"></div>
-                <div class="tab-pane" id="tab-consumption"></div>
                  <div class="tab-pane" id="tab-consumption_summary"></div>
             </div>
 
@@ -42,8 +40,8 @@ frappe.pages['cupola-dashboard'].on_page_load = function(wrapper) {
 
 function build_filters(page){
     let html = `
-        <div class="container-fluid">
-            <div class="row g-3 align-items-end" id="filter-row">
+        <div >
+            <div class="row  align-items-end" id="filter-row">
 
                 <div class="col-md-2 cursor-pointer">
                     <label>From Date</label>
@@ -102,13 +100,13 @@ function register_tab_switch(){
 function reload_active_tab(){
     if(active_tab === "details") load_details_tab();
     if(active_tab === "firingprep") load_firing_tab();
-    if(active_tab === "consumption") load_consumption_tab();
+    // if(active_tab === "consumption") load_consumption_tab();
     if(active_tab === "consumption_summary") load_consumption_summary_tab();
 }
 
 function load_details_tab(){
     frappe.call({
-        method:"victoryiron.api.cupola_heat_dashboard.get_cupola_details",
+        method:"victoryiron.api.cupola_heat_dashboard.get_cupola_details_with_consumption",
         args:filters,
         callback(r){
             $("#tab-details").html(render_details_html(r.message));
@@ -145,27 +143,64 @@ function load_consumption_tab(){
     });
 }
 
-function render_details_html(data){
+// function render_details_html(data){
+//     return `
+//     <table class="table table-bordered">
+//         <thead><tr>
+//             <th>Date</th><th>Charge No</th><th>Grade</th>
+//         </tr></thead>
+//         <tbody>
+//             ${data.map(r=>`
+//                 <tr>
+//                     <td><a href="/app/cupola-heat-log/${r.name}">${r.name}</a></td>
+//                     <td>${r.charge_no}</td>
+//                     <td>${r.grade}</td>
+//                 </tr>
+//             `).join('')}
+//         </tbody>
+//     </table>`;
+// }
+function render_details_html(response){
+
+    let data = response.rows;
+    let itemCols = response.item_order; // preserves original order
+
     return `
-    <table class="table table-bordered">
-        <thead><tr>
-            <th>Date</th><th>Charge No</th><th>Grade</th><th>Time</th>
-            <th>Cupola Temp</th><th>Temp Time</th>
-        </tr></thead>
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr>
+                <th>Doc</th>
+                <th>Charge No</th>
+                <th>Grade</th>
+
+                ${itemCols.map(c => `<th>${c.replace(/_/g," ")}</th>`).join("")}
+
+                <th>Total Quantity</th>
+                <th>Coke Type</th>
+                <th>Total Valuation Cost</th>
+            </tr>
+        </thead>
+
         <tbody>
             ${data.map(r=>`
                 <tr>
-                    <td>${r.date}</td>
-                    <td>${r.charge_no}</td>
-                    <td>${r.grade}</td>
-                    <td>${r.time}</td>
-                    <td>${r.cupola_temp}</td>
-                    <td>${r.temp_time}</td>
+                    <td><a href="/app/cupola-heat-log/${r.name}">${r.name}</a></td>
+                    <td>${r.charge_no ?? "-"}</td>
+                    <td>${r.grade ?? "-"}</td>
+
+                    ${itemCols.map(c => `<td>${r[c] ?? "-"}</td>`).join("")}
+
+                    <td>${r.total_charge_mix_quantity ?? "-"}</td>
+                    <td>${r.coke_type ?? "-"}</td>
+                    <td>${r.total_charge_mix_calculation ?? "-"}</td>
                 </tr>
-            `).join('')}
+            `).join("")}
         </tbody>
     </table>`;
 }
+
+
+
 
 function render_firing_html(data){
     return `
@@ -247,32 +282,32 @@ function render_firing_html(data){
 //         </tbody>
 //     </table>`;
 // }
-function render_consumption_pivot(data){
-    if(!data.length) return "<p>No Records Found</p>";
+// function render_consumption_pivot(data){
+//     if(!data.length) return "<p>No Records Found</p>";
 
-    let fixed_cols = ["date","Total Quantity"];
-    let item_cols = Object.keys(data[0]).filter(k=>!fixed_cols.includes(k));
+//     let fixed_cols = ["date","Total Quantity"];
+//     let item_cols = Object.keys(data[0]).filter(k=>!fixed_cols.includes(k));
 
-    return `
-    <table class="table table-bordered table-sm">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Total Quantity</th>
-                ${item_cols.map(c => `<th>${c.replace(/_/g," ")}</th>`).join("")}
-            </tr>
-        </thead>
-        <tbody>
-            ${data.map(r=>`
-                <tr>
-                    <td>${r.date}</td>
-                    <td>${r["Total Quantity"] ?? "-"}</td>
-                    ${item_cols.map(c=>`<td>${r[c] ?? "-"}</td>`).join("")}
-                </tr>
-            `).join("")}
-        </tbody>
-    </table>`;
-}
+//     return `
+//     <table class="table table-bordered table-sm">
+//         <thead>
+//             <tr>
+//                 <th>Date</th>
+//                 <th>Total Quantity</th>
+//                 ${item_cols.map(c => `<th>${c.replace(/_/g," ")}</th>`).join("")}
+//             </tr>
+//         </thead>
+//         <tbody>
+//             ${data.map(r=>`
+//                 <tr>
+//                     <td>${r.date}</td>
+//                     <td>${r["Total Quantity"] ?? "-"}</td>
+//                     ${item_cols.map(c=>`<td>${r[c] ?? "-"}</td>`).join("")}
+//                 </tr>
+//             `).join("")}
+//         </tbody>
+//     </table>`;
+// }
 
 
 

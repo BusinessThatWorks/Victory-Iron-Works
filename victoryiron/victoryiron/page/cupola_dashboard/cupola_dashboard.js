@@ -250,7 +250,7 @@ function render_firing_html(data){
 function render_consumption_pivot(data){
     if(!data.length) return "<p>No Records Found</p>";
 
-    let fixed_cols = ["date","Total Quantity","Total Valuation Cost"];
+    let fixed_cols = ["date","Total Quantity"];
     let item_cols = Object.keys(data[0]).filter(k=>!fixed_cols.includes(k));
 
     return `
@@ -259,7 +259,6 @@ function render_consumption_pivot(data){
             <tr>
                 <th>Date</th>
                 <th>Total Quantity</th>
-                <th>Total Valuation Cost</th>
                 ${item_cols.map(c => `<th>${c.replace(/_/g," ")}</th>`).join("")}
             </tr>
         </thead>
@@ -268,7 +267,6 @@ function render_consumption_pivot(data){
                 <tr>
                     <td>${r.date}</td>
                     <td>${r["Total Quantity"] ?? "-"}</td>
-                    <td>${r["Total Valuation Cost"] ?? "-"}</td>
                     ${item_cols.map(c=>`<td>${r[c] ?? "-"}</td>`).join("")}
                 </tr>
             `).join("")}

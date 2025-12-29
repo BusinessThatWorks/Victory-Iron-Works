@@ -32,6 +32,7 @@ def get_cupola_firingprep(from_date=None, to_date=None):
     query = """
         SELECT
             name, date,
+            firingprep_details,
             start AS ignition_start_time,
             end AS ignition_end_time,
             light_up, metal_out_at, blower_on_for_melting, cupola_drop_at,
@@ -43,16 +44,16 @@ def get_cupola_firingprep(from_date=None, to_date=None):
             average_melting_rate_metal_out,
             fire_bricks, fire_wood, stream_coal
         FROM `tabCupola Heat log`
-        WHERE 1=1
+        WHERE firingprep_details = 1    -- <-- only return if checked
     """
 
+    params = []
     if from_date and to_date:
         query += " AND date BETWEEN %s AND %s"
-        result = frappe.db.sql(query, (from_date, to_date), as_dict=True)
-    else:
-        result = frappe.db.sql(query, as_dict=True)
+        params = [from_date, to_date]
 
-    return result
+    return frappe.db.sql(query, params, as_dict=True)
+
 
 
 # ----------------------- 3️⃣ CONSUMPTION TAB ---------------------
@@ -96,8 +97,7 @@ def get_cupola_consumption_summary(from_date=None,to_date=None):
         SELECT 
             ch.date,
             ct.item_name,
-            SUM(ct.quantity) as qty,
-            SUM(ct.total_valuation) as total
+            SUM(ct.quantity) as qty
         FROM `tabConsumption Table` ct
         INNER JOIN `tabCupola Heat log` ch
             ON ct.parent = ch.name
@@ -106,17 +106,16 @@ def get_cupola_consumption_summary(from_date=None,to_date=None):
         ORDER BY ch.date
     """, params, as_dict=True)
 
-    # Pivot conversion: date → item columns
+    # Pivot conversion: date → item qty column only
     summary = {}
     for r in raw:
         date = str(r.date)
-        item = r.item_name
+        item = r.item_name.replace(" ","_")
 
         if date not in summary:
-            summary[date] = {"date":date}
+            summary[date] = {"date": date}
 
-        summary[date][item+"_qty"] = r.qty
-        summary[date][item+"_total"] = r.total
+        summary[date][item] = r.qty   # <-- sirf qty
 
     return list(summary.values())
 
@@ -137,37 +136,28 @@ def get_cupola_consumption_pivot(from_date=None,to_date=None):
             ch.total_charge_mix_calculation,
             
             ct.item_name,
-            ct.quantity,
-            ct.uom,
-            ct.valuation_rate,
-            ct.total_valuation
-
+            ct.quantity
         FROM `tabCupola Heat log` ch
         LEFT JOIN `tabConsumption Table` ct ON ct.parent = ch.name
         WHERE 1=1 {conditions}
         ORDER BY ch.date, ct.idx
     """, params, as_dict=True)
 
-    output={}
+    output = {}
 
     for r in raw:
-        key=r.doc
+        key = r.doc
 
-        # Parent-level fields
         if key not in output:
-            output[key]={
+            output[key] = {
                 "date": r.date,
-                "Total Quantity": r.total_charge_mix_quantity,
-                "Total Valuation Cost": r.total_valuation_cost
+                "Total Quantity": r.total_charge_mix_quantity
             }
 
+        # store only quantity per item
         if r.item_name:
             item = r.item_name.replace(" ", "_")
-
-            output[key][f"{item}_Qty"]              = r.quantity
-            output[key][f"{item}_UOM"]              = r.uom
-            output[key][f"{item}_Valuation_Rate"]   = r.valuation_rate
-            output[key][f"{item}_Total_Valuation"]  = r.total_valuation
+            output[key][f"{item}"] = r.quantity   # <-- only Qty
 
     return list(output.values())
 

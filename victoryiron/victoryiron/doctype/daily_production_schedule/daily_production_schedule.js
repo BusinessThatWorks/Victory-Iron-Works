@@ -223,3 +223,67 @@ function update_totals(frm) {
 
     console.log("Updated Totals:", totals);
 }
+
+frappe.ui.form.on("Daily Production Schedule Table", {
+
+    // 1️⃣ PLANNED QTY → auto set FAR QTY same
+    planned_qty(frm, cdt, cdn) {
+        let row = locals[cdt][cdn];
+
+        if(row.planned_qty){
+            row.far_qty = row.planned_qty;      // copy value
+            row.planned_weight = (row.weight * row.planned_qty).toFixed(2);
+            row.far_weight = (row.weight * row.far_qty).toFixed(2);
+        }
+
+        calculate_casting_qty(row);
+        frm.refresh_field("daily_production_schedule");
+        update_totals(frm);
+    },
+
+    // 2️⃣ WHEN FAR QTY CHANGES → recalc casting qty
+    far_qty(frm, cdt, cdn) {
+        let row = locals[cdt][cdn];
+
+        if(row.weight && row.far_qty){
+            row.far_weight = (row.weight * row.far_qty).toFixed(2);
+        }
+
+        calculate_casting_qty(row);
+        frm.refresh_field("daily_production_schedule");
+        update_totals(frm);
+    },
+
+    // 3️⃣ WHEN UNCAST QTY CHANGES → recalc casting qty
+    uncast_qty(frm, cdt, cdn) {
+        let row = locals[cdt][cdn];
+
+        if(row.weight && row.uncast_qty){
+            row.uncast_weight = (row.weight * row.uncast_qty).toFixed(2);
+        }
+
+        calculate_casting_qty(row);
+        frm.refresh_field("daily_production_schedule");
+        update_totals(frm);
+    }
+});
+
+
+// Helper → Auto calculate casting qty from formula
+function calculate_casting_qty(row){
+    if(row.far_qty && row.uncast_qty >= 0){
+
+        row.casting_qty = (row.far_qty - row.uncast_qty);
+        row.casting_weight = (row.casting_qty * row.weight).toFixed(2);
+
+        // If finish present → auto rejection
+        if(row.finish_qty){
+            row.rejected_qty = (row.casting_qty - row.finish_qty).toFixed(2);
+            row.rejected_weight = (row.rejected_qty * row.weight).toFixed(2);
+
+            row.rejection_ = row.casting_qty > 0 ? 
+                (((row.casting_qty - row.finish_qty) / row.casting_qty) * 100).toFixed(2) : 0;
+        }
+    }
+}
+

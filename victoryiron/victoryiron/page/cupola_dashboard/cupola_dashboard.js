@@ -62,8 +62,6 @@ frappe.pages['cupola-dashboard'].on_page_load = function(wrapper) {
 
     thead { background:#eaeaea; }
 </style>`).appendTo("head");
-
-
 };
 
 function build_filters(page){

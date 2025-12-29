@@ -43,6 +43,7 @@
   "column_break_nlsi",
   "grade",
   "time",
+  "cupola_no",
   "section_break_wgif",
   "cupola_temp",
   "column_break_ympi",
@@ -319,13 +320,18 @@
   {
    "fieldname": "column_break_swdh",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cupola_no",
+   "fieldtype": "Int",
+   "label": "Cupola No"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-23 17:46:06.305368",
+ "modified": "2025-12-29 11:43:20.599859",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Cupola Heat log",

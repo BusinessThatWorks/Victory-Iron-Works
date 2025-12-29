@@ -163,20 +163,45 @@ function load_consumption_tab(){
 function render_details_html(response){
 
     let data = response.rows;
-    let itemCols = response.item_order; // preserves original order
+    let itemCols = response.item_order;
+
+    // Insert Coke Type after Hard Coke (keep your logic same)
+    let cokeIndex = itemCols.indexOf("Hard_Coke") + 1;
+    if(cokeIndex > 0){
+        itemCols.splice(cokeIndex, 0, "coke_type");
+    }
+
+    // ---------------------- TOTAL ROW CALC ----------------------
+    let totals = {};
+
+    // Initialize totals for all item columns to 0
+    itemCols.forEach(c => totals[c] = 0);
+
+    let total_qty = 0;
+    let total_valuation = 0;
+
+    data.forEach(row => {
+
+        itemCols.forEach(col => {
+            let v = parseFloat(row[col]) || 0;
+            totals[col] += v;
+        });
+
+        total_qty += parseFloat(row.total_charge_mix_quantity) || 0;
+        total_valuation += parseFloat(row.total_charge_mix_calculation) || 0;
+    });
+    // ------------------------------------------------------------
 
     return `
     <table class="table table-bordered table-sm">
         <thead>
             <tr>
-                <th>Doc</th>
+                <th>Cupola Heat ID</th>
                 <th>Charge No</th>
                 <th>Grade</th>
-
-                ${itemCols.map(c => `<th>${c.replace(/_/g," ")}</th>`).join("")}
+               ${itemCols.map(c => `<th>${formatHeader(c)}</th>`).join("")}
 
                 <th>Total Quantity</th>
-                <th>Coke Type</th>
                 <th>Total Valuation Cost</th>
             </tr>
         </thead>
@@ -184,20 +209,43 @@ function render_details_html(response){
         <tbody>
             ${data.map(r=>`
                 <tr>
-                    <td><a href="/app/cupola-heat-log/${r.name}">${r.name}</a></td>
+                    <td><a target="_blank" href="/app/cupola-heat-log/${r.name}">${r.name}</a></td>
                     <td>${r.charge_no ?? "-"}</td>
                     <td>${r.grade ?? "-"}</td>
-
-                    ${itemCols.map(c => `<td>${r[c] ?? "-"}</td>`).join("")}
-
-                    <td>${r.total_charge_mix_quantity ?? "-"}</td>
-                    <td>${r.coke_type ?? "-"}</td>
-                    <td>${r.total_charge_mix_calculation ?? "-"}</td>
+                    ${itemCols.map(c => `<td>${formatCell(r[c], c)}</td>`).join("")}
+                    <td>${formatCell(r.total_charge_mix_quantity)}</td>
+                    <td>${formatCell(r.total_charge_mix_calculation)}</td>
                 </tr>
             `).join("")}
+
+            <!-- ================= TOTAL ROW ================= -->
+            <tr style="font-weight:bold; background:#f6f6f6">
+                <td colspan="3" class="text-center">TOTAL</td>
+                ${itemCols.map(c => `<td>${totals[c]}</td>`).join("")}
+                <td>${total_qty}</td>
+                <td>${total_valuation}</td>
+            </tr>
+            <!-- ============================================== -->
+
         </tbody>
     </table>`;
 }
+function formatHeader(str){
+    str = str.replace(/_/g," ");   // remove underscores
+
+    // split words and format each
+    return str.split(" ").map(w => {
+        if(w.length <= 2) return w.toUpperCase();             // DS, CI, DI, MS...
+        return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+    }).join(" ");
+}
+
+function formatCell(val){
+    if(val == null || val === "" || val === undefined) return "-";
+    if(!isNaN(val) && Number(val) === 0) return "-";   // Zero → hyphen
+    return val;
+}
+
 
 
 

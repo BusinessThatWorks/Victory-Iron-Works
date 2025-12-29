@@ -165,14 +165,14 @@ def get_cupola_consumption_summary(from_date=None,to_date=None):
 def get_cupola_details_with_consumption(from_date=None, to_date=None):
 
     # -------- Base parent data ---------
-    conditions = ""
+    conditions = " AND ch.firingprep_details = 0"  # ✔ exclude checked
     params = []
 
     if from_date and to_date:
-        conditions = " AND ch.date BETWEEN %s AND %s"
+        conditions += " AND ch.date BETWEEN %s AND %s"
         params = [from_date, to_date]
 
-    details = frappe.db.sql("""
+    details = frappe.db.sql(f"""
         SELECT 
             name,
             charge_no,
@@ -181,12 +181,11 @@ def get_cupola_details_with_consumption(from_date=None, to_date=None):
             coke_type,
             total_charge_mix_calculation
         FROM `tabCupola Heat log` ch
-        WHERE 1=1 {cond}
-    """.format(cond=conditions), params, as_dict=True)
-
+        WHERE 1=1 {conditions}
+    """, params, as_dict=True)
 
     # -------- Get child items in ORIGINAL ORDER (`idx`) ---------
-    cons = frappe.db.sql("""
+    cons = frappe.db.sql(f"""
         SELECT 
             ct.parent as doc,
             ct.item_name,
@@ -194,9 +193,9 @@ def get_cupola_details_with_consumption(from_date=None, to_date=None):
             ct.idx
         FROM `tabConsumption Table` ct
         INNER JOIN `tabCupola Heat log` ch ON ct.parent = ch.name
-        WHERE 1=1 {cond}
-        ORDER BY ct.idx               -- 🍀 THIS alone keeps original table sequence
-    """.format(cond=conditions), params, as_dict=True)
+        WHERE 1=1 {conditions}
+        ORDER BY ct.idx
+    """, params, as_dict=True)
 
     # -------- Pivot + maintain order dynamically ---------
     consumption_map = {}
@@ -214,6 +213,7 @@ def get_cupola_details_with_consumption(from_date=None, to_date=None):
         d.update(consumption_map.get(d.name, {}))
 
     return {"rows": details, "item_order": item_order}
+
 
 
 

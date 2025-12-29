@@ -7,6 +7,10 @@ frappe.pages['cupola-dashboard'].on_page_load = function(wrapper) {
         title: 'Cupola Dashboard',
         single_column: true
     });
+    frappe.require("https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js");
+   $('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">').appendTo("head");
+    $('<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>').appendTo("head");
+
 
     // Load HTML directly from file
     $(page.body).empty().append($(`
@@ -35,30 +39,54 @@ frappe.pages['cupola-dashboard'].on_page_load = function(wrapper) {
     register_tab_switch();
     reload_active_tab();
     // UI Fix for Filter Row
+    $(`<style>
+    .cupola-dashboard { padding: 10px 20px; }
+
+    #cupola-tabs .nav-link {
+        font-weight: 600; padding: 8px 18px;
+    }
+
+    #cupola-tabs .nav-link.active {
+        background: #1d74f5; color: #fff !important; border-radius:4px;
+    }
+    
+    #filter-row .form-control { height: 36px; }
+
+    table.table-sm td, table.table-sm th{
+        padding: 4px 6px !important;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    tbody tr:hover { background:#f9f9f9; }
+
+    thead { background:#eaeaea; }
+</style>`).appendTo("head");
+
 
 };
 
 function build_filters(page){
     let html = `
-        <div >
-            <div class="row  align-items-end" id="filter-row">
+        <div>
+            <div class="row align-items-end" id="filter-row">
 
-                <div class="col-md-2 cursor-pointer">
+                <div class="col-md-2">
                     <label>From Date</label>
-                    <input type="date" id="from_date" class="form-control">
-                </div>
-
-                <div class="col-md-2 cursor-pointer">
-                    <label>To Date</label>
-                    <input type="date" id="to_date" class="form-control">
+                    <input type="text" id="from_date" class="form-control">
                 </div>
 
                 <div class="col-md-2">
-                    <button class="btn btn-primary w-100" id="apply_filters">Apply</button>
+                    <label>To Date</label>
+                    <input type="text" id="to_date" class="form-control">
                 </div>
 
                 <div class="col-md-2">
                     <button class="btn btn-danger w-100" id="clear_filters">Clear</button>
+                </div>
+
+                <div class="col-md-2">
+                    <button class="btn btn-success w-100" id="export_excel">Export Excel</button>
                 </div>
 
             </div>
@@ -67,22 +95,72 @@ function build_filters(page){
 
     $("#date-filters").html(html);
 
-    // Events
-    $("#apply_filters").on("click", ()=>{
-        filters.from_date = $("#from_date").val();
-        filters.to_date = $("#to_date").val();
-        reload_active_tab();
-    });
+    // Keep Flatpickr instances
+    let fromPicker, toPicker;
 
+    setTimeout(()=>{
+        fromPicker = flatpickr("#from_date", { 
+            dateFormat: "Y-m-d", 
+            allowInput: true, 
+            altInput: true, 
+            altFormat: "d M Y", 
+            onChange: function(dates, dateStr){ 
+                filters.from_date = dateStr; 
+                reload_active_tab(); 
+            } 
+        });
+
+        toPicker = flatpickr("#to_date", { 
+            dateFormat: "Y-m-d", 
+            allowInput: true, 
+            altInput: true, 
+            altFormat: "d M Y", 
+            onChange: function(dates, dateStr){ 
+                filters.to_date = dateStr; 
+                reload_active_tab(); 
+            } 
+        });
+    }, 500);
+
+    // Clear button now also clears Flatpickr selections
     $("#clear_filters").on("click", ()=>{
-        $("#from_date").val("");
-        $("#to_date").val("");
+        if(fromPicker) fromPicker.clear();
+        if(toPicker) toPicker.clear();
         filters = {from_date:null, to_date:null};
         reload_active_tab();
     });
+
+    // Excel export button
+    $("#export_excel").on("click", export_excel_workbook);
 }
 
 
+function table_to_sheet(selector){
+    let table = document.querySelector(selector);
+    if(!table) return null;
+    return XLSX.utils.table_to_sheet(table);
+}
+function export_excel_workbook(){
+
+    // Ensure all tabs are loaded first
+    load_details_tab();
+    load_firing_tab();
+    load_consumption_summary_tab();
+
+    setTimeout(()=>{   // small delay so tables render if not loaded
+        let wb = XLSX.utils.book_new();
+
+        let sheet1 = table_to_sheet("#tab-details table");
+        let sheet2 = table_to_sheet("#tab-firingprep table");
+        let sheet3 = table_to_sheet("#tab-consumption_summary table");
+
+        if(sheet1) XLSX.utils.book_append_sheet(wb, sheet1, "Details");
+        if(sheet2) XLSX.utils.book_append_sheet(wb, sheet2, "Firing Prep");
+        if(sheet3) XLSX.utils.book_append_sheet(wb, sheet3, "Consumption Summary");
+
+        XLSX.writeFile(wb, `Cupola_Dashboard_${frappe.datetime.get_today()}.xlsx`);
+    }, 600);
+}
 
 function register_tab_switch(){
     $("#cupola-tabs .nav-link").on("click", function(){
@@ -123,16 +201,6 @@ function load_firing_tab(){
         }
     });
 }
-
-// function load_consumption_tab(){
-//     frappe.call({
-//         method:"victoryiron.api.cupola_heat_dashboard.get_cupola_consumption",
-//         args:filters,
-//         callback(r){
-//             $("#tab-consumption").html(render_consumption_html(r.message));
-//         }
-//     });
-// }
 function load_consumption_tab(){
     frappe.call({
         method:"victoryiron.api.cupola_heat_dashboard.get_cupola_consumption_pivot",
@@ -143,23 +211,6 @@ function load_consumption_tab(){
     });
 }
 
-// function render_details_html(data){
-//     return `
-//     <table class="table table-bordered">
-//         <thead><tr>
-//             <th>Date</th><th>Charge No</th><th>Grade</th>
-//         </tr></thead>
-//         <tbody>
-//             ${data.map(r=>`
-//                 <tr>
-//                     <td><a href="/app/cupola-heat-log/${r.name}">${r.name}</a></td>
-//                     <td>${r.charge_no}</td>
-//                     <td>${r.grade}</td>
-//                 </tr>
-//             `).join('')}
-//         </tbody>
-//     </table>`;
-// }
 function render_details_html(response){
 
     let data = response.rows;
@@ -193,6 +244,7 @@ function render_details_html(response){
     // ------------------------------------------------------------
 
     return `
+    <div class="table-responsive" style="overflow-x:auto; max-width:100%;">
     <table class="table table-bordered table-sm">
         <thead>
             <tr>
@@ -228,7 +280,8 @@ function render_details_html(response){
             <!-- ============================================== -->
 
         </tbody>
-    </table>`;
+    </table>
+    </div>`;
 }
 function formatHeader(str){
     str = str.replace(/_/g," ");   // remove underscores
@@ -246,12 +299,9 @@ function formatCell(val){
     return val;
 }
 
-
-
-
-
 function render_firing_html(data){
     return `
+    <div class="table-responsive" style="overflow-x:auto; max-width:100%;">
     <table class="table table-bordered">
     <thead><tr>
         <th>Date</th><th>Ignition Start</th><th>Ignition End</th><th>Light Up</th>
@@ -283,92 +333,17 @@ function render_firing_html(data){
         </tr>
         `).join('')}
     </tbody>
-    </table>`;
+    </table>
+    </div>`;
 }
 
-// function render_consumption_html(data){
-//     return `
-//     <table class="table table-bordered">
-//     <thead><tr>
-//         <th>Date</th><th>Item</th><th>Quantity</th><th>UOM</th>
-//         <th>Rate</th><th>Total</th>
-//     </tr></thead>
-//     <tbody>
-//         ${data.map(r=>`
-//         <tr>
-//             <td>${r.date}</td>
-//             <td>${r.item_name}</td>
-//             <td>${r.quantity}</td>
-//             <td>${r.uom}</td>
-//             <td>${r.valuation_rate}</td>
-//             <td>${r.total_valuation}</td>
-//         </tr>
-//         `).join('')}
-//     </tbody>
-//     </table>`;
-// }
-// function render_consumption_pivot(data){
-//     if(!data.length) return `<p>No consumption records found</p>`;
-
-//     let keys = Object.keys(data[0]).filter(k=>!["date","doc"].includes(k));
-
-//     return `
-//     <table class="table table-bordered">
-//         <thead>
-//             <tr>
-//                 <th>Date</th><th>Doc</th>
-//                 ${keys.map(k=>`<th>${k.replace("_qty"," Qty").replace("_total"," Total")}</th>`).join("")}
-//             </tr>
-//         </thead>
-//         <tbody>
-//             ${data.map(row=>`
-//                 <tr>
-//                     <td>${row.date}</td>
-//                     <td>${row.doc}</td>
-//                     ${keys.map(k=>`<td>${row[k] || "-"}</td>`).join("")}
-//                 </tr>`).join("")}
-//         </tbody>
-//     </table>`;
-// }
-// function render_consumption_pivot(data){
-//     if(!data.length) return "<p>No Records Found</p>";
-
-//     let fixed_cols = ["date","Total Quantity"];
-//     let item_cols = Object.keys(data[0]).filter(k=>!fixed_cols.includes(k));
-
-//     return `
-//     <table class="table table-bordered table-sm">
-//         <thead>
-//             <tr>
-//                 <th>Date</th>
-//                 <th>Total Quantity</th>
-//                 ${item_cols.map(c => `<th>${c.replace(/_/g," ")}</th>`).join("")}
-//             </tr>
-//         </thead>
-//         <tbody>
-//             ${data.map(r=>`
-//                 <tr>
-//                     <td>${r.date}</td>
-//                     <td>${r["Total Quantity"] ?? "-"}</td>
-//                     ${item_cols.map(c=>`<td>${r[c] ?? "-"}</td>`).join("")}
-//                 </tr>
-//             `).join("")}
-//         </tbody>
-//     </table>`;
-// }
-
-
-
-
 function render_consumption_summary(data){
-    if(!data || !data.length){
-        return `<p>No records found</p>`;
-    }
-
+    
     // All item column keys
     let keys = Object.keys(data[0]).filter(k=>k!=="date");
 
     return `
+    <div class="table-responsive" style="overflow-x:auto; max-width:100%;">
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -384,7 +359,8 @@ function render_consumption_summary(data){
                 </tr>
             `).join("")}
         </tbody>
-    </table>`;
+    </table>
+    </div>`;
 }
 
 function load_consumption_summary_tab(){
@@ -396,4 +372,3 @@ function load_consumption_summary_tab(){
         }
     });
 }
-

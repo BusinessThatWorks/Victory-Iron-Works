@@ -212,3 +212,27 @@ function fetch_and_populate_treatment_rows(frm) {
         }
     });
 }
+
+// frappe.ui.form.on("Holding Furnace Heat", {
+frappe.ui.form.on("Holding Furnace Heat", {
+    refresh(frm) {
+        if(frm.is_new()) {
+            update_ladle_totals(frm);
+        }
+    }
+});
+
+function update_ladle_totals(frm){
+    frappe.call({
+        method: "victoryiron.victoryiron.doctype.holding_furnace_heat.holding_furnace_heat.get_ladle_totals",
+        args: { date: frm.doc.date || frappe.datetime.get_today() },  // set your date field if different
+        callback(r){
+            if(r.message){
+                frm.set_value("punching", r.message.punching || 0);
+                frm.set_value("inoculant", r.message.inoculant || 0);
+                frm.set_value("fesimg", r.message.fesimg || 0);
+                frm.refresh_fields();
+            }
+        }
+    });
+}

@@ -31,13 +31,15 @@ def get_cupola_firingprep(from_date=None, to_date=None):
     return frappe.db.sql(query, params, as_dict=True)
 
 @frappe.whitelist()
-def get_cupola_consumption_summary(from_date=None,to_date=None):
-    conditions = ""
+def get_cupola_consumption_summary(from_date=None, to_date=None):
+    raw_conditions = ""
+    totals_conditions = ""
     params = []
 
     if from_date and to_date:
-        conditions = " AND ch.date BETWEEN %s AND %s"
-        params = [from_date,to_date]
+        raw_conditions = " AND ch.date BETWEEN %s AND %s"
+        totals_conditions = " AND `date` BETWEEN %s AND %s"
+        params = [from_date, to_date]
 
     # -------- Consumption grouped item-wise --------
     raw = frappe.db.sql(f"""
@@ -48,7 +50,7 @@ def get_cupola_consumption_summary(from_date=None,to_date=None):
             MIN(ct.idx) as idx
         FROM `tabConsumption Table` ct
         INNER JOIN `tabCupola Heat log` ch ON ct.parent = ch.name
-        WHERE 1=1 {conditions}
+        WHERE 1=1 {raw_conditions}
         GROUP BY ch.date, ct.item_name
         ORDER BY ch.date
     """, params, as_dict=True)
@@ -59,7 +61,7 @@ def get_cupola_consumption_summary(from_date=None,to_date=None):
             date,
             SUM(total_charge_mix_quantity) AS total_qty
         FROM `tabCupola Heat log`
-        WHERE 1=1 {conditions} AND firingprep_details = 0
+        WHERE 1=1 {totals_conditions} AND firingprep_details = 0
         GROUP BY date
         ORDER BY date
     """, params, as_dict=True)
@@ -71,19 +73,18 @@ def get_cupola_consumption_summary(from_date=None,to_date=None):
         SELECT DISTINCT ct.item_name, MIN(ct.idx) as idx
         FROM `tabConsumption Table` ct
         INNER JOIN `tabCupola Heat log` ch ON ct.parent = ch.name
-        WHERE 1=1 {conditions}
+        WHERE 1=1 {raw_conditions}
         GROUP BY ct.item_name
         ORDER BY idx
     """, params, as_dict=True)
 
-    ordered_items = [i.item_name.replace(" ","_") for i in item_order_query]
+    ordered_items = [i.item_name.replace(" ", "_") for i in item_order_query]
 
     # -------- Structure output rows --------
     summary = {}
     for r in raw:
         date = str(r.date)
-        item = r.item_name.replace(" ","_")
-
+        item = r.item_name.replace(" ", "_")
         summary.setdefault(date, {"date": date})
         summary[date][item] = r.qty
 
@@ -101,9 +102,7 @@ def get_cupola_consumption_summary(from_date=None,to_date=None):
 
 @frappe.whitelist()
 def get_cupola_details_with_consumption(from_date=None, to_date=None):
-
-    # -------- Base parent data ---------
-    conditions = " AND ch.firingprep_details = 0"  # ✔ exclude checked
+    conditions = " AND ch.firingprep_details = 0"
     params = []
 
     if from_date and to_date:
@@ -117,10 +116,11 @@ def get_cupola_details_with_consumption(from_date=None, to_date=None):
             grade,
             total_charge_mix_quantity,
             coke_type,
-            total_charge_mix_calculation
+            total_charge_mix_calculation,
+            CONCAT(DATE(ch.date), '-', LPAD(ch.charge_no, 4, '0')) as heat_id_sort
         FROM `tabCupola Heat log` ch
         WHERE 1=1 {conditions}
-        ORDER BY CAST(charge_no AS UNSIGNED)
+        ORDER BY heat_id_sort ASC
     """, params, as_dict=True)
 
     # -------- Get child items in ORIGINAL ORDER (`idx`) ---------
@@ -134,7 +134,6 @@ def get_cupola_details_with_consumption(from_date=None, to_date=None):
         INNER JOIN `tabCupola Heat log` ch ON ct.parent = ch.name
         WHERE 1=1 {conditions}
         ORDER BY ct.idx
-        
     """, params, as_dict=True)
 
     # -------- Pivot + maintain order dynamically ---------
@@ -153,6 +152,7 @@ def get_cupola_details_with_consumption(from_date=None, to_date=None):
         d.update(consumption_map.get(d.name, {}))
 
     return {"rows": details, "item_order": item_order}
+
 
 
 

@@ -10,11 +10,13 @@
   "column_break_uspi",
   "time",
   "column_break_pgqr",
-  "casting_type",
-  "column_break_rvri",
-  "sample_type",
-  "column_break_opbh",
   "sample_id",
+  "column_break_rvri",
+  "casting_type",
+  "column_break_opbh",
+  "grade",
+  "column_break_ozoh",
+  "sample_type",
   "section_break_eqfx",
   "c",
   "cs",
@@ -22,9 +24,11 @@
   "column_break_joqj",
   "si",
   "p",
+  "perlite_",
   "column_break_ddjh",
   "mn",
   "mg",
+  "ferrite_",
   "addetives_added_section",
   "gpc",
   "column_break_wsbi",
@@ -157,7 +161,7 @@
    "fieldname": "sample_type",
    "fieldtype": "Select",
    "label": "Sample Type",
-   "options": "\nBath\nTreatment\nHeavy Cast\nLight Cast"
+   "options": "\nBath\nTreatment"
   },
   {
    "fieldname": "column_break_opbh",
@@ -192,13 +196,33 @@
    "fieldname": "nodule_count",
    "fieldtype": "Int",
    "label": "Nodule Count"
+  },
+  {
+   "fieldname": "perlite_",
+   "fieldtype": "Int",
+   "label": "Perlite %"
+  },
+  {
+   "fieldname": "ferrite_",
+   "fieldtype": "Int",
+   "label": "Ferrite %"
+  },
+  {
+   "fieldname": "column_break_ozoh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "grade",
+   "fieldtype": "Select",
+   "label": "Grade",
+   "options": "CI\nDI"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-30 16:23:00.137258",
+ "modified": "2025-12-30 16:45:12.011519",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Furnace Bath",

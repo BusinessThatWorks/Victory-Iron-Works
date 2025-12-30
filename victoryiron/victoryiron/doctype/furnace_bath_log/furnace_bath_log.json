@@ -7,8 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "bath_id",
-  "column_break_ujed",
-  "bath_sample_status"
+  "column_break_ujed"
  ],
  "fields": [
   {
@@ -20,19 +19,13 @@
   {
    "fieldname": "column_break_ujed",
    "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "bath_id.bath_sample_status",
-   "fieldname": "bath_sample_status",
-   "fieldtype": "Data",
-   "label": "Bath Sample Status"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-21 13:24:01.077014",
+ "modified": "2025-12-30 11:07:36.175099",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Furnace Bath Log",

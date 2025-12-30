@@ -26,7 +26,7 @@ frappe.pages['cupola-dashboard'].on_page_load = function(wrapper) {
                 <li class="nav-item"><a class="nav-link" data-tab="consumption_summary">Consumption Summary</a></li>
             </ul>
 
-            <div class="tab-content mt-3">
+            <div class="tab-content">
                 <div class="tab-pane active" id="tab-details"></div>
                 <div class="tab-pane" id="tab-firingprep"></div>
                  <div class="tab-pane" id="tab-consumption_summary"></div>
@@ -40,27 +40,46 @@ frappe.pages['cupola-dashboard'].on_page_load = function(wrapper) {
     reload_active_tab();
     // UI Fix for Filter Row
     $(`<style>
-    .cupola-dashboard { padding: 10px 20px; }
-
-    #cupola-tabs .nav-link {
-        font-weight: 600; padding: 8px 18px;
-    }
-
-    #cupola-tabs .nav-link.active {
-        background: #1d74f5; color: #fff !important; border-radius:4px;
-    }
     
-    #filter-row .form-control { height: 36px; }
 
-    table.table-sm td, table.table-sm th{
-        padding: 4px 6px !important;
-        font-size: 13px;
-        white-space: nowrap;
-    }
+   #cupola-tabs .nav-link { font-weight: 600; }
+#cupola-tabs .nav-link.active { background:#5f9dfc;color:#fff!important;border-radius:4px; }
 
-    tbody tr:hover { background:#f9f9f9; }
+#filter-row .form-control{height:30px;}
+table.table-sm td,table.table-sm th{font-size:13px;white-space:nowrap;}
+tbody tr:hover{background:#e2e2e2ff;}
 
-    thead { background:#eaeaea; }
+.dual-scroll-container{width:100%;overflow:hidden;}
+.scrollbar-x{overflow-x:auto;overflow-y:hidden;white-space:nowrap;}
+
+/* ================= Sticky Header for ALL tabs ================= */
+#tab-details table thead th,
+#tab-firingprep table thead th,
+#tab-consumption_summary table thead th{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background:#f1f1f1 !important;
+}
+
+/* Header shadow for depth */
+#tab-details table thead,
+#tab-firingprep table thead,
+#tab-consumption_summary table thead{
+    box-shadow:0 2px 3px rgba(0,0,0,.1);
+}
+
+/* Tables Scroll Height Control */
+.table-scroll{
+    max-height:65vh;
+    overflow:auto;
+}
+
+/* To enable top+bottom scrollbars together */
+.table-scroll-content{width:max-content;}
+
+
+
 </style>`).appendTo("head");
 };
 
@@ -185,8 +204,24 @@ function load_details_tab(){
         method:"victoryiron.api.cupola_heat_dashboard.get_cupola_details_with_consumption",
         args:filters,
         callback(r){
-            $("#tab-details").html(render_details_html(r.message));
-        }
+    $("#tab-details").html(render_details_html(r.message));
+
+    // --- Dual Scroll Sync ---
+    setTimeout(()=>{
+        const topBar  = document.getElementById("scroll-top-bar-details");
+        const body    = document.getElementById("scroll-body-details");
+
+        if(!body) return;
+
+        // Create top scrollbar width equal to internal table scroll width
+        topBar.innerHTML = `<div style="width:${body.scrollWidth}px; height:1px"></div>`;
+
+        // Sync scroll
+        topBar.onscroll = () => body.scrollLeft = topBar.scrollLeft;
+        body.onscroll   = () => topBar.scrollLeft = body.scrollLeft;
+    },120);
+}
+
     });
 }
 
@@ -196,18 +231,29 @@ function load_firing_tab(){
         args:filters,
         callback(r){
             $("#tab-firingprep").html(render_firing_html(r.message));
+            setTimeout(()=>{
+    let t = document.getElementById("scroll-top-bar-firing");
+    let b = document.getElementById("scroll-body-firing");
+    if(!b) return;
+
+    t.innerHTML = `<div style="width:${b.scrollWidth}px;height:1px"></div>`;
+    t.onscroll = ()=> b.scrollLeft = t.scrollLeft;
+    b.onscroll = ()=> t.scrollLeft = b.scrollLeft;
+},120);
+
         }
     });
 }
-function load_consumption_tab(){
-    frappe.call({
-        method:"victoryiron.api.cupola_heat_dashboard.get_cupola_consumption_pivot",
-        args:filters,
-        callback(r){
-            $("#tab-consumption").html(render_consumption_pivot(r.message));
-        }
-    });
-}
+// function load_consumption_tab(){
+//     frappe.call({
+//         method:"victoryiron.api.cupola_heat_dashboard.get_cupola_consumption_pivot",
+//         args:filters,
+//         callback(r){
+//             $("#tab-consumption").html(render_consumption_pivot(r.message));
+            
+//         }
+//     });
+// }
 
 function render_details_html(response){
 
@@ -241,9 +287,17 @@ function render_details_html(response){
     });
     // ------------------------------------------------------------
 
-    return `
-    <div class="table-responsive" style="overflow-x:auto; max-width:100%;">
-    <table class="table table-bordered table-sm">
+   return `
+<div class="dual-scroll-container">
+
+    <!-- Top Scrollbar -->
+    <div id="scroll-top-bar-details" class="scrollbar-x"></div>
+
+    <!-- Bottom/Main Scroll -->
+   <div id="scroll-body-details" class="scrollbar-x" style="max-height:65vh; overflow:auto;">
+    <table class="table table-bordered table-sm m-0" style="width:max-content;">
+
+
         <thead>
             <tr>
                 <th>Cupola Heat ID</th>
@@ -259,7 +313,7 @@ function render_details_html(response){
         <tbody>
             ${data.map(r=>`
                 <tr>
-                    <td><a target="_blank" href="/app/cupola-heat-log/${r.name}">${r.name}</a></td>
+                    <td><a href="/app/cupola-heat-log/${r.name}">${r.name}</a></td>
                     <td>${r.charge_no ?? "-"}</td>
                     <td>${r.grade ?? "-"}</td>
                     ${itemCols.map(c => `<td>${formatCell(r[c], c)}</td>`).join("")}
@@ -279,7 +333,10 @@ function render_details_html(response){
 
         </tbody>
     </table>
-    </div>`;
+    </div> <!-- scroll-body -->
+</div> <!-- dual-scroll-container -->
+`;
+
 }
 function formatHeader(str){
     str = str.replace(/_/g," ");   // remove underscores
@@ -299,67 +356,117 @@ function formatCell(val){
 
 function render_firing_html(data){
     return `
-    <div class="table-responsive" style="overflow-x:auto; max-width:100%;">
-    <table class="table table-bordered">
-    <thead><tr>
-        <th>Date</th><th>Ignition Start</th><th>Ignition End</th><th>Light Up</th>
-        <th>Metal Out</th><th>Blower On</th><th>Drop</th>
-        <th>Coke:Metal</th><th>Coke:Lime</th>
-        <th>Melting Hrs</th><th>Melting Hrs Metal Out</th>
-        <th>Avg Rate Blower</th><th>Avg Rate Metal</th>
-        <th>Bricks</th><th>Wood</th><th>Steam Coal</th>
-    </tr></thead>
-    <tbody>
-        ${data.map(r=>`
-        <tr>
-            <td>${r.date}</td>
-            <td>${r.ignition_start_time}</td>
-            <td>${r.ignition_end_time}</td>
-            <td>${r.light_up}</td>
-            <td>${r.metal_out_at}</td>
-            <td>${r.blower_on_for_melting}</td>
-            <td>${r.cupola_drop_at}</td>
-            <td>${r.coke_metal_ratio}</td>
-            <td>${r.coke_limestone_ratio}</td>
-            <td>${r.total_melting_hours}</td>
-            <td>${r.total_melting_hours_metal_out}</td>
-            <td>${r.average_melting_rate}</td>
-            <td>${r.average_melting_rate_metal_out}</td>
-            <td>${r.fire_bricks}</td>
-            <td>${r.fire_wood}</td>
-            <td>${r.stream_coal}</td>
-        </tr>
-        `).join('')}
-    </tbody>
-    </table>
-    </div>`;
-}
+<div class="dual-scroll-container">
 
-function render_consumption_summary(data){
-    
-    // All item column keys
-    let keys = Object.keys(data[0]).filter(k=>k!=="date");
+    <!-- Top Scrollbar -->
+    <div id="scroll-top-bar-firing" class="scrollbar-x"></div>
 
-    return `
-    <div class="table-responsive" style="overflow-x:auto; max-width:100%;">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Date</th>
-                ${keys.map(k=>`<th>${k.replace("_qty"," Qty").replace("_total"," Total")}</th>`).join("")}
-            </tr>
-        </thead>
-        <tbody>
-            ${data.map(row=>`
+    <!-- Main Scroll -->
+    <div id="scroll-body-firing" class="scrollbar-x table-scroll">
+        <table class="table table-bordered table-sm table-scroll-content m-0">
+            <thead><tr>
+                <th>Date</th><th>Ignition Start</th><th>Ignition End</th><th>Light Up</th>
+                <th>Metal Out</th><th>Blower On</th><th>Drop</th>
+                <th>Coke:Metal</th><th>Coke:Lime</th>
+                <th>Melting Hrs</th><th>Melting Hrs Metal Out</th>
+                <th>Avg Rate Blower</th><th>Avg Rate Metal</th>
+                <th>Bricks</th><th>Wood</th><th>Steam Coal</th>
+            </tr></thead>
+
+            <tbody>
+                ${data.map(r=>`
                 <tr>
-                    <td>${row.date}</td>
-                    ${keys.map(k=>`<td>${row[k] ?? "-"}</td>`).join("")}
-                </tr>
-            `).join("")}
-        </tbody>
-    </table>
-    </div>`;
+                    <td>${r.date}</td>
+                    <td>${r.ignition_start_time}</td>
+                    <td>${r.ignition_end_time}</td>
+                    <td>${r.light_up}</td>
+                    <td>${r.metal_out_at}</td>
+                    <td>${r.blower_on_for_melting}</td>
+                    <td>${r.cupola_drop_at}</td>
+                    <td>${r.coke_metal_ratio}</td>
+                    <td>${r.coke_limestone_ratio}</td>
+                    <td>${r.total_melting_hours}</td>
+                    <td>${r.total_melting_hours_metal_out}</td>
+                    <td>${r.average_melting_rate}</td>
+                    <td>${r.average_melting_rate_metal_out}</td>
+                    <td>${r.fire_bricks}</td>
+                    <td>${r.fire_wood}</td>
+                    <td>${r.stream_coal}</td>
+                </tr>`).join("")}
+            </tbody>
+        </table>
+    </div>
+</div>`;
+
 }
+
+function render_consumption_summary(response){
+
+    let rows = response.rows || [];
+    let keys = response.item_order || [];
+
+    if(!rows.length){
+        return `<p class="text-center my-3">No Records Found</p>`;
+    }
+
+    // ---------------- Row Total & Grand Totals ----------------
+    let grandTotal = {};
+
+    rows.forEach(r=>{
+        let rowTotal = 0;
+
+        keys.forEach(k=>{
+            let val = Number(r[k] || 0);
+            rowTotal += val;
+            grandTotal[k] = (grandTotal[k] || 0) + val;
+        });
+
+        r._total = rowTotal;  // ← day-wise total column
+    });
+
+    // Total of all items combined
+    let finalGrandTotal = Object.values(grandTotal).reduce((a,b)=>a+b,0);
+
+    // ---------------- Table Render ----------------
+    return `
+<div class="dual-scroll-container">
+
+    <div id="scroll-top-bar-summary" class="scrollbar-x"></div>
+
+    <div id="scroll-body-summary" class="scrollbar-x table-scroll">
+        <table class="table table-bordered table-sm table-scroll-content m-0">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    ${keys.map(k => `<th>${k.replace("_"," ")}</th>`).join("")}
+                    <th><b>Total Quantity</b></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                ${rows.map(row => `
+                    <tr>
+                        <td>${row.date}</td>
+                        ${keys.map(key => `<td>${row[key] ?? 0}</td>`).join("")}
+                        <td><b>${row.total_qty}</b></td>
+                    </tr>
+                `).join("")}
+            </tbody>
+
+            <tfoot>
+                <tr style="font-weight:bold;background:#f5f5f5;">
+                    <td>Total</td>
+        ${keys.map(k => `<td>${grandTotal[k] || 0}</td>`).join("")}
+        <td>${rows.reduce((a,r)=>a+(r.total_qty||0),0)}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>`;
+
+}
+
+
 
 function load_consumption_summary_tab(){
     frappe.call({
@@ -367,6 +474,15 @@ function load_consumption_summary_tab(){
         args:filters,
         callback(r){
             $("#tab-consumption_summary").html(render_consumption_summary(r.message));
+            setTimeout(()=>{
+    let t = document.getElementById("scroll-top-bar-summary");
+    let b = document.getElementById("scroll-body-summary");
+    if(!b) return;
+
+    t.innerHTML = `<div style="width:${b.scrollWidth}px;height:1px"></div>`;
+    t.onscroll = ()=> b.scrollLeft = t.scrollLeft;
+    b.onscroll = ()=> t.scrollLeft = b.scrollLeft;
+},120);
         }
     });
 }

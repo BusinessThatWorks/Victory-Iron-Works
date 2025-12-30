@@ -39,31 +39,65 @@ def get_cupola_consumption_summary(from_date=None,to_date=None):
         conditions = " AND ch.date BETWEEN %s AND %s"
         params = [from_date,to_date]
 
+    # -------- Consumption grouped item-wise --------
     raw = frappe.db.sql(f"""
         SELECT 
             ch.date,
             ct.item_name,
-            SUM(ct.quantity) as qty
+            SUM(ct.quantity) as qty,
+            MIN(ct.idx) as idx
         FROM `tabConsumption Table` ct
-        INNER JOIN `tabCupola Heat log` ch
-            ON ct.parent = ch.name
+        INNER JOIN `tabCupola Heat log` ch ON ct.parent = ch.name
         WHERE 1=1 {conditions}
         GROUP BY ch.date, ct.item_name
         ORDER BY ch.date
     """, params, as_dict=True)
 
-    # Pivot conversion: date → item qty column only
+    # -------- Get total_charge_mix_quantity per date --------
+    totals = frappe.db.sql(f"""
+        SELECT 
+            date,
+            SUM(total_charge_mix_quantity) AS total_qty
+        FROM `tabCupola Heat log`
+        WHERE 1=1 {conditions} AND firingprep_details = 0
+        GROUP BY date
+        ORDER BY date
+    """, params, as_dict=True)
+
+    total_map = {str(t.date): t.total_qty for t in totals}
+
+    # -------- Item order by idx --------
+    item_order_query = frappe.db.sql(f"""
+        SELECT DISTINCT ct.item_name, MIN(ct.idx) as idx
+        FROM `tabConsumption Table` ct
+        INNER JOIN `tabCupola Heat log` ch ON ct.parent = ch.name
+        WHERE 1=1 {conditions}
+        GROUP BY ct.item_name
+        ORDER BY idx
+    """, params, as_dict=True)
+
+    ordered_items = [i.item_name.replace(" ","_") for i in item_order_query]
+
+    # -------- Structure output rows --------
     summary = {}
     for r in raw:
         date = str(r.date)
         item = r.item_name.replace(" ","_")
 
-        if date not in summary:
-            summary[date] = {"date": date}
+        summary.setdefault(date, {"date": date})
+        summary[date][item] = r.qty
 
-        summary[date][item] = r.qty   # <-- sirf qty
+    final = []
+    for date, row in summary.items():
+        out = {"date": date, "total_qty": total_map.get(date, 0)}
+        for item in ordered_items:
+            out[item] = row.get(item, 0)
+        final.append(out)
 
-    return list(summary.values())
+    return {"rows": final, "item_order": ordered_items}
+
+
+
 
 @frappe.whitelist()
 def get_cupola_details_with_consumption(from_date=None, to_date=None):
@@ -86,6 +120,7 @@ def get_cupola_details_with_consumption(from_date=None, to_date=None):
             total_charge_mix_calculation
         FROM `tabCupola Heat log` ch
         WHERE 1=1 {conditions}
+        ORDER BY CAST(charge_no AS UNSIGNED)
     """, params, as_dict=True)
 
     # -------- Get child items in ORIGINAL ORDER (`idx`) ---------
@@ -99,6 +134,7 @@ def get_cupola_details_with_consumption(from_date=None, to_date=None):
         INNER JOIN `tabCupola Heat log` ch ON ct.parent = ch.name
         WHERE 1=1 {conditions}
         ORDER BY ct.idx
+        
     """, params, as_dict=True)
 
     # -------- Pivot + maintain order dynamically ---------

@@ -14,6 +14,13 @@
   "ladle_id",
   "ladle_type",
   "grade_type",
+  "treatment_tab",
+  "punching",
+  "treatment_before_temp",
+  "column_break_txlt",
+  "inoculant",
+  "column_break_agyc",
+  "fesimg",
   "section_break_xsuy",
   "total_weight_in_kg",
   "column_break_zuta",
@@ -23,18 +30,7 @@
   "column_break_foaj",
   "duration",
   "section_break_ujjh",
-  "amended_from",
-  "treatment_tab",
-  "treatment_before_temp",
-  "column_break_dnzm",
-  "treatment_no",
-  "column_break_kpxz",
-  "section_break_wvof",
-  "punching",
-  "column_break_lezt",
-  "inoculant",
-  "column_break_nrct",
-  "fesimg"
+  "amended_from"
  ],
  "fields": [
   {
@@ -114,11 +110,6 @@
    "label": "Duration"
   },
   {
-   "fieldname": "treatment_tab",
-   "fieldtype": "Tab Break",
-   "label": "Treatment Details"
-  },
-  {
    "fieldname": "ladle_type",
    "fieldtype": "Link",
    "label": "Ladle Type",
@@ -139,17 +130,9 @@
    "label": "Punching"
   },
   {
-   "fieldname": "column_break_lezt",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "inoculant",
    "fieldtype": "Float",
    "label": "Inoculant"
-  },
-  {
-   "fieldname": "column_break_nrct",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "fesimg",
@@ -160,23 +143,6 @@
    "fieldname": "treatment_before_temp",
    "fieldtype": "Float",
    "label": "Treatment Before Temp "
-  },
-  {
-   "fieldname": "column_break_dnzm",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "treatment_no",
-   "fieldtype": "Data",
-   "label": "Treatment No"
-  },
-  {
-   "fieldname": "section_break_wvof",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_kpxz",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "grade_type",
@@ -190,13 +156,26 @@
    "fieldtype": "Select",
    "label": "Facture Test",
    "options": "\nOK\nNOT OK"
+  },
+  {
+   "fieldname": "column_break_txlt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_agyc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "treatment_tab",
+   "fieldtype": "Section Break",
+   "label": "Treatment Details"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-06 14:28:00.130811",
+ "modified": "2025-12-30 15:03:10.742695",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Ladle Metal",

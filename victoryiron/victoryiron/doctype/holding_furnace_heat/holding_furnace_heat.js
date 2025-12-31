@@ -216,23 +216,28 @@ function fetch_and_populate_treatment_rows(frm) {
 // frappe.ui.form.on("Holding Furnace Heat", {
 frappe.ui.form.on("Holding Furnace Heat", {
     refresh(frm) {
-        if(frm.is_new()) {
+        if(frm.doc.date){
             update_ladle_totals(frm);
         }
+    },
+    date(frm){                     // 👈 date change = auto update
+        update_ladle_totals(frm);
     }
 });
 
 function update_ladle_totals(frm){
+    if(!frm.doc.date) return;
+
     frappe.call({
         method: "victoryiron.victoryiron.doctype.holding_furnace_heat.holding_furnace_heat.get_ladle_totals",
-        args: { date: frm.doc.date || frappe.datetime.get_today() },  // set your date field if different
+        args: { date: frm.doc.date },   // 👈 no default today
         callback(r){
-            if(r.message){
-                frm.set_value("punching", r.message.punching || 0);
-                frm.set_value("inoculant", r.message.inoculant || 0);
-                frm.set_value("fesimg", r.message.fesimg || 0);
-                frm.refresh_fields();
-            }
+            let d = r.message || {};
+
+            frm.set_value("punching", d.punching || 0);
+            frm.set_value("inoculant", d.inoculant || 0);
+            frm.set_value("fesimg", d.fesimg || 0);
         }
     });
 }
+

@@ -61,17 +61,21 @@ def get_furnace_bath_ids(date, sample_type=None):
 	# Return list of IDs
 	return [doc.name for doc in furnace_bath_docs]
 
-from frappe.utils import today
+# //ladle metal totals
 
 @frappe.whitelist()
-def get_ladle_totals(date=today()):
+def get_ladle_totals(date=None):
+    if not date:
+        return {"punching":0, "inoculant":0, "fesimg":0}
+
     data = frappe.db.sql("""
         SELECT 
             SUM(punching) AS punching,
             SUM(inoculant) AS inoculant,
             SUM(fesimg) AS fesimg
         FROM `tabLadle Metal`
-        WHERE date = %s  -- if your field is posting_date use that name
+        WHERE date = %s
     """, (date,), as_dict=True)
 
     return data[0] if data else {"punching":0, "inoculant":0, "fesimg":0}
+

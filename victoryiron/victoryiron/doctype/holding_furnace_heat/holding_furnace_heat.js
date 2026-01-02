@@ -241,3 +241,30 @@ function update_ladle_totals(frm){
     });
 }
 
+frappe.ui.form.on("Holding Furnace Heat", {
+    furnace_meter_reading_start: calculate_units,
+    furnace_meter_reading_end: calculate_units,
+    cooling_tower_meter_reading_start: calculate_units,
+    cooling_tower_meter_reading_end: calculate_units
+});
+
+function calculate_units(frm) {
+    let furnace_units = 0;
+    let cooling_units = 0;
+
+    if (frm.doc.furnace_meter_reading_start && frm.doc.furnace_meter_reading_end) {
+        furnace_units =
+            frm.doc.furnace_meter_reading_end -
+            frm.doc.furnace_meter_reading_start;
+    }
+
+    if (frm.doc.cooling_tower_meter_reading_start && frm.doc.cooling_tower_meter_reading_end) {
+        cooling_units =
+            frm.doc.cooling_tower_meter_reading_end -
+            frm.doc.cooling_tower_meter_reading_start;
+    }
+
+    frm.set_value("total_furnace_unit_consumed", furnace_units);
+    frm.set_value("total_cooling_tower_unit_consumed", cooling_units);
+    frm.set_value("total_units", furnace_units + cooling_units);
+}

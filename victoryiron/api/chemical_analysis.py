@@ -11,7 +11,7 @@ def get_furnace_bath(from_date=None,to_date=None):
 
     data = frappe.db.sql(f"""
         select 
-            name,date,time,c,si,mn,p,ce,mg,perlite_,ferrite_,nodularity_,nodule_count,sample_id,sample_type,creation
+            name,date,time,sample_id,grade,c,si,mn,p,ce,mg,perlite_,ferrite_,nodularity_,nodule_count,creation
         from `tabFurnace Bath` {conditions}
         order by creation asc
     """,values,as_dict=True)

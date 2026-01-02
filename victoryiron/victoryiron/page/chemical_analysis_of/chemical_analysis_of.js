@@ -48,6 +48,8 @@ function render_table(data){
 				<td><a href="/app/furnace-bath/${row.name}" >${row.name}</a></td>
                 <td>${row.date || "-"}</td>
                 <td>${formatTimeToAMPM(row.time)}</td>
+                <td>${row.sample_id || "-"}</td>
+                <td>${row.grade || "-"}</td>
                 <td>${row.c || "-"}</td>
                 <td>${row.si || "-"}</td>
 				<td>${row.mn || "-"}</td>
@@ -58,8 +60,6 @@ function render_table(data){
 				<td>${row.ferrite_ || "-"}</td>
 				<td>${row.nodularity_ || "-"}</td>
 				<td>${row.nodule_count || "-"}</td>
-                <td>${row.sample_id || "-"}</td>
-                <td>${row.sample_type || "-"}</td>
             </tr>
         `);
     });

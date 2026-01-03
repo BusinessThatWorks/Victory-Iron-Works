@@ -1,97 +1,97 @@
-<div class="chemical-analysis-wrapper" style="padding:15px">
+<div class="chemical-analysis-wrapper" style="padding: 15px">
+	<div class="filters row" style="margin-bottom: 15px">
+		<div class="col-md-3">
+			<label>From Date</label>
+			<input type="date" id="from_date" class="form-control" />
+		</div>
 
-    <div class="filters row" style="margin-bottom:15px">
-        <div class="col-md-3">
-            <label>From Date</label>
-            <input type="date" id="from_date" class="form-control">
-        </div>
-
-        <div class="col-md-3">
-            <label>To Date</label>
-            <input type="date" id="to_date" class="form-control">
-        </div>
-        <div class="col-2 d-flex align-items-end">
-            <button class="btn btn-secondary w-100" id="clear_btn">Clear</button>
-        </div>
-    </div>
-
-    <div>
-        <table class="table table-bordered table-sm" id="result_table">
-            <thead class="table-header-custom">
-                <tr>
-                    <th>Furnace bath ID</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Treatment No</th>
-                    <th>Type Of Metal</th>
-                    <th>C%</th>
-                    <th>Si%</th>
-                    <th>Mn%</th>
-                    <th>S%</th>
-                    <th>P%</th>
-                    <th>Mg%</th>
-                    <th>Perlite %</th>
-                    <th>Ferrite %</th>
-                    <th>Nodularity</th>
-                    <th>Nodular Count</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-
+		<div class="col-md-3">
+			<label>To Date</label>
+			<input type="date" id="to_date" class="form-control" />
+		</div>
+		<div class="col-2 d-flex align-items-end">
+			<button class="btn btn-secondary w-100" id="clear_btn">Clear</button>
+		</div>
+		<div class="col-2 d-flex align-items-end">
+			<button class="btn btn-success w-100" id="export_excel">Export Excel</button>
+		</div>
+	</div>
+	<div>
+		<table class="table table-bordered table-sm" id="result_table">
+			<thead class="table-header-custom">
+				<tr>
+					<th>Furnace bath ID</th>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Treatment No</th>
+					<th>Type Of Metal</th>
+					<th>C%</th>
+					<th>Si%</th>
+					<th>Mn%</th>
+					<th>S%</th>
+					<th>P%</th>
+					<th>Mg%</th>
+					<th>Perlite %</th>
+					<th>Ferrite %</th>
+					<th>Nodularity</th>
+					<th>Nodular Count</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
 </div>
 
-
 <style>
-.chemical-analysis-wrapper{
-    padding:20px;
-    background:#f7f9fc;
-    border-radius:8px;
-}
+	.chemical-analysis-wrapper {
+		padding: 20px;
+		background: #f7f9fc;
+		border-radius: 8px;
+	}
 
-/* Filters */
-#clear_btn{
-    transition:0.2s;
-    background:#f0f2f5;
-}
-#clear_btn:hover{
-    background:#e3e6eb;
-}
+	/* Filters */
+	#clear_btn {
+		transition: 0.2s;
+		background: #f0f2f5;
+	}
+	#clear_btn:hover {
+		background: #e3e6eb;
+	}
 
-/* Table */
-#result_table {
-    background:white;
-    border-radius:8px;
-    overflow:hidden;
-}
+	/* Table */
+	#result_table {
+		background: white;
+		border-radius: 8px;
+		overflow: hidden;
+	}
 
-.table-header-custom{
-    background:#e9f1ff !important;
-    color:#1b1f3b;
-    font-weight:600;
-    border-bottom:2px solid #dce6ff;
-}
+	.table-header-custom {
+		background: #e9f1ff !important;
+		color: #1b1f3b;
+		font-weight: 600;
+		border-bottom: 2px solid #dce6ff;
+	}
 
-/* Row hover effect */
-#result_table tbody tr:hover{
-    background:#f4f7ff;
-    cursor:pointer;
-}
+	/* Row hover effect */
+	#result_table tbody tr:hover {
+		background: #f4f7ff;
+		cursor: pointer;
+	}
 
-/* Smooth look */
-.table th, .table td{
-    padding:8px 10px;
-    font-size:14px;
-}
+	/* Smooth look */
+	.table th,
+	.table td {
+		padding: 8px 10px;
+		font-size: 14px;
+	}
 
-/* Clickable name link */
-.furnace-link{
-    color:#0066cc;
-    font-weight:600;
-    text-decoration:none;
-}
-.furnace-link:hover{
-    text-decoration:underline;
-}
+	/* Clickable name link */
+	.furnace-link {
+		color: #0066cc;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.furnace-link:hover {
+		text-decoration: underline;
+	}
 </style>

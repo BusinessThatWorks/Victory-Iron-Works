@@ -79,7 +79,7 @@ frappe.ui.form.on("Consumption Table", {
 			method: "frappe.client.get_value",
 			args: {
 				doctype: "Item",
-				filters: { item_name: row.item_name },
+				filters: { item_code: row.item_code },
 				fieldname: "valuation_rate",
 			},
 
@@ -157,7 +157,7 @@ function update_child_totals(frm) {
 		total_val += val;
 
 		// Only sum CI/DI Foundry Return quantities
-		const item_key = (row.item_name || row.item_code || "").trim().toLowerCase();
+		const item_key = (row.item_code || "").trim().toLowerCase();
 		if (RETURN_ITEM_SET.has(item_key)) {
 			return_qty += qty;
 		}
@@ -179,10 +179,13 @@ async function add_default_consumption_items(frm) {
 
 	try {
 		const rows = frm.doc[CONSUMPTION_TABLE] || [];
+		// const existing = new Set(
+		// 	rows
+		// 		.map((r) => (r.item_name || r.item_code || "").trim().toLowerCase())
+		// 		.filter(Boolean)
+		// );
 		const existing = new Set(
-			rows
-				.map((r) => (r.item_name || r.item_code || "").trim().toLowerCase())
-				.filter(Boolean)
+			rows.map((r) => (r.item_code || "").trim().toLowerCase()).filter(Boolean)
 		);
 
 		for (const label of DEFAULT_RETURN_ITEMS) {
@@ -198,14 +201,18 @@ async function add_default_consumption_items(frm) {
 				continue;
 			}
 
+			// frm.add_child(CONSUMPTION_TABLE, {
+			// 	item_name: item.name,
+			// 	uom: item.stock_uom,
+			// });
 			frm.add_child(CONSUMPTION_TABLE, {
-				item_name: item.name,
+				item_code: item.name, // PRIMARY KEY
+				item_name: item.item_name, // DESCRIPTION
 				uom: item.stock_uom,
 			});
-			console.log(item.name);
 
+			console.log(item.name);
 		}
-		
 
 		frm.refresh_field(CONSUMPTION_TABLE);
 	} finally {
@@ -214,46 +221,68 @@ async function add_default_consumption_items(frm) {
 }
 
 // Fetch Item by code or name (exact first, then a case-insensitive like)
+// async function fetch_item_by_label(label) {
+// 	const key = (label || "").trim();
+// 	if (!key) return null;
+
+// 	// exact item_code
+// 	const by_code = await frappe.db.get_value("Item", { item_code: key }, [
+// 		"name",
+// 		"item_name",
+// 		"stock_uom",
+// 		"disabled",
+// 	]);
+// 	if (by_code?.name && !by_code.disabled) return by_code;
+
+// 	// exact item_name
+// 	const by_name = await frappe.db.get_value("Item", { item_name: key }, [
+// 		"name",
+// 		"item_name",
+// 		"stock_uom",
+// 		"disabled",
+// 	]);
+// 	if (by_name?.name && !by_name.disabled) return by_name;
+
+// 	// case-insensitive fallback search
+// 	const like_hits = await frappe.db.get_list("Item", {
+// 		fields: ["name", "item_name", "stock_uom", "disabled"],
+// 		filters: { disabled: 0 },
+// 		or_filters: [
+// 			["item_code", "like", `%${key}%`],
+// 			["item_name", "like", `%${key}%`],
+// 		],
+// 		limit: 1,
+// 	});
+// 	return like_hits && like_hits.length ? like_hits[0] : null;
+// }
 async function fetch_item_by_label(label) {
 	const key = (label || "").trim();
 	if (!key) return null;
 
-	// exact item_code
-	const by_code = await frappe.db.get_value("Item", { item_code: key }, [
-		"name",
-		"item_name",
-		"stock_uom",
-		"disabled",
-	]);
-	if (by_code?.name && !by_code.disabled) return by_code;
+	// Try exact matches in different cases (SAFE)
+	const variants = [
+		key,
+		key.toUpperCase(),
+		key.toLowerCase(),
+	];
 
-	// exact item_name
-	const by_name = await frappe.db.get_value("Item", { item_name: key }, [
-		"name",
-		"item_name",
-		"stock_uom",
-		"disabled",
-	]);
-	if (by_name?.name && !by_name.disabled) return by_name;
-
-	// case-insensitive fallback search
-	const like_hits = await frappe.db.get_list("Item", {
+	const items = await frappe.db.get_list("Item", {
 		fields: ["name", "item_name", "stock_uom", "disabled"],
-		filters: { disabled: 0 },
-		or_filters: [
-			["item_code", "like", `%${key}%`],
-			["item_name", "like", `%${key}%`],
-		],
+		filters: {
+			name: ["in", variants],
+			disabled: 0,
+		},
 		limit: 1,
 	});
-	return like_hits && like_hits.length ? like_hits[0] : null;
+
+	return items && items.length ? items[0] : null;
 }
 
 /**
  * Calculate Total Melting Hours based on the difference between
  * Blower On for Melting and Cupola Drop At times
  */
-//blower metling hours 
+//blower metling hours
 function calculate_total_melting_hours(frm) {
 	// Get the time values
 	let blower_on = frm.doc.blower_on_for_melting;
@@ -327,209 +356,205 @@ function parse_time_to_seconds(time_str) {
 
 //cupola heat log average melting rate calculation
 function parse_melting_hours(value) {
-    if (!value) return 0;
+	if (!value) return 0;
 
-    // Expected format: "Xhr Ymin"
-    let hours = 0;
-    let minutes = 0;
+	// Expected format: "Xhr Ymin"
+	let hours = 0;
+	let minutes = 0;
 
-    const hrMatch = value.match(/(\d+)\s*hr/);
-    const minMatch = value.match(/(\d+)\s*min/);
+	const hrMatch = value.match(/(\d+)\s*hr/);
+	const minMatch = value.match(/(\d+)\s*min/);
 
-    if (hrMatch) {
-        hours = parseInt(hrMatch[1]);
-    }
+	if (hrMatch) {
+		hours = parseInt(hrMatch[1]);
+	}
 
-    if (minMatch) {
-        minutes = parseInt(minMatch[1]);
-    }
+	if (minMatch) {
+		minutes = parseInt(minMatch[1]);
+	}
 
-    return hours + (minutes / 60);
+	return hours + minutes / 60;
 }
-frappe.ui.form.on('Cupola Heat log', {
-    firingprep_details(frm) {
-        if (frm.doc.firingprep_details) {
-            calculate_avg_melting_rate(frm);
+frappe.ui.form.on("Cupola Heat log", {
+	firingprep_details(frm) {
+		if (frm.doc.firingprep_details) {
+			calculate_avg_melting_rate(frm);
 			calculate_coke_metal_ratio(frm);
 			calculate_flux_metal_ratio(frm);
-        } else {
-            frm.set_value('average_melting_rate', 0);
-			 frm.set_value('melting', '');
-            frm.set_value('lime_stone', '');
-        }
-    },
+		} else {
+			frm.set_value("average_melting_rate", 0);
+			frm.set_value("melting", "");
+			frm.set_value("lime_stone", "");
+		}
+	},
 
-    total_melting_hours(frm) {
-        if (frm.doc.firingprep_details) {
-            calculate_avg_melting_rate(frm);
-        }
-    }
+	total_melting_hours(frm) {
+		if (frm.doc.firingprep_details) {
+			calculate_avg_melting_rate(frm);
+		}
+	},
 });
 function calculate_avg_melting_rate(frm) {
 	console.log("calculate_avg_melting_rate loaded");
 
-    if (!frm.doc.date) {
-        frappe.msgprint(__('Please select Date first'));
+	if (!frm.doc.date) {
+		frappe.msgprint(__("Please select Date first"));
 		// Uncheck the checkbox
-            frm.set_value('firingprep_details', 0);
-        return;
-    }
+		frm.set_value("firingprep_details", 0);
+		return;
+	}
 
-    const melting_hours = parse_melting_hours(frm.doc.total_melting_hours);
+	const melting_hours = parse_melting_hours(frm.doc.total_melting_hours);
 
-    if (!melting_hours || melting_hours === 0) {
-        frm.set_value('average_melting_rate', 0);
-        return;
-    }
+	if (!melting_hours || melting_hours === 0) {
+		frm.set_value("average_melting_rate", 0);
+		return;
+	}
 
-    frappe.call({
-        method: 'victoryiron.victoryiron.doctype.cupola_heat_log.cupola_heat_log.get_day_total_charge',
-        args: {
-            date: frm.doc.date
-        },
-        callback: function (r) {
-            if (r.message !== undefined) {
-                const total_qty = flt(r.message);
-                const avg_rate_kg = total_qty / melting_hours;
+	frappe.call({
+		method: "victoryiron.victoryiron.doctype.cupola_heat_log.cupola_heat_log.get_day_total_charge",
+		args: {
+			date: frm.doc.date,
+		},
+		callback: function (r) {
+			if (r.message !== undefined) {
+				const total_qty = flt(r.message);
+				const avg_rate_kg = total_qty / melting_hours;
 				const avg_rate_ton = avg_rate_kg / 1000;
 
-				frm.set_value(
-					'average_melting_rate',
-					avg_rate_ton.toFixed(2) + ' tons'
-				);
+				frm.set_value("average_melting_rate", avg_rate_ton.toFixed(2) + " tons");
 			}
-        }
-    });
+		},
+	});
 }
 //cupola heat log average melting rate calculation end
 
 //cupola heat log hard cok ratio calculation
 function calculate_coke_metal_ratio(frm) {
 	console.log("calculate_coke_metal_ratio loaded");
-    if (!frm.doc.date) return;
+	if (!frm.doc.date) return;
 
-    frappe.call({
-        method: 'victoryiron.victoryiron.doctype.cupola_heat_log.cupola_heat_log.get_coke_metal_ratio',
-        args: {
-            date: frm.doc.date
-        },
-        callback: function (r) {
-            if (r.message !== undefined) {
-                if (r.message === 0) {
-                    frm.set_value('melting', '0');
-                } else {
-                    frm.set_value('melting', `1 : ${r.message}`);
-                }
-            }
-        }
-    });
+	frappe.call({
+		method: "victoryiron.victoryiron.doctype.cupola_heat_log.cupola_heat_log.get_coke_metal_ratio",
+		args: {
+			date: frm.doc.date,
+		},
+		callback: function (r) {
+			if (r.message !== undefined) {
+				if (r.message === 0) {
+					frm.set_value("melting", "0");
+				} else {
+					frm.set_value("melting", `1 : ${r.message}`);
+				}
+			}
+		},
+	});
 }
 //cupola heat log hard coke ratio calculation end
 
 function calculate_flux_metal_ratio(frm) {
-    if (!frm.doc.date) return;
+	if (!frm.doc.date) return;
 
-    frappe.call({
-        method: 'victoryiron.victoryiron.doctype.cupola_heat_log.cupola_heat_log.get_flux_metal_ratio',
-        args: {
-            date: frm.doc.date
-        },
-        callback: function (r) {
-            if (r.message !== undefined) {
-                if (r.message === 0) {
-                    frm.set_value('lime_stone', '0');
-                } else {
-                    frm.set_value('lime_stone', `1 : ${r.message}`);
-                }
-            }
-        }
-    });
+	frappe.call({
+		method: "victoryiron.victoryiron.doctype.cupola_heat_log.cupola_heat_log.get_flux_metal_ratio",
+		args: {
+			date: frm.doc.date,
+		},
+		callback: function (r) {
+			if (r.message !== undefined) {
+				if (r.message === 0) {
+					frm.set_value("lime_stone", "0");
+				} else {
+					frm.set_value("lime_stone", `1 : ${r.message}`);
+				}
+			}
+		},
+	});
 }
-frappe.ui.form.on('Cupola Heat log', {
-    metal_out_at: function(frm) {
-        calculate_total_melting_hours_metal_out(frm);
-    },
-    cupola_drop_at: function(frm) {
-        calculate_total_melting_hours_metal_out(frm);
-    },
-	total_melting_hours_metal_out: function(frm) {
-        calculate_avg_melting_rate_metal_out(frm);
-    }
+frappe.ui.form.on("Cupola Heat log", {
+	metal_out_at: function (frm) {
+		calculate_total_melting_hours_metal_out(frm);
+	},
+	cupola_drop_at: function (frm) {
+		calculate_total_melting_hours_metal_out(frm);
+	},
+	total_melting_hours_metal_out: function (frm) {
+		calculate_avg_melting_rate_metal_out(frm);
+	},
 });
 
 function calculate_total_melting_hours_metal_out(frm) {
-    let metal_out = frm.doc.metal_out_at;
-    let cupola_drop = frm.doc.cupola_drop_at;
+	let metal_out = frm.doc.metal_out_at;
+	let cupola_drop = frm.doc.cupola_drop_at;
 
-    // If either field is empty, set total melting hours to 0
-    if (!metal_out || !cupola_drop) {
-        frm.set_value("total_melting_hours_metal_out", "0 hr 0 min");
-        return;
-    }
+	// If either field is empty, set total melting hours to 0
+	if (!metal_out || !cupola_drop) {
+		frm.set_value("total_melting_hours_metal_out", "0 hr 0 min");
+		return;
+	}
 
-    try {
-        let start_time = parse_time_to_seconds(metal_out);
-        let end_time = parse_time_to_seconds(cupola_drop);
+	try {
+		let start_time = parse_time_to_seconds(metal_out);
+		let end_time = parse_time_to_seconds(cupola_drop);
 
-        let diff_seconds = end_time - start_time;
+		let diff_seconds = end_time - start_time;
 
-        // Handle crossing midnight
-        if (diff_seconds < 0) {
-            diff_seconds += 86400; // 24 hours in seconds
-        }
+		// Handle crossing midnight
+		if (diff_seconds < 0) {
+			diff_seconds += 86400; // 24 hours in seconds
+		}
 
-        // Safety check
-        if (diff_seconds < 0) diff_seconds = 0;
+		// Safety check
+		if (diff_seconds < 0) diff_seconds = 0;
 
-        let hours = Math.floor(diff_seconds / 3600);
-        let minutes = Math.floor((diff_seconds % 3600) / 60);
+		let hours = Math.floor(diff_seconds / 3600);
+		let minutes = Math.floor((diff_seconds % 3600) / 60);
 
-        let hr_min_string = `${hours} hr ${minutes} min`;
+		let hr_min_string = `${hours} hr ${minutes} min`;
 
-        frm.set_value("total_melting_hours_metal_out", hr_min_string);
-    } catch (error) {
-        frm.set_value("total_melting_hours_metal_out", "0 hr 0 min");
-        frappe.msgprint({
-            title: __("Calculation Error"),
-            message: __("There was an error calculating Total Melting Hours (Metal Out). Please check the time values."),
-            indicator: "red"
-        });
-    }
+		frm.set_value("total_melting_hours_metal_out", hr_min_string);
+	} catch (error) {
+		frm.set_value("total_melting_hours_metal_out", "0 hr 0 min");
+		frappe.msgprint({
+			title: __("Calculation Error"),
+			message: __(
+				"There was an error calculating Total Melting Hours (Metal Out). Please check the time values."
+			),
+			indicator: "red",
+		});
+	}
 }
 
 function calculate_avg_melting_rate_metal_out(frm) {
 	console.log("calculate_avg_melting_rate_metal out loaded");
 
-    if (!frm.doc.date) {
-        frappe.msgprint(__('Please select Date first'));
+	if (!frm.doc.date) {
+		frappe.msgprint(__("Please select Date first"));
 		// Uncheck the checkbox
-            frm.set_value('firingprep_details', 0);
-        return;
-    }
+		frm.set_value("firingprep_details", 0);
+		return;
+	}
 
-    const melting_hours = parse_melting_hours(frm.doc.total_melting_hours_metal_out);
+	const melting_hours = parse_melting_hours(frm.doc.total_melting_hours_metal_out);
 
-    if (!melting_hours || melting_hours === 0) {
-        frm.set_value('average_melting_rate_metal_out', 0);
-        return;
-    }
+	if (!melting_hours || melting_hours === 0) {
+		frm.set_value("average_melting_rate_metal_out", 0);
+		return;
+	}
 
-    frappe.call({
-        method: 'victoryiron.victoryiron.doctype.cupola_heat_log.cupola_heat_log.get_day_total_charge',
-        args: {
-            date: frm.doc.date
-        },
-        callback: function (r) {
-            if (r.message !== undefined) {
-                const total_qty = flt(r.message);
-                const avg_rate_kg = total_qty / melting_hours;
+	frappe.call({
+		method: "victoryiron.victoryiron.doctype.cupola_heat_log.cupola_heat_log.get_day_total_charge",
+		args: {
+			date: frm.doc.date,
+		},
+		callback: function (r) {
+			if (r.message !== undefined) {
+				const total_qty = flt(r.message);
+				const avg_rate_kg = total_qty / melting_hours;
 				const avg_rate_ton = avg_rate_kg / 1000;
 
-				frm.set_value(
-					'average_melting_rate_metal_out',
-					avg_rate_ton.toFixed(2) + ' tons'
-				);
+				frm.set_value("average_melting_rate_metal_out", avg_rate_ton.toFixed(2) + " tons");
 			}
-        }
-    });
+		},
+	});
 }

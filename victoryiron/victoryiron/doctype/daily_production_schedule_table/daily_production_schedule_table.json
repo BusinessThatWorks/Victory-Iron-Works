@@ -44,17 +44,17 @@
  ],
  "fields": [
   {
-   "fetch_from": "item_name.customer",
+   "fetch_from": "item_name.custom_customer",
    "fieldname": "buyer",
-   "fieldtype": "Link",
-   "label": "Buyer",
-   "options": "Customer"
+   "fieldtype": "Data",
+   "label": "Buyer"
   },
   {
    "fieldname": "column_break_rfem",
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "item_name.custom_casting_type",
    "fieldname": "casting_type",
    "fieldtype": "Data",
    "label": "Casting Type"
@@ -235,14 +235,13 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-12-29 18:30:42.274714",
- "modified_by": "Administrator",
+ "modified": "2026-01-06 11:21:09.926594",
+ "modified_by": "erp@clapgrow.com",
  "module": "victoryiron",
  "name": "Daily Production Schedule Table",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",
- "rows_threshold_for_grid_search": 20,
  "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",

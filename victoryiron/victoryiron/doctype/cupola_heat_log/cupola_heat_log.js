@@ -6,6 +6,7 @@
 //
 // 	},
 // });
+// .
 console.log("Cupola Heat log JS loaded");
 
 const DEFAULT_RETURN_ITEMS = [

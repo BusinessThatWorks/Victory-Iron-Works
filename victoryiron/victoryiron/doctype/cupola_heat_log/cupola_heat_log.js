@@ -1,12 +1,3 @@
-// Copyright (c) 2025, beetashokechakraborty and contributors
-// For license information, please see license.txt
-
-// frappe.ui.form.on("Cupola Heat log", {
-// 	refresh(frm) {
-//
-// 	},
-// });
-// .
 console.log("Cupola Heat log JS loaded");
 
 const DEFAULT_RETURN_ITEMS = [
@@ -80,7 +71,7 @@ frappe.ui.form.on("Consumption Table", {
 			method: "frappe.client.get_value",
 			args: {
 				doctype: "Item",
-				filters: { item_code: row.item_code },
+				filters: { item_name: row.item_name },
 				fieldname: "valuation_rate",
 			},
 
@@ -158,7 +149,7 @@ function update_child_totals(frm) {
 		total_val += val;
 
 		// Only sum CI/DI Foundry Return quantities
-		const item_key = (row.item_code || "").trim().toLowerCase();
+		const item_key = (row.item_name || row.item_code || "").trim().toLowerCase();
 		if (RETURN_ITEM_SET.has(item_key)) {
 			return_qty += qty;
 		}
@@ -180,13 +171,10 @@ async function add_default_consumption_items(frm) {
 
 	try {
 		const rows = frm.doc[CONSUMPTION_TABLE] || [];
-		// const existing = new Set(
-		// 	rows
-		// 		.map((r) => (r.item_name || r.item_code || "").trim().toLowerCase())
-		// 		.filter(Boolean)
-		// );
 		const existing = new Set(
-			rows.map((r) => (r.item_code || "").trim().toLowerCase()).filter(Boolean)
+			rows
+				.map((r) => (r.item_name || r.item_code || "").trim().toLowerCase())
+				.filter(Boolean)
 		);
 
 		for (const label of DEFAULT_RETURN_ITEMS) {
@@ -202,18 +190,14 @@ async function add_default_consumption_items(frm) {
 				continue;
 			}
 
-			// frm.add_child(CONSUMPTION_TABLE, {
-			// 	item_name: item.name,
-			// 	uom: item.stock_uom,
-			// });
 			frm.add_child(CONSUMPTION_TABLE, {
-				item_code: item.name, // PRIMARY KEY
-				item_name: item.item_name, // DESCRIPTION
+				item_name: item.name,
 				uom: item.stock_uom,
 			});
-
 			console.log(item.name);
+
 		}
+		
 
 		frm.refresh_field(CONSUMPTION_TABLE);
 	} finally {
@@ -222,61 +206,39 @@ async function add_default_consumption_items(frm) {
 }
 
 // Fetch Item by code or name (exact first, then a case-insensitive like)
-// async function fetch_item_by_label(label) {
-// 	const key = (label || "").trim();
-// 	if (!key) return null;
-
-// 	// exact item_code
-// 	const by_code = await frappe.db.get_value("Item", { item_code: key }, [
-// 		"name",
-// 		"item_name",
-// 		"stock_uom",
-// 		"disabled",
-// 	]);
-// 	if (by_code?.name && !by_code.disabled) return by_code;
-
-// 	// exact item_name
-// 	const by_name = await frappe.db.get_value("Item", { item_name: key }, [
-// 		"name",
-// 		"item_name",
-// 		"stock_uom",
-// 		"disabled",
-// 	]);
-// 	if (by_name?.name && !by_name.disabled) return by_name;
-
-// 	// case-insensitive fallback search
-// 	const like_hits = await frappe.db.get_list("Item", {
-// 		fields: ["name", "item_name", "stock_uom", "disabled"],
-// 		filters: { disabled: 0 },
-// 		or_filters: [
-// 			["item_code", "like", `%${key}%`],
-// 			["item_name", "like", `%${key}%`],
-// 		],
-// 		limit: 1,
-// 	});
-// 	return like_hits && like_hits.length ? like_hits[0] : null;
-// }
 async function fetch_item_by_label(label) {
 	const key = (label || "").trim();
 	if (!key) return null;
 
-	// Try exact matches in different cases (SAFE)
-	const variants = [
-		key,
-		key.toUpperCase(),
-		key.toLowerCase(),
-	];
+	// exact item_code
+	const by_code = await frappe.db.get_value("Item", { item_code: key }, [
+		"name",
+		"item_name",
+		"stock_uom",
+		"disabled",
+	]);
+	if (by_code?.name && !by_code.disabled) return by_code;
 
-	const items = await frappe.db.get_list("Item", {
+	// exact item_name
+	const by_name = await frappe.db.get_value("Item", { item_name: key }, [
+		"name",
+		"item_name",
+		"stock_uom",
+		"disabled",
+	]);
+	if (by_name?.name && !by_name.disabled) return by_name;
+
+	// case-insensitive fallback search
+	const like_hits = await frappe.db.get_list("Item", {
 		fields: ["name", "item_name", "stock_uom", "disabled"],
-		filters: {
-			name: ["in", variants],
-			disabled: 0,
-		},
+		filters: { disabled: 0 },
+		or_filters: [
+			["item_code", "like", `%${key}%`],
+			["item_name", "like", `%${key}%`],
+		],
 		limit: 1,
 	});
-
-	return items && items.length ? items[0] : null;
+	return like_hits && like_hits.length ? like_hits[0] : null;
 }
 
 /**

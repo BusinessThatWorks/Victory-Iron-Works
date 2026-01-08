@@ -11,6 +11,35 @@ class CupolaHeatlog(Document):
 	pass
 
 @frappe.whitelist()
+def get_cupola_consumption_items():
+	item_names = [
+		"Hard Coke",
+		"Flux Lime Stone",
+		"Sand Pig Iron",
+		"Pig Iron",
+		"DS BLOCK",
+		"Ferro Manganese",
+		"Ferro Silicon",
+		"CI Foundry Return",
+		"DI Foundry Return",
+		"MS Scrap",
+		"MS CI Scrap",
+		"Mould Box Scrap"
+	]
+
+	items = frappe.get_all(
+		"Item",
+		filters={"name": ["in", item_names]},
+		fields=["name", "stock_uom", "valuation_rate"]
+	)
+
+	# 🔥 preserve order as per item_names
+	item_map = {item["name"]: item for item in items}
+	ordered_items = [item_map[name] for name in item_names if name in item_map]
+
+	return ordered_items
+
+@frappe.whitelist()
 def get_day_total_charge(date):
     if not date:
         return 0

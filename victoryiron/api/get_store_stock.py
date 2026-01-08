@@ -8,7 +8,7 @@ def get_store_stock(item_name):
     if not item_name:
         return 0
 
-    warehouse_name = "Stores - VIW"  # exact warehouse name
+    warehouse_name = "Stores - VI"  # exact warehouse name
     
     # Get actual stock quantity for the item in the specified warehouse
     # Using frappe.db.get_value or frappe.get_all from Bin doctype

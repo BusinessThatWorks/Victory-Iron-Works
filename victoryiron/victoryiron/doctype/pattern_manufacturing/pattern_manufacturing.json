@@ -65,6 +65,7 @@
    "label": "Production Details"
   },
   {
+   "fetch_from": "item_name.weight_per_unit",
    "fieldname": "cast_weight",
    "fieldtype": "Float",
    "in_list_view": 1,
@@ -94,10 +95,10 @@
    "reqd": 1
   },
   {
+   "fetch_from": "item_name.custom_customer",
    "fieldname": "customer",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "Customer",
-   "options": "Customer",
    "reqd": 1
   },
   {
@@ -130,8 +131,8 @@
  "is_submittable": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2025-12-10 14:12:40.421785",
- "modified_by": "Administrator",
+ "modified": "2026-01-13 10:42:13.984647",
+ "modified_by": "erp@clapgrow.com",
  "module": "victoryiron",
  "name": "Pattern Manufacturing",
  "naming_rule": "Expression",

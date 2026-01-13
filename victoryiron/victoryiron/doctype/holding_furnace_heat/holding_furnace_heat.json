@@ -51,6 +51,7 @@
   "fe_silicon_in_kg",
   "crc_in_kg",
   "carbon_cup_in_pcs",
+  "cr_in_kg",
   "treatment_consumption_section",
   "fesimg",
   "column_break_armx",
@@ -323,14 +324,20 @@
    "fieldname": "extra_metal_tapped_in_ladle",
    "fieldtype": "Float",
    "label": "Extra Metal Tapped In Ladle (In Kg)"
+  },
+  {
+   "fieldname": "cr_in_kg",
+   "fieldtype": "Float",
+   "label": "Cr (in Kg)",
+   "precision": "2"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-29 18:16:58.261440",
- "modified_by": "Administrator",
+ "modified": "2026-01-13 10:32:53.421761",
+ "modified_by": "erp@clapgrow.com",
  "module": "victoryiron",
  "name": "Holding Furnace Heat",
  "owner": "Administrator",

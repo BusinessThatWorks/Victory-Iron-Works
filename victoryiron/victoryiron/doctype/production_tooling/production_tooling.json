@@ -6,11 +6,11 @@
  "engine": "InnoDB",
  "field_order": [
   "tooling_name",
-  "drawing_no",
   "column_break_cqce",
-  "match_plate_number",
   "article_no",
   "column_break_obpf",
+  "drawing_no",
+  "column_break_iwfi",
   "pattern_quantity",
   "section_break_rnjm",
   "table_mfno",
@@ -24,28 +24,31 @@
   "yield",
   "section_break_atzd",
   "date",
-  "pouring_type",
-  "riser_cutting",
-  "paint_type",
   "core_sand_type",
+  "pouring_type",
   "sand_type",
-  "sand_riser_size",
   "column_break_udbo",
   "grade",
-  "box_size",
-  "mounting",
-  "paint_quantity_in_litre",
   "core_sand_quantity_in_kg",
-  "sand_quantity_in_kg",
-  "pouring_time",
+  "riser_cutting",
+  "sand_riser_size",
   "column_break_miun",
-  "sleeve_size",
-  "ingate_size",
-  "runner_size",
-  "sprue_size",
-  "chill_size",
   "pouring_temp",
   "shakeout_time",
+  "pouring_time",
+  "additional_details_section",
+  "mounting",
+  "ingate_size",
+  "sand_quantity_in_kg",
+  "paint_type",
+  "column_break_yiyw",
+  "box_size",
+  "sleeve_size",
+  "chill_size",
+  "column_break_hpzs",
+  "paint_quantity_in_litre",
+  "runner_size",
+  "sprue_size",
   "section_break_enua",
   "amended_from"
  ],
@@ -72,11 +75,6 @@
   {
    "fieldname": "column_break_cqce",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "match_plate_number",
-   "fieldtype": "Data",
-   "label": "Match Plate Number"
   },
   {
    "fieldname": "section_break_qxdo",
@@ -265,14 +263,32 @@
    "fieldname": "table_mfno",
    "fieldtype": "Table",
    "options": "Pattern Item Details"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "additional_details_section",
+   "fieldtype": "Section Break",
+   "label": "Additional Details"
+  },
+  {
+   "fieldname": "column_break_yiyw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_hpzs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_iwfi",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-10 13:55:39.819106",
- "modified_by": "Administrator",
+ "modified": "2026-01-22 10:45:21.857907",
+ "modified_by": "erp@clapgrow.com",
  "module": "victoryiron",
  "name": "Production Tooling",
  "owner": "Administrator",

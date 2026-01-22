@@ -1,0 +1,101 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"0zYrnH_R39\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Daily Production Schedule</b></span>\",\"col\":12}},{\"id\":\"DzWofB1oSj\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Daily Production Schedule\",\"col\":12}},{\"id\":\"bNUL12xU2L\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"UEkgJD90HW\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Melting</span>\",\"col\":12}},{\"id\":\"XLtlfu-L4L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Cupola Log\",\"col\":6}},{\"id\":\"Qsye32u3__\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Induction Holding Furnace Cum Mg Treatment Log\",\"col\":6}},{\"id\":\"_ooCTe4hrE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Chemical Analysis Of Cast Metal\",\"col\":6}},{\"id\":\"tv7YzJhYjV\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"YcdLmhP0vW\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Mould Batch</b></span>\",\"col\":12}},{\"id\":\"KTl6JpYjqT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Machine & Hand Mould Batch\",\"col\":6}},{\"id\":\"B0s0iWh1FN\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"UOEYE-x_tm\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Pouring</b></span>\",\"col\":12}},{\"id\":\"Po8M2iB4Hl\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Pouring Traceability\",\"col\":6}},{\"id\":\"oneVtpLjlj\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Approval Pending</b></span>\",\"col\":12}},{\"id\":\"f760K46_7g\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Ladle Metal\",\"col\":3}},{\"id\":\"RDsq4QfDD_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Furnace Bath\",\"col\":3}},{\"id\":\"IYyO-xtuKx\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Holding Furnace Heat\",\"col\":3}}]",
+ "creation": "2025-08-19 12:32:10.598520",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "setting-gear",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Foundry",
+ "links": [],
+ "modified": "2026-01-22 10:37:29.353999",
+ "modified_by": "erp@clapgrow.com",
+ "module": "victoryiron",
+ "name": "Foundry",
+ "number_cards": [],
+ "owner": "erp@clapgrow.com",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 2.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Machine & Hand Mould Batch",
+   "link_to": "Machine and Hand Mould",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "label": "Cupola Log",
+   "link_to": "Cupola Log",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Daily Production Schedule",
+   "link_to": "Daily Production Schedule",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Ladle Metal",
+   "link_to": "Ladle Metal",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "label": "Holding Furnace Heat",
+   "link_to": "Holding Furnace Heat",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "label": "Induction Holding Furnace Cum Mg Treatment Log",
+   "link_to": "Induction Holding Furnace Cum Mg Treatment Log",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Pouring Traceability",
+   "link_to": "Pouring Traceability",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Furnace Bath",
+   "link_to": "Furnace Bath",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Chemical Analysis Of Cast Metal",
+   "link_to": "Chemical Analysis Of Cast Metal",
+   "type": "DocType"
+  }
+ ],
+ "title": "Foundry"
+}

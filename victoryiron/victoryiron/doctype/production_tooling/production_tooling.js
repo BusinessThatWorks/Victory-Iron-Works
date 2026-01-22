@@ -15,9 +15,9 @@ frappe.ui.form.on("Pattern Item Details", {
     casting_weight(frm, cdt, cdn) {
         calculate_weights_and_yield(frm);
     },
-    table_mfno_remove(frm) {
-        calculate_weights_and_yield(frm);
-    }
+    // table_mfno_remove(frm) {
+    //     calculate_weights_and_yield(frm);
+    // }
 });
 
 function calculate_weights_and_yield(frm) {
@@ -47,3 +47,32 @@ function calculate_weights_and_yield(frm) {
 
     frm.set_value("yield", yield_percent);
 }
+
+function update_bunch_weight(frm) {
+    let total = 0;
+
+    (frm.doc.table_mfno || []).forEach(row => {
+        total += flt(row.bunch_weight_in_kg);
+    });
+
+    frm.set_value("bunch_weight", total);
+}
+
+// When child value changes
+frappe.ui.form.on("Pattern Item Details", {
+    bunch_weight_in_kg(frm, cdt, cdn) {
+        update_bunch_weight(frm);
+    },
+    table_mfno_remove(frm) {
+        update_bunch_weight(frm);
+        calculate_weights_and_yield(frm);
+    }
+});
+
+// Also recalc on form load / refresh
+frappe.ui.form.on("Production Tooling", {
+    refresh(frm) {
+        update_bunch_weight(frm);
+    }
+});
+

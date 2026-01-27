@@ -8,6 +8,7 @@
  "field_order": [
   "details_section",
   "item_name",
+  "pattern_type",
   "column_break_eylo",
   "drawing_no",
   "pattern_image",
@@ -122,6 +123,12 @@
    "fieldname": "table_naew",
    "fieldtype": "Table",
    "options": "Pattern Manufacturing Table"
+  },
+  {
+   "fieldname": "pattern_type",
+   "fieldtype": "Select",
+   "label": "Pattern Type",
+   "options": "\nCope\nDrag"
   }
  ],
  "grid_page_length": 50,
@@ -130,7 +137,7 @@
  "is_submittable": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2026-01-20 11:30:41.168893",
+ "modified": "2026-01-27 12:57:38.806631",
  "modified_by": "erp@clapgrow.com",
  "module": "victoryiron",
  "name": "Pattern Manufacturing",

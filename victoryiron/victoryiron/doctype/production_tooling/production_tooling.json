@@ -121,6 +121,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "default": "Today",
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Date"
@@ -293,7 +294,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-01-27 10:40:56.240660",
+ "modified": "2026-01-27 12:45:57.168298",
  "modified_by": "erp@clapgrow.com",
  "module": "victoryiron",
  "name": "Production Tooling",

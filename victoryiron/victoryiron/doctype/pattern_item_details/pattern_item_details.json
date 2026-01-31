@@ -8,11 +8,14 @@
  "field_order": [
   "item_name",
   "casting_weight",
+  "article_no",
   "column_break_cltg",
   "customer",
   "bunch_weight_in_kg",
+  "drawing_no",
   "column_break_qech",
-  "cavity"
+  "cavity",
+  "pattern_id_reference_no"
  ],
  "fields": [
   {
@@ -51,14 +54,32 @@
    "fieldname": "casting_weight",
    "fieldtype": "Float",
    "label": "Cast Weight (In Kg)"
+  },
+  {
+   "fetch_from": "item_name.production_id",
+   "fieldname": "pattern_id_reference_no",
+   "fieldtype": "Data",
+   "label": "Pattern ID Reference No"
+  },
+  {
+   "fetch_from": "item_name.article_number",
+   "fieldname": "article_no",
+   "fieldtype": "Data",
+   "label": "Article No"
+  },
+  {
+   "fetch_from": "item_name.drawing_no",
+   "fieldname": "drawing_no",
+   "fieldtype": "Data",
+   "label": "Drawing No"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-01-22 10:48:14.995257",
- "modified_by": "erp@clapgrow.com",
+ "modified": "2026-01-31 17:21:27.835251",
+ "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Pattern Item Details",
  "owner": "Administrator",

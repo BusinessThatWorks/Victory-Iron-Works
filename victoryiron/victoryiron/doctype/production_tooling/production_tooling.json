@@ -8,10 +8,6 @@
   "tooling_name",
   "tooling_process",
   "column_break_cqce",
-  "article_no",
-  "column_break_obpf",
-  "drawing_no",
-  "column_break_iwfi",
   "pattern_quantity",
   "section_break_rnjm",
   "table_mfno",
@@ -25,28 +21,29 @@
   "yield",
   "section_break_atzd",
   "date",
-  "core_sand_type",
   "pouring_type",
-  "sand_type",
+  "core_sand_type",
   "column_break_udbo",
   "grade",
+  "pouring_time",
   "core_sand_quantity_in_kg",
-  "riser_cutting",
-  "sand_riser_size",
   "column_break_miun",
   "pouring_temp",
+  "total_no_of_core",
   "shakeout_time",
-  "pouring_time",
   "additional_details_section",
+  "sand_type",
   "mounting",
   "ingate_size",
   "sand_quantity_in_kg",
   "paint_type",
   "column_break_yiyw",
+  "riser_cutting",
   "box_size",
   "sleeve_size",
   "chill_size",
   "column_break_hpzs",
+  "sand_riser_size",
   "paint_quantity_in_litre",
   "runner_size",
   "sprue_size",
@@ -196,8 +193,8 @@
   },
   {
    "fieldname": "pouring_time",
-   "fieldtype": "Time",
-   "label": "Pouring Time"
+   "fieldtype": "Duration",
+   "label": "Pouring Duration"
   },
   {
    "fieldname": "column_break_miun",
@@ -239,23 +236,9 @@
    "label": "Shakeout Time"
   },
   {
-   "fieldname": "column_break_obpf",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "pattern_quantity",
    "fieldtype": "Int",
    "label": "Tooling Quantity "
-  },
-  {
-   "fieldname": "drawing_no",
-   "fieldtype": "Data",
-   "label": "Drawing No"
-  },
-  {
-   "fieldname": "article_no",
-   "fieldtype": "Data",
-   "label": "Article No"
   },
   {
    "fieldname": "section_break_rnjm",
@@ -281,21 +264,22 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_iwfi",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "tooling_process",
    "fieldtype": "Data",
    "label": "Tooling Process"
+  },
+  {
+   "fieldname": "total_no_of_core",
+   "fieldtype": "Int",
+   "label": "Total No Of Core"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-01-27 12:45:57.168298",
- "modified_by": "erp@clapgrow.com",
+ "modified": "2026-01-31 17:23:15.368772",
+ "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Production Tooling",
  "owner": "Administrator",

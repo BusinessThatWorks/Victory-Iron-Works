@@ -126,7 +126,8 @@
   {
    "fieldname": "pouring_type",
    "fieldtype": "Select",
-   "label": "Pouring Type"
+   "label": "Pouring Type",
+   "options": "\nHand Mould\nMachine Mould"
   },
   {
    "fieldname": "riser_cutting",
@@ -265,8 +266,9 @@
   },
   {
    "fieldname": "tooling_process",
-   "fieldtype": "Data",
-   "label": "Tooling Process"
+   "fieldtype": "Link",
+   "label": "Tooling Process",
+   "options": "Process"
   },
   {
    "fieldname": "total_no_of_core",
@@ -278,7 +280,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-01-31 17:23:15.368772",
+ "modified": "2026-02-02 17:44:44.532108",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Production Tooling",

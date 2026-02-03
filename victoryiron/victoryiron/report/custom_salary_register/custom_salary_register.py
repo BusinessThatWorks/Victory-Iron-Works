@@ -89,6 +89,83 @@ def get_weekly_off_days(employee, start_date, end_date):
     except Exception as e:
         frappe.log_error(f"Error calculating weekly off for {employee}: {str(e)}")
         return 0.0
+# def get_non_weekly_off_days(employee, start_date, end_date):
+#     """Calculate number of days in the range which are NOT weekly off"""
+#     try:
+#         # 1️⃣ Get employee's holiday list
+#         holiday_list = frappe.db.get_value("Employee", employee, "holiday_list")
+#         if not holiday_list:
+#             frappe.log_error(f"No holiday list found for employee {employee}", "Weekly Off Debug")
+#             return 0.0
+
+#         # 2️⃣ Get weekly off days from Holiday List
+#         weekly_off_days = frappe.db.get_value("Holiday List", holiday_list, "weekly_off")
+#         if not weekly_off_days:
+#             return 0.0
+
+#         # 3️⃣ Parse weekly off days
+#         off_days = [day.strip() for day in weekly_off_days.split(",")]
+#         day_mapping = {"Monday":0,"Tuesday":1,"Wednesday":2,"Thursday":3,"Friday":4,"Saturday":5,"Sunday":6}
+#         off_numbers = [day_mapping[day] for day in off_days if day in day_mapping]
+
+#         # 4️⃣ Convert start/end to datetime
+#         if isinstance(start_date, str):
+#             start_dt = datetime.strptime(start_date, "%Y-%m-%d")
+#         else:
+#             start_dt = datetime.combine(start_date, datetime.min.time())
+
+#         if isinstance(end_date, str):
+#             end_dt = datetime.strptime(end_date, "%Y-%m-%d")
+#         else:
+#             end_dt = datetime.combine(end_date, datetime.min.time())
+
+#         # 5️⃣ Count non-weekly-off days
+#         count = 0
+#         current_date = start_dt
+#         while current_date <= end_dt:
+#             if current_date.weekday() not in off_numbers:
+#                 count += 1
+#             current_date += timedelta(days=1)
+
+#         return float(count)
+
+#     except Exception as e:
+#         frappe.log_error(f"Error calculating non-weekly-off days for {employee}: {str(e)}")
+#         return 0.0
+def get_employee_public_holidays(employee, start_date, end_date):
+    """Count only public holidays (exclude weekly offs) from employee holiday list"""
+    holiday_list = frappe.db.get_value("Employee", employee, "holiday_list")
+    if not holiday_list:
+        return 0.0
+
+    weekly_off_days = frappe.db.get_value("Holiday List", holiday_list, "weekly_off") or ""
+    weekly_off_days = [d.strip() for d in weekly_off_days.split(",") if d.strip()]
+
+    # Holiday table has fields: holiday_date, description, weekly_off (0/1)
+    holidays = frappe.get_all(
+        "Holiday",
+        filters={
+            "parent": holiday_list,
+            "holiday_date": ["between", [start_date, end_date]],
+        },
+        fields=["holiday_date", "description", "weekly_off"]
+    )
+
+    public_count = 0
+    for h in holidays:
+        # BEST filter: weekly_off flag
+        if h.get("weekly_off"):
+            continue
+
+        # EXTRA safety: description match (some setups don't set weekly_off properly)
+        if (h.get("description") or "").strip() in weekly_off_days:
+            continue
+
+        public_count += 1
+
+    return float(public_count)
+
+
 
 
 def execute(filters=None):
@@ -121,13 +198,21 @@ def execute(filters=None):
     to_date = filters.get("to_date")
 
     for ss in salary_slips:
-        # Calculate weekly off days based on the filter date range
+    # 1️⃣ Weekly off days
         weekly_off_count = get_weekly_off_days(ss.employee, from_date, to_date)
-
+        
+        # 2️⃣ Non-weekly-off days (employee holidays)
+        employee_public_holiday_count = get_employee_public_holidays(
+            ss.employee, from_date, to_date
+        )
+        
+        # 3️⃣ Assign to salary slip fields
+        # ss.weekly_off_days = weekly_off_count
+        # ss.employee_holiday_days = ss.employee_holiday_days
         # Attendance-based counts within the filter date range
         present_count, on_leave_count, absent_count = get_attendance_counts(
             ss.employee, from_date, to_date
-        )
+            )    
 
         # Inclusive total days in the filter range
         total_days_in_range = get_inclusive_days(from_date, to_date)
@@ -138,6 +223,7 @@ def execute(filters=None):
             "employee_name": ss.employee_name,
             "actual_days_present": float(present_count),
             "weekly_off": weekly_off_count,
+            "employee_holiday": employee_public_holiday_count,
             "authorised_leave": float(on_leave_count),
             "unauthorised_leave": float(absent_count),
             "total_days_payable": float(total_days_in_range),
@@ -325,6 +411,12 @@ def get_columns(earning_types, ded_types):
             "fieldname": "weekly_off",
             "fieldtype": "Float",
             "width": 100,
+        },
+        {
+            "label": _("Employee Holiday"),
+            "fieldname": "employee_holiday",
+            "fieldtype": "Float",
+            "width": 130,
         },
         # {
         #     "label": _("Unauthorised Leave"),

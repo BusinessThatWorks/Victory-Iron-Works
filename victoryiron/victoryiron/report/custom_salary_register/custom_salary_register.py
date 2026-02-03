@@ -302,9 +302,21 @@ def get_columns(earning_types, ded_types):
             "fieldtype": "Data",
             "width": 140,
         },
-		{
-            "label": _("Total No of Days Payable"),
-            "fieldname": "total_days_payable",
+		# {
+        #     "label": _("Total No of Days Payable"),
+        #     "fieldname": "total_days_payable",
+        #     "fieldtype": "Float",
+        #     "width": 150,
+        # },
+        {
+            "label": _("Actual Days Present"),
+            "fieldname": "actual_days_present",
+            "fieldtype": "Float",
+            "width": 120,
+        },
+        {
+            "label": _("Authorised Leave"),
+            "fieldname": "authorised_leave",
             "fieldtype": "Float",
             "width": 150,
         },
@@ -314,36 +326,24 @@ def get_columns(earning_types, ded_types):
             "fieldtype": "Float",
             "width": 100,
         },
-        {
-            "label": _("Authorised Leave"),
-            "fieldname": "authorised_leave",
-            "fieldtype": "Float",
-            "width": 150,
-        },
-        {
-            "label": _("Unauthorised Leave"),
-            "fieldname": "unauthorised_leave",
-            "fieldtype": "Float",
-            "width": 170,
-        },
+        # {
+        #     "label": _("Unauthorised Leave"),
+        #     "fieldname": "unauthorised_leave",
+        #     "fieldtype": "Float",
+        #     "width": 170,
+        # },
         {
             "label": _("Payment Days"),
             "fieldname": "payment_days",
             "fieldtype": "Float",
             "width": 120,
         },
-		{
-            "label": _("Actual Days Present"),
-            "fieldname": "actual_days_present",
-            "fieldtype": "Float",
-            "width": 120,
-        },
-        {
-            "label": _("Absent Days"),
-            "fieldname": "absent_days",
-            "fieldtype": "Float",
-            "width": 50,
-        },
+        # {
+        #     "label": _("Absent Days"),
+        #     "fieldname": "absent_days",
+        #     "fieldtype": "Float",
+        #     "width": 50,
+        # },
         # {
         #     "label": _("Date of Joining"),
         #     "fieldname": "data_of_joining",
@@ -390,12 +390,12 @@ def get_columns(earning_types, ded_types):
         #     "fieldtype": "Data",
         #     "width": 80,
         # },
-        # {
-        #     "label": _("Leave Without Pay"),
-        #     "fieldname": "leave_without_pay",
-        #     "fieldtype": "Float",
-        #     "width": 50,
-        # },
+        {
+            "label": _("Leave Without Pay"),
+            "fieldname": "leave_without_pay",
+            "fieldtype": "Float",
+            "width": 50,
+        },
     ]
 
     # Add columns for regular amount and full_amount for earnings

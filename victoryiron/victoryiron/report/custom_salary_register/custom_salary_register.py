@@ -399,18 +399,29 @@ def get_columns(earning_types, ded_types):
     ]
 
     # Add columns for regular amount and full_amount for earnings
+    # for earning in earning_types:
+    #     # Regular amount column
+    #     columns.append(
+    #         {
+    #             "label": earning,
+    #             "fieldname": frappe.scrub(earning),
+    #             "fieldtype": "Currency",
+    #             "options": "currency",
+    #             "width": 120,
+    #         }
+    #     )
+    #     # Full amount column
+    #     columns.append(
+    #         {
+    #             "label": f"{earning} (Full Amount)",
+    #             "fieldname": frappe.scrub(earning) + "_full_amount",
+    #             "fieldtype": "Currency",
+    #             "options": "currency",
+    #             "width": 120,
+    #         }
+    #     )
+    # Add columns for full_amount first for earnings
     for earning in earning_types:
-        # Regular amount column
-        columns.append(
-            {
-                "label": earning,
-                "fieldname": frappe.scrub(earning),
-                "fieldtype": "Currency",
-                "options": "currency",
-                "width": 120,
-            }
-        )
-        # Full amount column
         columns.append(
             {
                 "label": f"{earning} (Full Amount)",
@@ -420,6 +431,19 @@ def get_columns(earning_types, ded_types):
                 "width": 120,
             }
         )
+
+    # Add columns for regular amount after for earnings
+    for earning in earning_types:
+        columns.append(
+            {
+                "label": earning,
+                "fieldname": frappe.scrub(earning),
+                "fieldtype": "Currency",
+                "options": "currency",
+                "width": 120,
+            }
+        )
+
 
     columns.append(
         {
@@ -432,18 +456,29 @@ def get_columns(earning_types, ded_types):
     )
 
     # Add columns for regular amount and full_amount for deductions
+    # for deduction in ded_types:
+    #     # Regular amount column
+    #     columns.append(
+    #         {
+    #             "label": deduction,
+    #             "fieldname": frappe.scrub(deduction),
+    #             "fieldtype": "Currency",
+    #             "options": "currency",
+    #             "width": 120,
+    #         }
+    #     )
+    #     # Full amount column
+    #     columns.append(
+    #         {
+    #             "label": f"{deduction} (Full Amount)",
+    #             "fieldname": frappe.scrub(deduction) + "_full_amount",
+    #             "fieldtype": "Currency",
+    #             "options": "currency",
+    #             "width": 120,
+    #         }
+    #     )
+    # Add columns for full_amount first for deductions
     for deduction in ded_types:
-        # Regular amount column
-        columns.append(
-            {
-                "label": deduction,
-                "fieldname": frappe.scrub(deduction),
-                "fieldtype": "Currency",
-                "options": "currency",
-                "width": 120,
-            }
-        )
-        # Full amount column
         columns.append(
             {
                 "label": f"{deduction} (Full Amount)",
@@ -453,6 +488,19 @@ def get_columns(earning_types, ded_types):
                 "width": 120,
             }
         )
+
+    # Add columns for regular amount after for deductions
+    for deduction in ded_types:
+        columns.append(
+            {
+                "label": deduction,
+                "fieldname": frappe.scrub(deduction),
+                "fieldtype": "Currency",
+                "options": "currency",
+                "width": 120,
+            }
+        )
+
 
     columns.extend(
         [

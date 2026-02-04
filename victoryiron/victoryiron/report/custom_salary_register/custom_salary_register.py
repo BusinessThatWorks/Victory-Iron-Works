@@ -15,80 +15,156 @@ salary_detail = frappe.qb.DocType("Salary Detail")
 salary_component = frappe.qb.DocType("Salary Component")
 
 
+# def get_weekly_off_days(employee, start_date, end_date):
+#     """Calculate weekly off days for an employee in the given date range"""
+#     try:
+#         # Get employee's holiday list
+#         holiday_list = frappe.db.get_value("Employee", employee, "holiday_list")
+#         if not holiday_list:
+#             frappe.log_error(f"No holiday list found for employee {employee}", "Weekly Off Debug")
+#             return 0.0
+
+#         # Get weekly off days from Holiday List
+#         weekly_off_days = frappe.db.get_value("Holiday List", holiday_list, "weekly_off")
+#         if not weekly_off_days:
+#             frappe.log_error(
+#                 f"No weekly_off field found in Holiday List {holiday_list} for employee {employee}",
+#                 "Weekly Off Debug",
+#             )
+#             return 0.0
+
+#         frappe.log_error(
+#             f"Employee {employee}: Holiday List={holiday_list}, Weekly Off Days={weekly_off_days}",
+#             "Weekly Off Debug",
+#         )
+
+#         # Parse the weekly off days (comma-separated string like "Sunday,Monday")
+#         off_days = [day.strip() for day in weekly_off_days.split(",")]
+
+#         # Convert day names to numbers (Monday=0, Sunday=6)
+#         day_numbers = []
+#         day_mapping = {
+#             "Monday": 0,
+#             "Tuesday": 1,
+#             "Wednesday": 2,
+#             "Thursday": 3,
+#             "Friday": 4,
+#             "Saturday": 5,
+#             "Sunday": 6,
+#         }
+#         for day in off_days:
+#             if day in day_mapping:
+#                 day_numbers.append(day_mapping[day])
+
+#         if not day_numbers:
+#             return 0.0
+
+#         # Count occurrences of these weekdays in the date range
+#         # Convert date objects to datetime objects if needed
+#         if isinstance(start_date, str):
+#             start_dt = datetime.strptime(start_date, "%Y-%m-%d")
+#         else:
+#             start_dt = datetime.combine(start_date, datetime.min.time())
+
+#         if isinstance(end_date, str):
+#             end_dt = datetime.strptime(end_date, "%Y-%m-%d")
+#         else:
+#             end_dt = datetime.combine(end_date, datetime.min.time())
+
+#         count = 0
+#         current_date = start_dt
+#         while current_date <= end_dt:
+#             # Get weekday (Monday=0, Sunday=6)
+#             weekday = current_date.weekday()
+#             if weekday in day_numbers:
+#                 count += 1
+#             current_date += timedelta(days=1)
+
+#         frappe.log_error(
+#             f"Employee {employee}: Date range {start_date} to {end_date}, Day numbers {day_numbers}, Count {count}",
+#             "Weekly Off Debug",
+#         )
+#         return float(count)
+
+#     except Exception as e:
+#         frappe.log_error(f"Error calculating weekly off for {employee}: {str(e)}")
+#         return 0.0
+import frappe
+
 def get_weekly_off_days(employee, start_date, end_date):
-    """Calculate weekly off days for an employee in the given date range"""
+    """
+    Weekly off count based ONLY on Holiday table rows
+    where weekly_off checkbox is ticked (weekly_off = 1).
+
+    Returns:
+        float(count)
+    """
     try:
-        # Get employee's holiday list
         holiday_list = frappe.db.get_value("Employee", employee, "holiday_list")
         if not holiday_list:
-            frappe.log_error(f"No holiday list found for employee {employee}", "Weekly Off Debug")
-            return 0.0
-
-        # Get weekly off days from Holiday List
-        weekly_off_days = frappe.db.get_value("Holiday List", holiday_list, "weekly_off")
-        if not weekly_off_days:
             frappe.log_error(
-                f"No weekly_off field found in Holiday List {holiday_list} for employee {employee}",
-                "Weekly Off Debug",
+                f"No holiday list found for employee {employee}",
+                "Weekly Off Debug"
             )
             return 0.0
 
-        frappe.log_error(
-            f"Employee {employee}: Holiday List={holiday_list}, Weekly Off Days={weekly_off_days}",
-            "Weekly Off Debug",
+        # Fetch weekly off records (checkbox ticked)
+        weekly_offs = frappe.get_all(
+            "Holiday",
+            filters={
+                "parent": holiday_list,
+                "holiday_date": ["between", [start_date, end_date]],
+                "weekly_off": 1
+            },
+            fields=["holiday_date", "description", "weekly_off"],
+            order_by="holiday_date asc"
         )
 
-        # Parse the weekly off days (comma-separated string like "Sunday,Monday")
-        off_days = [day.strip() for day in weekly_off_days.split(",")]
+        count = len(weekly_offs)
 
-        # Convert day names to numbers (Monday=0, Sunday=6)
-        day_numbers = []
-        day_mapping = {
-            "Monday": 0,
-            "Tuesday": 1,
-            "Wednesday": 2,
-            "Thursday": 3,
-            "Friday": 4,
-            "Saturday": 5,
-            "Sunday": 6,
-        }
-        for day in off_days:
-            if day in day_mapping:
-                day_numbers.append(day_mapping[day])
-
-        if not day_numbers:
-            return 0.0
-
-        # Count occurrences of these weekdays in the date range
-        # Convert date objects to datetime objects if needed
-        if isinstance(start_date, str):
-            start_dt = datetime.strptime(start_date, "%Y-%m-%d")
-        else:
-            start_dt = datetime.combine(start_date, datetime.min.time())
-
-        if isinstance(end_date, str):
-            end_dt = datetime.strptime(end_date, "%Y-%m-%d")
-        else:
-            end_dt = datetime.combine(end_date, datetime.min.time())
-
-        count = 0
-        current_date = start_dt
-        while current_date <= end_dt:
-            # Get weekday (Monday=0, Sunday=6)
-            weekday = current_date.weekday()
-            if weekday in day_numbers:
-                count += 1
-            current_date += timedelta(days=1)
-
+        # Debug log summary
         frappe.log_error(
-            f"Employee {employee}: Date range {start_date} to {end_date}, Day numbers {day_numbers}, Count {count}",
-            "Weekly Off Debug",
+            f"""
+Employee={employee}
+Holiday List={holiday_list}
+Range={start_date} to {end_date}
+Weekly Off Count (checkbox based)={count}
+""",
+            "Weekly Off Debug"
         )
+
+        # Debug log full list (dates + desc)
+        if weekly_offs:
+            lines = []
+            for h in weekly_offs:
+                lines.append(
+                    f"{h.get('holiday_date')} | {h.get('description')} | weekly_off={h.get('weekly_off')}"
+                )
+
+            frappe.log_error(
+                "Weekly Off Records:\n" + "\n".join(lines),
+                "Weekly Off Debug Records"
+            )
+        else:
+            frappe.log_error(
+                f"""
+No weekly_off=1 records found in Holiday table.
+Employee={employee}
+Holiday List={holiday_list}
+Range={start_date} to {end_date}
+""",
+                "Weekly Off Debug Warning"
+            )
+
         return float(count)
 
     except Exception as e:
-        frappe.log_error(f"Error calculating weekly off for {employee}: {str(e)}")
+        frappe.log_error(
+            f"Error calculating weekly off for {employee}: {str(e)}",
+            "Weekly Off Debug Error"
+        )
         return 0.0
+
 # def get_non_weekly_off_days(employee, start_date, end_date):
 #     """Calculate number of days in the range which are NOT weekly off"""
 #     try:
@@ -570,16 +646,16 @@ def get_columns(earning_types, ded_types):
     #         }
     #     )
     # Add columns for full_amount first for deductions
-    for deduction in ded_types:
-        columns.append(
-            {
-                "label": f"{deduction} (Full Amount)",
-                "fieldname": frappe.scrub(deduction) + "_full_amount",
-                "fieldtype": "Currency",
-                "options": "currency",
-                "width": 120,
-            }
-        )
+    # for deduction in ded_types:
+    #     columns.append(
+    #         {
+    #             "label": f"{deduction} (Full Amount)",
+    #             "fieldname": frappe.scrub(deduction) + "_full_amount",
+    #             "fieldtype": "Currency",
+    #             "options": "currency",
+    #             "width": 120,
+    #         }
+    #     )
 
     # Add columns for regular amount after for deductions
     for deduction in ded_types:

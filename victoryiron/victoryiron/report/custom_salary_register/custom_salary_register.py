@@ -266,7 +266,7 @@ def execute(filters=None):
     # Get full_amount mapping for both earnings and deductions
     ss_earning_full_amount_map = get_salary_slip_full_amount_details(salary_slips, currency, company_currency, "earnings")
     ss_ded_full_amount_map = get_salary_slip_full_amount_details(salary_slips, currency, company_currency, "deductions")
-
+    
     doj_map = get_employee_doj_map()
 
     data = []
@@ -326,6 +326,13 @@ def execute(filters=None):
         # Add full_amount for earnings
         for e in earning_types:
             row.update({frappe.scrub(e) + "_full_amount": ss_earning_full_amount_map.get(ss.name, {}).get(e)})
+
+        # ✅ Gross Pay (Full Amount) = sum of earning full amounts
+        gross_full_amount = 0.0
+        for e in earning_types:
+            gross_full_amount += flt(ss_earning_full_amount_map.get(ss.name, {}).get(e))
+
+        row["gross_pay_full_amount"] = gross_full_amount    
 
         # Add regular amount for deductions
         for d in ded_types:
@@ -599,7 +606,13 @@ def get_columns(earning_types, ded_types):
                 "width": 120,
             }
         )
-
+    columns.append({
+        "label": _("Gross Pay (Full Amount)"),
+        "fieldname": "gross_pay_full_amount",
+        "fieldtype": "Currency",
+        "options": "currency",
+        "width": 160,
+    })
     # Add columns for regular amount after for earnings
     for earning in earning_types:
         columns.append(

@@ -52,7 +52,8 @@ function update_bunch_weight(frm) {
     let total = 0;
 
     (frm.doc.table_mfno || []).forEach(row => {
-        total += flt(row.bunch_weight_in_kg);
+        // total += flt(row.bunch_weight_in_kg);
+        total += flt(row.bunch_weight_in_kg) * flt(row.cavity);
     });
 
     frm.set_value("bunch_weight", total);
@@ -62,6 +63,11 @@ function update_bunch_weight(frm) {
 frappe.ui.form.on("Pattern Item Details", {
     bunch_weight_in_kg(frm, cdt, cdn) {
         update_bunch_weight(frm);
+        calculate_weights_and_yield(frm);
+    },
+    cavity(frm, cdt, cdn) {
+        update_bunch_weight(frm);
+        calculate_weights_and_yield(frm);
     },
     table_mfno_remove(frm) {
         update_bunch_weight(frm);

@@ -23,6 +23,7 @@
   "date",
   "pouring_type",
   "core_sand_type",
+  "box_size",
   "column_break_udbo",
   "grade",
   "pouring_time",
@@ -39,7 +40,6 @@
   "paint_type",
   "column_break_yiyw",
   "riser_cutting",
-  "box_size",
   "sleeve_size",
   "chill_size",
   "column_break_hpzs",
@@ -143,7 +143,8 @@
   {
    "fieldname": "core_sand_type",
    "fieldtype": "Select",
-   "label": "Core Sand Type"
+   "label": "Core Sand Type",
+   "options": "\nShell Core\nGreen Sand\n2 Part Resin Sand\n3 Part Resin Sand"
   },
   {
    "fieldname": "sand_type",
@@ -163,7 +164,7 @@
    "fieldname": "grade",
    "fieldtype": "Link",
    "label": "Grade",
-   "options": "Item"
+   "options": "Grade Master"
   },
   {
    "fieldname": "box_size",
@@ -280,7 +281,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-02-02 17:44:44.532108",
+ "modified": "2026-02-07 10:39:35.430583",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Production Tooling",

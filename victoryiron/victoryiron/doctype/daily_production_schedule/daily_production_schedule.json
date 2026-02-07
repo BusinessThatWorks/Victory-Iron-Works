@@ -10,7 +10,20 @@
   "column_break_ywvv",
   "amended_from",
   "daily_production_schedule_section",
-  "daily_production_schedule"
+  "daily_production_schedule",
+  "section_break_cnux",
+  "far_total_pcs",
+  "cast_total_pcs",
+  "uncast_total_pcs",
+  "finish_total_pcs",
+  "rejected_total_pcs",
+  "average_rejection",
+  "column_break_hbnh",
+  "far_total_weight",
+  "cast_total_weight",
+  "uncast_total_weight",
+  "finish_total_weight",
+  "rejected_total_weight"
  ],
  "fields": [
   {
@@ -46,13 +59,81 @@
    "fieldtype": "Table",
    "label": "Daily Production Schedule",
    "options": "Daily Production Schedule Table"
+  },
+  {
+   "fieldname": "section_break_cnux",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "far_total_pcs",
+   "fieldtype": "Int",
+   "label": "FAR: Total Pcs"
+  },
+  {
+   "fieldname": "cast_total_pcs",
+   "fieldtype": "Int",
+   "label": "CAST: Total Pcs"
+  },
+  {
+   "fieldname": "uncast_total_pcs",
+   "fieldtype": "Int",
+   "label": "UNCAST: Total Pcs"
+  },
+  {
+   "fieldname": "finish_total_pcs",
+   "fieldtype": "Int",
+   "label": "FINISH: Total Pcs"
+  },
+  {
+   "fieldname": "column_break_hbnh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "far_total_weight",
+   "fieldtype": "Float",
+   "label": "FAR: Total Weight",
+   "precision": "2"
+  },
+  {
+   "fieldname": "cast_total_weight",
+   "fieldtype": "Float",
+   "label": "CAST: Total Weight",
+   "precision": "2"
+  },
+  {
+   "fieldname": "uncast_total_weight",
+   "fieldtype": "Float",
+   "label": "UNCAST: Total Weight",
+   "precision": "2"
+  },
+  {
+   "fieldname": "finish_total_weight",
+   "fieldtype": "Float",
+   "label": "FINISH: Total Weight",
+   "precision": "2"
+  },
+  {
+   "fieldname": "rejected_total_pcs",
+   "fieldtype": "Int",
+   "label": "REJECTED: Total Pcs"
+  },
+  {
+   "fieldname": "rejected_total_weight",
+   "fieldtype": "Float",
+   "label": "REJECTED: Total Weight"
+  },
+  {
+   "fieldname": "average_rejection",
+   "fieldtype": "Percent",
+   "label": "Average Rejection %",
+   "precision": "2"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-22 14:22:56.882522",
+ "modified": "2026-02-07 16:58:52.530827",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Daily Production Schedule",
@@ -73,6 +154,7 @@
   }
  ],
  "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

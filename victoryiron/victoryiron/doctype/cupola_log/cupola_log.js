@@ -14,7 +14,7 @@ frappe.ui.form.on("Cupola Log", {
     refresh(frm) {
         // Nothing on refresh for now
     },
-});
+}); 
 
 // Child table field triggers
 frappe.ui.form.on("Cupola Consumption Table", {

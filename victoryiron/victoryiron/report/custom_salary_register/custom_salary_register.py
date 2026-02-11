@@ -806,31 +806,60 @@ def get_salary_slip_details(salary_slips, currency, company_currency, component_
     return ss_map
 
 
+# def get_salary_slip_full_amount_details(salary_slips, currency, company_currency, component_type):
+#     salary_slips = [ss.name for ss in salary_slips]
+
+#     result = (
+#         frappe.qb.from_(salary_slip)
+#         .join(salary_detail)
+#         .on(salary_slip.name == salary_detail.parent)
+#         .where((salary_detail.parent.isin(salary_slips)) & (salary_detail.parentfield == component_type))
+#         .select(
+#             salary_detail.parent,
+#             salary_detail.salary_component,
+#             salary_detail.custom_full_amount,  # Changed from amount to custom_full_amount
+#             salary_slip.exchange_rate,
+#         )
+#     ).run(as_dict=1)
+
+#     ss_map = {}
+
+#     for d in result:
+#         ss_map.setdefault(d.parent, frappe._dict()).setdefault(d.salary_component, 0.0)
+#         if currency == company_currency:
+#             ss_map[d.parent][d.salary_component] += flt(d.custom_full_amount) * flt(
+#                 d.exchange_rate if d.exchange_rate else 1
+#             )
+#         else:
+#             ss_map[d.parent][d.salary_component] += flt(d.custom_full_amount)
+
+#     return ss_map
 def get_salary_slip_full_amount_details(salary_slips, currency, company_currency, component_type):
     salary_slips = [ss.name for ss in salary_slips]
-
-    result = (
-        frappe.qb.from_(salary_slip)
-        .join(salary_detail)
-        .on(salary_slip.name == salary_detail.parent)
-        .where((salary_detail.parent.isin(salary_slips)) & (salary_detail.parentfield == component_type))
-        .select(
-            salary_detail.parent,
-            salary_detail.salary_component,
-            salary_detail.custom_full_amount,  # Changed from amount to custom_full_amount
-            salary_slip.exchange_rate,
-        )
-    ).run(as_dict=1)
-
+    
+    # DIRECT FETCH - no bakchodi
+    result = frappe.db.sql("""
+        SELECT 
+            sd.parent,
+            sd.salary_component,
+            sd.custom_full_amount,
+            ss.exchange_rate
+        FROM `tabSalary Detail` sd
+        JOIN `tabSalary Slip` ss ON ss.name = sd.parent
+        WHERE 
+            sd.parent IN ({})
+            AND sd.parentfield = %s
+    """.format(','.join(['%s']*len(salary_slips))), 
+    tuple(salary_slips) + (component_type,), as_dict=1)
+    
     ss_map = {}
-
+    
     for d in result:
         ss_map.setdefault(d.parent, frappe._dict()).setdefault(d.salary_component, 0.0)
+        
         if currency == company_currency:
-            ss_map[d.parent][d.salary_component] += flt(d.custom_full_amount) * flt(
-                d.exchange_rate if d.exchange_rate else 1
-            )
+            ss_map[d.parent][d.salary_component] += flt(d.custom_full_amount or 0) * flt(d.exchange_rate or 1)
         else:
-            ss_map[d.parent][d.salary_component] += flt(d.custom_full_amount)
-
+            ss_map[d.parent][d.salary_component] += flt(d.custom_full_amount or 0)
+    
     return ss_map

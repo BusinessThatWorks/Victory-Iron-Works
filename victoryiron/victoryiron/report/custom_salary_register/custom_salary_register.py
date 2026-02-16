@@ -325,14 +325,15 @@ def execute(filters=None):
         
         # Add full_amount for earnings
         for e in earning_types:
-            row.update({frappe.scrub(e) + "_full_amount": ss_earning_full_amount_map.get(ss.name, {}).get(e)})
+            # row.update({frappe.scrub(e) + "_full_amount": ss_earning_full_amount_map.get(ss.name, {}).get(e)})
+            row.update({frappe.scrub(e) + "_master_amount": ss_earning_full_amount_map.get(ss.name, {}).get(e)})
 
         # ✅ Gross Pay (Full Amount) = sum of earning full amounts
         gross_full_amount = 0.0
         for e in earning_types:
             gross_full_amount += flt(ss_earning_full_amount_map.get(ss.name, {}).get(e))
 
-        row["gross_pay_full_amount"] = gross_full_amount    
+        row["gross_pay_master_amount"] = gross_full_amount
 
         # Add regular amount for deductions
         for d in ded_types:
@@ -599,16 +600,16 @@ def get_columns(earning_types, ded_types):
     for earning in earning_types:
         columns.append(
             {
-                "label": f"{earning} (Full Amount)",
-                "fieldname": frappe.scrub(earning) + "_full_amount",
+                "label": f"{earning} (Master Amount)",
+                "fieldname": frappe.scrub(earning) + "_master_amount",
                 "fieldtype": "Currency",
                 "options": "currency",
                 "width": 120,
             }
         )
     columns.append({
-        "label": _("Gross Pay (Full Amount)"),
-        "fieldname": "gross_pay_full_amount",
+        "label": _("Gross Pay (Master Amount)"),
+        "fieldname": "gross_pay_master_amount",
         "fieldtype": "Currency",
         "options": "currency",
         "width": 160,
@@ -865,12 +866,11 @@ def get_salary_slip_details(salary_slips, currency, company_currency, component_
 def get_salary_slip_full_amount_details(salary_slips, currency, company_currency, component_type):
     salary_slips = [ss.name for ss in salary_slips]
     
-    # DIRECT FETCH - no bakchodi
     result = frappe.db.sql("""
         SELECT 
             sd.parent,
             sd.salary_component,
-            sd.custom_full_amount,
+            sd.default_amount,
             ss.exchange_rate
         FROM `tabSalary Detail` sd
         JOIN `tabSalary Slip` ss ON ss.name = sd.parent
@@ -885,7 +885,7 @@ def get_salary_slip_full_amount_details(salary_slips, currency, company_currency
         SELECT 
             sd.parent,
             sd.salary_component,
-            sd.custom_full_amount,
+            sd.default_amount,
             ss.exchange_rate
         FROM `tabSalary Detail` sd
         JOIN `tabSalary Slip` ss ON ss.name = sd.parent
@@ -903,11 +903,11 @@ def get_salary_slip_full_amount_details(salary_slips, currency, company_currency
         
         
         if currency == company_currency:
-            ss_map[d.parent][d.salary_component] += flt(d.custom_full_amount or 0) * flt(d.exchange_rate or 1)
-            ss_map[d.parent][d.salary_component] += flt(d.custom_full_amount or 0) * flt(d.exchange_rate or 1)
+            ss_map[d.parent][d.salary_component] += flt(d.default_amount or 0) * flt(d.exchange_rate or 1)
+            # ss_map[d.parent][d.salary_component] += flt(d.default_amount or 0) * flt(d.exchange_rate or 1)
         else:
-            ss_map[d.parent][d.salary_component] += flt(d.custom_full_amount or 0)
+            ss_map[d.parent][d.salary_component] += flt(d.default_amount or 0)
     
-            ss_map[d.parent][d.salary_component] += flt(d.custom_full_amount or 0)
+            # ss_map[d.parent][d.salary_component] += flt(d.default_amount or 0)
     
     return ss_map

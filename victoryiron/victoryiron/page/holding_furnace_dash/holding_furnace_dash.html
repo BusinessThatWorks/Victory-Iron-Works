@@ -1,0 +1,197 @@
+<div class="hf-dashboard">
+    <div class="hf-dashboard-body">
+
+        <!-- Filters -->
+        <div class="row g-3 mb-4 align-items-end">
+            <div class="col-md-3">
+                <div class="hf-filter-from"></div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="hf-filter-to"></div>
+            </div>
+
+            <div class="col-md-2 mb-3">
+                <button class="btn btn-outline-primary hf-clear-btn w-100">
+                    Clear
+                </button>
+            </div>
+        </div>
+
+
+        <!-- KPI Row -->
+        <div class="row g-3 mb-3 align-items-stretch">
+            <div class="col-md-2">
+                <div class="hf-kpi kpi-orange">
+                    <div class="label">Records</div>
+                    <div class="value" id="kpi-count">0</div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="hf-kpi kpi-blue">
+                    <div class="label">Total Metal Received</div>
+                    <div class="value" id="kpi-metal-in">0  Kg</div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="hf-kpi kpi-green">
+                    <div class="label">Total Metal Discharged</div>
+                    <div class="value" id="kpi-metal-out">0  Kg</div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="hf-kpi kpi-purple">
+                    <div class="label">Metal Discharge Count</div>
+                    <div class="value" id="kpi-discharge">0</div>
+                </div>
+            </div> 
+            <div class="col-md-2">
+            <div class="hf-kpi kpi-teal">
+                <div class="label">Furnace Units</div>
+                <div class="value" id="kpi-furnace-unit">0</div>
+            </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="hf-kpi kpi-red">
+                    <div class="label">Cooling Tower Units</div>
+                    <div class="value" id="kpi-cooling-unit">0</div>
+                </div>
+            </div>           
+        </div>
+        <!-- Lower KPI Row -->
+        <div class="row g-3 mb-3">
+
+            <!-- Ladle Consumption -->
+            <div class="col-md-6">
+                <div class="hf-kpi hf-kpi-white">
+                    <div class="label">Ladle Consumption (kgs)</div>
+
+                    <div class="kpi-subgrid" style="grid-template-columns: repeat(3,1fr);">
+                        <div>
+                            <div class="sub-label">FeSiMg</div>
+                            <div class="sub-value" id="ladle-fesimg">0</div>
+                        </div>
+                        <div>
+                            <div class="sub-label">Inoculant</div>
+                            <div class="sub-value" id="ladle-inoculant">0</div>
+                        </div>
+                        <div>
+                            <div class="sub-label">Punching</div>
+                            <div class="sub-value" id="ladle-punching">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Material Additions (Dynamic) -->
+            <div class="col-md-6">
+                <div class="hf-kpi hf-kpi-white">
+                    <div class="label">Material Additions (kgs)</div>
+
+                    <div class="kpi-subgrid">
+                        <div>
+                            <div class="sub-label">Carbon</div>
+                            <div class="sub-value" id="add-carbon">0</div>
+                        </div>
+                        <div>
+                            <div class="sub-label">FeSi</div>
+                            <div class="sub-value" id="add-fesi">0</div>
+                        </div>
+                        <div>
+                            <div class="sub-label">FeMn</div>
+                            <div class="sub-value" id="add-femn">0</div>
+                        </div>
+                        <div>
+                            <div class="sub-label">CRC</div>
+                            <div class="sub-value" id="add-crc">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Table -->
+        <div class="card p-3">
+            <h5>Holding Furnace Logs</h5>
+            <div id="hf-table"></div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    /* .hf-kpi {
+    padding:18px;
+    border-radius:16px;
+    color:white;
+    font-weight:600;
+} */
+.hf-kpi {
+    padding:18px;
+    border-radius:16px;
+    color:white;
+    font-weight:600;
+    height: 100%;              /* ✅ add */
+    display:flex;              /* ✅ add */
+    flex-direction:column;     /* ✅ add */
+    justify-content:space-between; /* ✅ add */
+}
+.hf-kpi .value {
+    font-size:20px;
+}
+.kpi-orange {
+    background: linear-gradient(135deg,#f59e0b,#fdba74);
+}
+
+.kpi-blue {
+    background: linear-gradient(135deg,#3b82f6,#93c5fd);
+}
+
+.kpi-green {
+    background: linear-gradient(135deg,#10b981,#86efac);
+}
+
+.kpi-purple {
+    background: linear-gradient(135deg,#8b5cf6,#c4b5fd);
+}
+
+.kpi-teal {
+    background: linear-gradient(135deg,#14b8a6,#99f6e4);
+}
+
+.kpi-red {
+    background: linear-gradient(135deg,#ef4444,#fca5a5);
+}
+
+.hf-kpi-white {
+    background: #ffffff;
+    color: #111827;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.kpi-subgrid {
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap:12px;
+    margin-top:10px;
+}
+
+.sub-label {
+    font-size:12px;
+    opacity:.9;
+}
+
+.sub-value {
+    font-size:20px;
+    font-weight:600;
+}
+
+</style>

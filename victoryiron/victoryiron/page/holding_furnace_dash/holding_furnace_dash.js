@@ -104,46 +104,106 @@ $("#ladle-punching").text(fmtInt(s.punching_total));
 
 }
 function render_ladle_table(rows) {
-
-    $("#hf-table").empty();
+    // Cleanup previous state
+    $(document).off("click.treatmentPopup");
+    $("#hf-table").off("click").empty();
+    
+    window.ladle_rows_data = rows;
 
     const columns = [
-        { name: "Ladle", width: 160, format: v =>
-            `<a href="/app/ladle-metal/${v}" target="_blank">${v}</a>`
+        { name: "Ladle", width: 160, format: (v) => v ? `<a href="/app/ladle-metal/${v}" target="_blank">${v}</a>` : "-" },
+        { name: "Grade", width: 100 },
+        { name: "Ladle ID", width: 100 },
+        { name: "Temp", width: 80 },
+        { name: "Start Time", width: 100 },
+        { name: "Weight (kg)", width: 100 },
+        { name: "FeSiMg", width: 80 },
+        { name: "Inoculant", width: 80 },
+        { name: "Punching", width: 80 },
+        { name: "Destination", width: 120 },
+        { 
+            name: "Fracture", 
+            width: 80,
+            format: (v) => {
+                if (!v || v === "-") return "-";
+                if (v.toLowerCase() === "ok") {
+                    return `<div style="text-align: center;"><span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 500;">OK</span></div>`;
+                }
+                return v;
+            }
         },
-        "Grade",
-        "Ladle ID",
-        "Temp",
-        "Start Time",
-        "Weight (kg)",
-        "FeSiMg",
-        "Inoculant",
-        "Punching",
-        
-        "Destination",
-		"Fracture",
+        { 
+            name: "Treatment ID", 
+            width: 140, 
+            format: (v) => v && v !== "-" 
+                ? `<span class="treatment-link" style="color: #2490ef; cursor: pointer; text-decoration: underline;" data-treatment="${v}">${v}</span>` 
+                : "-"
+        },
     ];
 
     const data = rows.map(r => [
-        r.ladle_name,
-        r.grade_type,
-        r.ladle_id,
-        r.treatment_before_temp,
-        r.start_time,
-        r.total_weight_in_kg,
-        r.fesimg,
-        r.inoculant,
-        r.punching,
-		r.destination,
-        r.facture_test
-        
+        r.ladle_name || "-",
+        r.grade_type || "-",
+        r.ladle_id || "-",
+        r.treatment_before_temp || "-",
+        r.start_time || "-",
+        r.total_weight_in_kg || "-",
+        r.fesimg || "-",
+        r.inoculant || "-",
+        r.punching || "-",
+        r.destination || "-",
+        r.facture_test || "-",
+        r.treatment_id || "-"
     ]);
 
     new frappe.DataTable("#hf-table", {
         columns: columns,
         data: data,
         layout: "fluid",
-		inlineFilters: true  
+        inlineFilters: true
+    });
+
+    // Attach click handler
+    $("#hf-table").on("click", ".treatment-link", function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        
+        const treatmentId = $(this).data("treatment");
+        const rowData = window.ladle_rows_data.find(r => r.treatment_id === treatmentId);
+        
+        if (rowData?.treatment_data) {
+            show_treatment_popup(treatmentId, rowData.treatment_data);
+        }
+    });
+}
+
+function show_treatment_popup(treatment_id, data) {
+    const fields = [
+        {label: "C", value: data.c},
+        {label: "Si", value: data.si},
+        {label: "Mn", value: data.mn},
+        {label: "P", value: data.p},
+        {label: "Mg", value: data.mg},
+        {label: "CE", value: data.ce},
+        {label: "CS", value: data.cs},
+        {label: "Perlite", value: data.perlite_},
+        {label: "Ferrite", value: data.ferrite_}
+    ];
+    
+    const rows = fields.map(f => 
+        `<tr><td><strong>${f.label}</strong></td><td>${f.value || "-"}</td></tr>`
+    ).join("");
+    
+    const content = `
+        <div class="treatment-popup-content">
+            <table class="table table-bordered">${rows}</table>
+        </div>
+    `;
+
+    frappe.msgprint({
+        title: `Treatment: ${treatment_id}`,
+        message: content,
+        indicator: "blue"
     });
 }
 

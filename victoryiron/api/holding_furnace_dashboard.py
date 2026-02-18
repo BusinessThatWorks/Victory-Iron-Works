@@ -1,6 +1,5 @@
 import frappe
 
-
 @frappe.whitelist()
 def get_holding_furnace_dashboard(from_date=None, to_date=None):
 

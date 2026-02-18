@@ -41,22 +41,6 @@ frappe.pages['holding-furnace-dash'].on_page_load = function(wrapper) {
 
 });
 
-
-    // function load_dashboard() {
-    //     frappe.call({
-    //         method: "victoryiron.api.holding_furnace_dashboard.get_holding_furnace_dashboard",
-    //         args: {
-    //             from_date: from_control.get_value(),
-    //             to_date: to_control.get_value()
-    //         },
-    //         callback: function (r) {
-    //             if (!r.message) return;
-
-    //             render_summary(r.message.summary);
-    //             render_ladle_table(r.message.ladle_rows);
-    //         }
-    //     });
-    // }
 	function load_dashboard() {
 
     const from_date = from_control.get_value();
@@ -119,38 +103,6 @@ $("#ladle-inoculant").text(fmtDec(s.inoculant_total, 2));
 $("#ladle-punching").text(fmtInt(s.punching_total));
 
 }
-// function render_table(rows) {
-
-//     $("#hf-table").empty();
-
-//     const columns = [
-//         "Date",
-//         "Lining",
-//         "Metal In",
-//         "Metal Out",
-//         "Units",
-//         "Carbon",
-//         "FeSi",
-//         "CRC"
-//     ];
-
-//     const data = rows.map(r => [
-//         r.date,
-//         r.furnace_lining_noid,
-//         r.total_metal_recieved,
-//         r.total_metal_discharged,
-//         r.total_units,
-//         r.carbon_in_kg,
-//         r.fe_silicon_in_kg,
-//         r.crc_in_kg
-//     ]);
-
-//     new frappe.DataTable("#hf-table", {
-//         columns: columns,
-//         data: data,
-//         layout: "fluid"
-//     });
-// }
 function render_ladle_table(rows) {
 
     $("#hf-table").empty();

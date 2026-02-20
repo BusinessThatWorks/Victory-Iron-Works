@@ -1,0 +1,126 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-02-20 11:09:28.049180",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "moisture_",
+  "gcs_gmcm2",
+  "column_break_xssz",
+  "permeability_no",
+  "compactibility__",
+  "section_break_vydi",
+  "tc_",
+  "vm_",
+  "afs_return_sand",
+  "column_break_kmeq",
+  "ac_",
+  "loi_",
+  "column_break_ajrg",
+  "dc_",
+  "afs_prepared_sand",
+  "section_break_yqme",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "moisture_",
+   "fieldtype": "Percent",
+   "label": "Moisture %",
+   "precision": "2"
+  },
+  {
+   "fieldname": "gcs_gmcm2",
+   "fieldtype": "Int",
+   "label": "GCS gm/cm2"
+  },
+  {
+   "fieldname": "column_break_xssz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "permeability_no",
+   "fieldtype": "Int",
+   "label": "Permeability No"
+  },
+  {
+   "fieldname": "compactibility__",
+   "fieldtype": "Percent",
+   "label": "Compactibility  %"
+  },
+  {
+   "fieldname": "section_break_vydi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tc_",
+   "fieldtype": "Percent",
+   "label": "TC %"
+  },
+  {
+   "fieldname": "vm_",
+   "fieldtype": "Percent",
+   "label": "V.M %"
+  },
+  {
+   "fieldname": "afs_return_sand",
+   "fieldtype": "Float",
+   "label": "AFS Return Sand"
+  },
+  {
+   "fieldname": "column_break_kmeq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ac_",
+   "fieldtype": "Percent",
+   "label": "AC %"
+  },
+  {
+   "fieldname": "loi_",
+   "fieldtype": "Percent",
+   "label": "LOI %"
+  },
+  {
+   "fieldname": "column_break_ajrg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dc_",
+   "fieldtype": "Percent",
+   "label": "DC %"
+  },
+  {
+   "fieldname": "afs_prepared_sand",
+   "fieldtype": "Float",
+   "label": "AFS Prepared Sand",
+   "precision": "2"
+  },
+  {
+   "fieldname": "section_break_yqme",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-02-20 11:34:41.518800",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Sand Testing Table",
+ "owner": "erp@clapgrow.com",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

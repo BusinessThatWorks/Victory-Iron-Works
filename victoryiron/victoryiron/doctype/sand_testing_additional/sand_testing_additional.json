@@ -1,0 +1,73 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-02-20 11:17:07.255863",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "total_no_of_batch",
+  "return_sand",
+  "bentonite",
+  "coal_dust",
+  "new_sand",
+  "process_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "total_no_of_batch",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total No Of Batch"
+  },
+  {
+   "fieldname": "return_sand",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Return Sand",
+   "precision": "2"
+  },
+  {
+   "fieldname": "bentonite",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Bentonite",
+   "precision": "2"
+  },
+  {
+   "fieldname": "coal_dust",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Coal Dust",
+   "precision": "2"
+  },
+  {
+   "fieldname": "new_sand",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "New Sand",
+   "precision": "2"
+  },
+  {
+   "fieldname": "process_type",
+   "fieldtype": "Select",
+   "label": "Process Type",
+   "options": "\nSS\nRTM 1500\nHand Mould"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-02-20 11:34:34.482655",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Sand Testing Additional",
+ "owner": "erp@clapgrow.com",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

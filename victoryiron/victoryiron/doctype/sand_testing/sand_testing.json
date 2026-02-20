@@ -1,0 +1,106 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{date}",
+ "creation": "2026-02-20 11:09:04.601434",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_boyz",
+  "date",
+  "amended_from",
+  "sand_testing_section",
+  "table_bsof",
+  "tab_2_tab",
+  "table_qefg",
+  "total_bentonite",
+  "total_coal_dust",
+  "total_new_sand"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_boyz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Sand Testing",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "sand_testing_section",
+   "fieldtype": "Section Break",
+   "label": "Sand Testing"
+  },
+  {
+   "fieldname": "table_bsof",
+   "fieldtype": "Table",
+   "options": "Sand Testing Table"
+  },
+  {
+   "fieldname": "tab_2_tab",
+   "fieldtype": "Tab Break",
+   "label": "Tab 2"
+  },
+  {
+   "fieldname": "table_qefg",
+   "fieldtype": "Table",
+   "options": "Sand Testing Additional"
+  },
+  {
+   "fieldname": "total_bentonite",
+   "fieldtype": "Float",
+   "label": "Total Bentonite"
+  },
+  {
+   "fieldname": "total_coal_dust",
+   "fieldtype": "Float",
+   "label": "Total Coal Dust"
+  },
+  {
+   "fieldname": "total_new_sand",
+   "fieldtype": "Float",
+   "label": "Total New Sand"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-02-20 11:34:26.791302",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Sand Testing",
+ "naming_rule": "Expression",
+ "owner": "erp@clapgrow.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

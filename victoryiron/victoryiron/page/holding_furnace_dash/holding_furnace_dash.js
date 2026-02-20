@@ -111,35 +111,35 @@ function render_ladle_table(rows) {
     window.ladle_rows_data = rows;
 
     const columns = [
-        { name: "Ladle", width: 160, format: (v) => v ? `<a href="/app/ladle-metal/${v}" target="_blank">${v}</a>` : "-" },
-        { name: "Grade", width: 100 },
-        { name: "Ladle ID", width: 100 },
-        { name: "Temp", width: 80 },
-        { name: "Start Time", width: 100 },
-        { name: "Weight (kg)", width: 100 },
-        { name: "FeSiMg", width: 80 },
-        { name: "Inoculant", width: 80 },
-        { name: "Punching", width: 80 },
-        { name: "Destination", width: 120 },
-        { 
-            name: "Fracture", 
-            width: 80,
-            format: (v) => {
-                if (!v || v === "-") return "-";
-                if (v.toLowerCase() === "ok") {
-                    return `<div style="text-align: center;"><span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 500;">OK</span></div>`;
-                }
-                return v;
+    { name: "Ladle", width: 200, format: (v) => v ? `<a href="/app/ladle-metal/${v}" target="_blank">${v}</a>` : "-" },
+    { name: "Grade", width: 150 },
+    { name: "Ladle ID", width: 150 },
+    { name: "Temp", width: 120 },
+    { name: "Start Time", width: 150 },
+    { name: "Weight (kg)", width: 150 },
+    { name: "FeSiMg", width: 120 },
+    { name: "Inoculant", width: 120 },
+    { name: "Punching", width: 120 },
+    { name: "Destination", width: 180 },
+    { 
+        name: "Fracture", 
+        width: 120,
+        format: (v) => {
+            if (!v || v === "-") return "-";
+            if (v.toLowerCase() === "ok") {
+                return `<div style="text-align: center;"><span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 3px; font-size: 11px; font-weight: 500;">OK</span></div>`;
             }
-        },
-        { 
-            name: "Treatment ID", 
-            width: 140, 
-            format: (v) => v && v !== "-" 
-                ? `<span class="treatment-link" style="color: #2490ef; cursor: pointer; text-decoration: underline;" data-treatment="${v}">${v}</span>` 
-                : "-"
-        },
-    ];
+            return v;
+        }
+    },
+    { 
+        name: "Treatment ID", 
+        width: 180, 
+        format: (v) => v && v !== "-" 
+            ? `<span class="treatment-link" style="color: #2490ef; cursor: pointer; text-decoration: underline;" data-treatment="${v}">${v}</span>` 
+            : "-"
+    },
+];
 
     const data = rows.map(r => [
         r.ladle_name || "-",
@@ -159,7 +159,7 @@ function render_ladle_table(rows) {
     new frappe.DataTable("#hf-table", {
         columns: columns,
         data: data,
-        layout: "fluid",
+        // layout: "fluid",
         inlineFilters: true
     });
 

@@ -13,8 +13,13 @@
   "report_to",
   "employee_name",
   "section_break_bibg",
+  "type_of_leaving_office_premises",
+  "column_break_fcvw",
   "reason",
-  "column_break_fcvw"
+  "early",
+  "time_of_late_entry",
+  "column_break_jjah",
+  "time_of_early_exit"
  ],
  "fields": [
   {
@@ -72,13 +77,38 @@
   {
    "fieldname": "column_break_fcvw",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "type_of_leaving_office_premises",
+   "fieldtype": "Select",
+   "label": "Type of Leaving Office Premises",
+   "options": "\nPersonal\nOffical"
+  },
+  {
+   "fieldname": "early",
+   "fieldtype": "Section Break",
+   "label": "Early & Late Entry"
+  },
+  {
+   "fieldname": "time_of_late_entry",
+   "fieldtype": "Time",
+   "label": "Time Of Late Entry"
+  },
+  {
+   "fieldname": "column_break_jjah",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "time_of_early_exit",
+   "fieldtype": "Time",
+   "label": "Time Of Early Exit"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-02-20 12:09:55.546743",
+ "modified": "2026-02-25 14:24:23.829195",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Gate Pass and Miss Attendance",

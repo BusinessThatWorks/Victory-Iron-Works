@@ -8,10 +8,17 @@
   "section_break_gxes",
   "date",
   "employee_id",
+  "form_type",
   "column_break_ffbk",
   "amended_from",
   "report_to",
   "employee_name",
+  "miss_attendance_section",
+  "login",
+  "logout",
+  "column_break_zyer",
+  "login_time",
+  "logout_time",
   "section_break_bibg",
   "type_of_leaving_office_premises",
   "column_break_fcvw",
@@ -102,13 +109,50 @@
    "fieldname": "time_of_early_exit",
    "fieldtype": "Time",
    "label": "Time Of Early Exit"
+  },
+  {
+   "fieldname": "form_type",
+   "fieldtype": "Select",
+   "label": "Form Type",
+   "options": "\nGate Pass\nMiss Attendance"
+  },
+  {
+   "fieldname": "miss_attendance_section",
+   "fieldtype": "Section Break",
+   "label": "Miss Attendance"
+  },
+  {
+   "default": "0",
+   "fieldname": "login",
+   "fieldtype": "Check",
+   "label": "Login"
+  },
+  {
+   "default": "0",
+   "fieldname": "logout",
+   "fieldtype": "Check",
+   "label": "Logout"
+  },
+  {
+   "fieldname": "column_break_zyer",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "login_time",
+   "fieldtype": "Time",
+   "label": "Login Time"
+  },
+  {
+   "fieldname": "logout_time",
+   "fieldtype": "Time",
+   "label": "Logout Time"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-02-25 14:24:23.829195",
+ "modified": "2026-02-25 15:12:23.328944",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Gate Pass and Miss Attendance",

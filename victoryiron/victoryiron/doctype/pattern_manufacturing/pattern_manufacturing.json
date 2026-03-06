@@ -11,7 +11,6 @@
   "pattern_type",
   "column_break_eylo",
   "drawing_no",
-  "article_number",
   "pattern_image",
   "section_break_vpbn",
   "cast_weight",
@@ -25,8 +24,6 @@
   "production_id",
   "column_break_eyeq",
   "pattern_material",
-  "section_break_cvrz",
-  "table_naew",
   "section_break_axyy",
   "amended_from"
  ],
@@ -60,6 +57,7 @@
   },
   {
    "allow_on_submit": 1,
+   "fetch_from": "item_name.item_name",
    "fieldname": "drawing_no",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -122,25 +120,10 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "section_break_cvrz",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "table_naew",
-   "fieldtype": "Table",
-   "options": "Pattern Manufacturing Table"
-  },
-  {
    "fieldname": "pattern_type",
    "fieldtype": "Select",
    "label": "Pattern Type",
    "options": "\nCope\nDrag"
-  },
-  {
-   "allow_on_submit": 1,
-   "fieldname": "article_number",
-   "fieldtype": "Data",
-   "label": "Article Number"
   },
   {
    "fieldname": "section_break_nzvo",
@@ -170,7 +153,7 @@
  "is_submittable": 1,
  "links": [],
  "make_attachments_public": 1,
- "modified": "2026-01-31 17:25:11.610305",
+ "modified": "2026-03-06 11:38:03.392283",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Pattern Manufacturing",

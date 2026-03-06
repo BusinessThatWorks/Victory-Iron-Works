@@ -13,7 +13,9 @@
   "column_break_loob",
   "moulding_machine",
   "section_break_xqfn",
-  "pouring_traceability"
+  "pouring_traceability",
+  "total_cast_weight",
+  "total_bunch_weight"
  ],
  "fields": [
   {
@@ -58,13 +60,24 @@
    "fieldtype": "Table",
    "label": "Pouring Traceability",
    "options": "Pouring Traceability Table"
+  },
+  {
+   "fieldname": "total_cast_weight",
+   "fieldtype": "Float",
+   "label": "Total Cast Weight",
+   "precision": "2"
+  },
+  {
+   "fieldname": "total_bunch_weight",
+   "fieldtype": "Float",
+   "label": "Total Bunch Weight"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-01 10:27:52.001628",
+ "modified": "2026-03-06 13:31:37.492054",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Pouring Traceability",
@@ -86,6 +99,7 @@
   }
  ],
  "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

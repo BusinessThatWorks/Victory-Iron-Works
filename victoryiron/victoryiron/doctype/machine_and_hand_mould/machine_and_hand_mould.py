@@ -4,52 +4,64 @@
 import frappe
 from frappe.model.document import Document
 
-
 class MachineandHandMould(Document):
-	
-		def validate(self):
-			self.calculate_child_good_qty()
-			self.calculate_totals()
 
-		# 1️⃣ Calculate good qty in each row
-		def calculate_child_good_qty(self):
+    def validate(self):
+        self.calculate_child_good_qty()
+        self.calculate_child_weights()
+        self.calculate_totals()
 
-			for row in self.table_jelu:
+    # 1️⃣ Calculate good qty in each row
+    def calculate_child_good_qty(self):
+        for row in self.table_jelu:
+            if row.start_no is not None and row.end_no is not None:
+                if row.end_no < row.start_no:
+                    frappe.throw(f"Row #{row.idx}: End No cannot be less than Start No")
 
-				if row.start_no is not None and row.end_no is not None:
+                row.total_good_mould_qty = row.end_no - row.start_no + 1
 
-					if row.end_no < row.start_no:
-						frappe.throw(f"Row #{row.idx}: End No cannot be less than Start No")
+    # 2️⃣ Calculate weights in each row
+    def calculate_child_weights(self):
+        for row in self.table_jelu:
+            good_qty = row.total_good_mould_qty or 0
+            row.total_bunch_weight = (row.bunch_weight or 0) * good_qty
+            row.total_cast_weight = (row.cast_weight or 0) * good_qty
 
-					row.total_good_mould_qty = (
-						row.end_no - row.start_no + 1
-					)
+    # 3️⃣ Calculate machine totals + weight totals
+    def calculate_totals(self):
+        totals = {
+            "HP 1": {"good": 0, "reject": 0},
+            "HP 2": {"good": 0, "reject": 0},
+            "SS-A": {"good": 0, "reject": 0},
+            "SS-B": {"good": 0, "reject": 0},
+        }
 
-		# 2️⃣ Calculate machine totals
-		def calculate_totals(self):
+        total_bunch = 0
+        total_cast = 0
 
-			totals = {
-				"HP 1": {"good": 0, "reject": 0},
-				"HP 2": {"good": 0, "reject": 0},
-				"SS-A": {"good": 0, "reject": 0},
-				"SS-B": {"good": 0, "reject": 0},
-			}
+        for row in self.table_jelu:
+            machine = row.machine_mould
 
-			for row in self.table_jelu:
-				machine = row.machine_mould
+            if machine in totals:
+                totals[machine]["good"] += row.total_good_mould_qty or 0
+                totals[machine]["reject"] += row.total_rejected_mould_qty or 0
 
-				if machine in totals:
-					totals[machine]["good"] += row.total_good_mould_qty or 0
-					totals[machine]["reject"] += row.total_rejected_mould_qty or 0
+            total_bunch += row.total_bunch_weight or 0
+            total_cast += row.total_cast_weight or 0
 
-			self.hp_1_total_good_mould = totals["HP 1"]["good"]
-			self.hp_1_total_reject_mould = totals["HP 1"]["reject"]
+        # Machine-wise totals
+        self.hp_1_total_good_mould = totals["HP 1"]["good"]
+        self.hp_1_total_reject_mould = totals["HP 1"]["reject"]
 
-			self.hp_2_total_good_mould = totals["HP 2"]["good"]
-			self.hp_2_total_reject_mould = totals["HP 2"]["reject"]
+        self.hp_2_total_good_mould = totals["HP 2"]["good"]
+        self.hp_2_total_reject_mould = totals["HP 2"]["reject"]
 
-			self.ssa_good = totals["SS-A"]["good"]
-			self.ssa_reject = totals["SS-A"]["reject"]
+        self.ssa_good = totals["SS-A"]["good"]
+        self.ssa_reject = totals["SS-A"]["reject"]
 
-			self.ssb_good = totals["SS-B"]["good"]
-			self.ssb_reject = totals["SS-B"]["reject"]
+        self.ssb_good = totals["SS-B"]["good"]
+        self.ssb_reject = totals["SS-B"]["reject"]
+
+        # Weight totals
+        self.total_bunch_weight = total_bunch
+        self.total_casting_weight = total_cast

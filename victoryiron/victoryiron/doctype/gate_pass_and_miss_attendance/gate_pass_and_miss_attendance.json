@@ -15,18 +15,17 @@
   "employee_name",
   "miss_attendance_section",
   "login",
-  "logout",
-  "column_break_zyer",
   "login_time",
+  "logout",
   "logout_time",
   "section_break_bibg",
   "type_of_leaving_office_premises",
   "column_break_fcvw",
-  "reason",
-  "early",
   "time_of_late_entry",
-  "column_break_jjah",
-  "time_of_early_exit"
+  "column_break_jaay",
+  "time_of_early_exit",
+  "section_break_kxwn",
+  "reason"
  ],
  "fields": [
   {
@@ -73,6 +72,7 @@
    "read_only": 1
   },
   {
+   "depends_on": "eval:doc.form_type== \"Gate Pass\"",
    "fieldname": "section_break_bibg",
    "fieldtype": "Section Break"
   },
@@ -92,18 +92,9 @@
    "options": "\nPersonal\nOffical"
   },
   {
-   "fieldname": "early",
-   "fieldtype": "Section Break",
-   "label": "Early & Late Entry"
-  },
-  {
    "fieldname": "time_of_late_entry",
    "fieldtype": "Time",
    "label": "Time Of Late Entry"
-  },
-  {
-   "fieldname": "column_break_jjah",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "time_of_early_exit",
@@ -117,6 +108,7 @@
    "options": "\nGate Pass\nMiss Attendance"
   },
   {
+   "depends_on": "eval:doc.form_type== \"Miss Attendance\"",
    "fieldname": "miss_attendance_section",
    "fieldtype": "Section Break",
    "label": "Miss Attendance"
@@ -125,34 +117,40 @@
    "default": "0",
    "fieldname": "login",
    "fieldtype": "Check",
-   "label": "Login"
+   "label": "Punch In"
   },
   {
    "default": "0",
    "fieldname": "logout",
    "fieldtype": "Check",
-   "label": "Logout"
+   "label": "Punch Out"
   },
   {
-   "fieldname": "column_break_zyer",
+   "depends_on": "eval:doc.login==1",
+   "fieldname": "login_time",
+   "fieldtype": "Time",
+   "label": "Punch In Time"
+  },
+  {
+   "depends_on": "eval:doc.logout==1",
+   "fieldname": "logout_time",
+   "fieldtype": "Time",
+   "label": "Punch Out Time"
+  },
+  {
+   "fieldname": "column_break_jaay",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "login_time",
-   "fieldtype": "Time",
-   "label": "Login Time"
-  },
-  {
-   "fieldname": "logout_time",
-   "fieldtype": "Time",
-   "label": "Logout Time"
+   "fieldname": "section_break_kxwn",
+   "fieldtype": "Section Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-02-25 15:12:23.328944",
+ "modified": "2026-03-07 10:18:44.021942",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Gate Pass and Miss Attendance",

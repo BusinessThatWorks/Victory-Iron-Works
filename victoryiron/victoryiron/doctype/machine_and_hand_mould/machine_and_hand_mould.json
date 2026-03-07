@@ -13,6 +13,8 @@
   "moulding_system",
   "section_break_pgdn",
   "table_jelu",
+  "total_casting_weight",
+  "total_bunch_weight",
   "total_section",
   "hp_1_total_good_mould",
   "hp_2_total_good_mould",
@@ -116,13 +118,25 @@
    "fieldname": "ssa_good",
    "fieldtype": "Int",
    "label": "SS-A Total Good Mould"
+  },
+  {
+   "fieldname": "total_casting_weight",
+   "fieldtype": "Float",
+   "label": "Total Casting Weight",
+   "precision": "2"
+  },
+  {
+   "fieldname": "total_bunch_weight",
+   "fieldtype": "Float",
+   "label": "Total Bunch Weight",
+   "precision": "2"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-08-27 22:48:27.512124",
+ "modified": "2026-03-06 13:55:34.905820",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Machine and Hand Mould",
@@ -143,6 +157,7 @@
   }
  ],
  "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

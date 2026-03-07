@@ -9,6 +9,8 @@
  "field_order": [
   "moulding_system_section",
   "machine_mould",
+  "column_break_hofe",
+  "moulding_person_name",
   "section_break_ntuc",
   "item_name1",
   "section_break_bndb",
@@ -48,8 +50,8 @@
    "fieldname": "machine_mould",
    "fieldtype": "Select",
    "in_list_view": 1,
-   "label": "Machine Mould",
-   "options": "\nHP 1\nHP 2\nSS-A\nSS-B"
+   "label": "Moulding System",
+   "options": "\nHP 1\nHP 2\nSS-A\nSS-B\nJOY\nJOGENDRA"
   },
   {
    "fieldname": "column_break_ohcz",
@@ -144,6 +146,16 @@
    "fieldtype": "Float",
    "label": "Total Bunch Weight",
    "precision": "2"
+  },
+  {
+   "fieldname": "column_break_hofe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "moulding_person_name",
+   "fieldtype": "Link",
+   "label": "Moulding Person Name",
+   "options": "Moulder Master"
   }
  ],
  "grid_page_length": 100,
@@ -151,7 +163,7 @@
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-03-06 13:34:31.620484",
+ "modified": "2026-03-07 16:51:28.694829",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Machine And Hand Mould Table",

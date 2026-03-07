@@ -11,8 +11,7 @@
   "box_poured_from",
   "box_poured_to",
   "item_name",
-  "available_quantity",
-  "column_break_mjny"
+  "available_quantity"
  ],
  "fields": [
   {
@@ -52,10 +51,6 @@
    "label": "Item Name"
   },
   {
-   "fieldname": "column_break_mjny",
-   "fieldtype": "Column Break"
-  },
-  {
    "allow_on_submit": 1,
    "fieldname": "available_quantity",
    "fieldtype": "Int",
@@ -66,7 +61,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-03-07 14:34:26.836977",
+ "modified": "2026-03-07 15:00:26.532289",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Mould Batch Traceability",

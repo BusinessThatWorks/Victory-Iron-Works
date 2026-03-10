@@ -6,16 +6,15 @@
  "engine": "InnoDB",
  "field_order": [
   "section_break_n7hk",
-  "treatment_no",
-  "column_break_yjqo",
   "mould_batch_id",
-  "column_break_gqju",
+  "column_break_yjqo",
   "machine_mould",
-  "section_break_fplv",
+  "column_break_gqju",
   "item_name",
-  "column_break_txji",
+  "treatment_no",
+  "section_break_fplv",
   "cast_weight",
-  "column_break_dieo",
+  "column_break_txji",
   "bunch_weight",
   "mould_batch_details_section",
   "box_created_from",
@@ -200,10 +199,6 @@
    "label": "Cast Weight"
   },
   {
-   "fieldname": "column_break_dieo",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "bunch_weight",
    "fieldtype": "Float",
    "label": "Bunch Weight"
@@ -223,7 +218,7 @@
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-03-07 17:27:39.965459",
+ "modified": "2026-03-10 10:24:15.113214",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Pouring Traceability Table",

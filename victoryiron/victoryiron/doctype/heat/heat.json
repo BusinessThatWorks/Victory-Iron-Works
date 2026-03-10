@@ -6,18 +6,29 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_yljn",
-  "custom_is_downtime",
-  "column_break_kgta",
-  "custom_downtime_reason",
-  "column_break_fggp",
-  "custom_downtime_duration",
+  "firingprep_details_tab",
+  "furnace_timing_section",
+  "furnace_on_time",
+  "column_break_kmrf",
+  "furnace_off_time",
+  "column_break_dcjs",
+  "total_furnace_running_time",
+  "power_consumption_section",
+  "furnace_meter_reading_start",
+  "column_break_nmpn",
+  "furnace_meter_reading_end",
+  "column_break_fdsi",
+  "total_furnace_unit_consumed",
+  "details_tab",
+  "section_break_xp0p",
+  "firingprep_details",
+  "amended_from",
   "section_break_cohj",
+  "date",
   "shift_type",
   "melter",
-  "heat_no",
   "column_break_ngoh",
-  "date",
+  "heat_no",
   "pouring_person",
   "heat_start_at",
   "column_break_easb",
@@ -28,34 +39,33 @@
   "ladle_no",
   "lining_heat_no",
   "melting_time",
-  "section_break_xp0p",
-  "amended_from",
   "charge_mix_tab",
+  "charge__mix_consumption_section",
   "charge_mix_component_item",
-  "total_charge_mix_valuation",
+  "section_break_bdla",
   "total_charge_mix_kg",
-  "section_break_olda",
-  "furnace_holding_time",
-  "column_break_qepa",
-  "generated_liquid_metal_return_to_furnace",
-  "column_break_sdrv",
-  "liquid_metal_pig",
+  "column_break_upuj",
+  "total_charge_mix_valuation",
+  "treatment_consumption_section",
+  "table_bych",
+  "section_break_ovpy",
+  "total_treatment_quantity",
+  "column_break_ztnm",
+  "total_treatment_valuation",
   "additional_cost_tab",
-  "power_consumptionkwh",
   "slag_30",
   "tap_temerature",
   "column_break_fnas",
   "temperature_tips",
   "extra_tab",
+  "liquid_metal_pig",
+  "generated_liquid_metal_return_to_furnace",
+  "furnace_holding_time",
   "liquid_balence",
   "burning_loss",
-  "tab_5_tab",
   "ladle_consumption_tab",
   "total_ladle_consumption_valuation",
-  "table_vkjb",
-  "labour_expense_tab",
-  "total_man_power",
-  "total_labour_cost"
+  "table_vkjb"
  ],
  "fields": [
   {
@@ -71,28 +81,6 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "section_break_yljn",
-   "fieldtype": "Section Break",
-   "label": "Downtime"
-  },
-  {
-   "default": "0",
-   "fieldname": "custom_is_downtime",
-   "fieldtype": "Check",
-   "label": "Is Downtime"
-  },
-  {
-   "fieldname": "custom_downtime_reason",
-   "fieldtype": "Data",
-   "label": "Downtime reason"
-  },
-  {
-   "fieldname": "custom_downtime_duration",
-   "fieldtype": "Duration",
-   "label": "Downtime Duration"
   },
   {
    "fieldname": "section_break_cohj",
@@ -144,8 +132,9 @@
   },
   {
    "fieldname": "material_grade",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
    "label": "Material Grade",
+   "options": "\nCI\nDI",
    "reqd": 1
   },
   {
@@ -214,11 +203,6 @@
    "label": "Additional Cost"
   },
   {
-   "fieldname": "power_consumptionkwh",
-   "fieldtype": "Float",
-   "label": "Power Consumption(KWH)"
-  },
-  {
    "fieldname": "slag_30",
    "fieldtype": "Float",
    "label": "Slag 30"
@@ -251,11 +235,6 @@
    "precision": "2"
   },
   {
-   "fieldname": "tab_5_tab",
-   "fieldtype": "Tab Break",
-   "label": "Spectro"
-  },
-  {
    "fieldname": "ladle_consumption_tab",
    "fieldtype": "Tab Break",
    "label": "Ladle Consumption"
@@ -265,30 +244,6 @@
    "fieldtype": "Float",
    "label": "Total Ladle Consumption Valuation",
    "precision": "2"
-  },
-  {
-   "fieldname": "labour_expense_tab",
-   "fieldtype": "Tab Break",
-   "label": "Labour Expense"
-  },
-  {
-   "fieldname": "total_man_power",
-   "fieldtype": "Int",
-   "label": "Total Man Power"
-  },
-  {
-   "fieldname": "total_labour_cost",
-   "fieldtype": "Float",
-   "label": "Total Labour Cost",
-   "precision": "2"
-  },
-  {
-   "fieldname": "column_break_kgta",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_fggp",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "column_break_ngoh",
@@ -303,18 +258,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "section_break_olda",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "column_break_qepa",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_sdrv",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "column_break_fnas",
    "fieldtype": "Column Break"
   },
@@ -322,13 +265,128 @@
    "fieldname": "table_vkjb",
    "fieldtype": "Table",
    "options": "Ladle consumption table"
+  },
+  {
+   "fieldname": "firingprep_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Firing/Prep Details"
+  },
+  {
+   "fieldname": "details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Details"
+  },
+  {
+   "default": "0",
+   "fieldname": "firingprep_details",
+   "fieldtype": "Check",
+   "label": "Firing/Prep Details"
+  },
+  {
+   "fieldname": "furnace_on_time",
+   "fieldtype": "Time",
+   "label": "Furnace ON Time"
+  },
+  {
+   "fieldname": "column_break_kmrf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "furnace_off_time",
+   "fieldtype": "Time",
+   "label": "Furnace OFF Time"
+  },
+  {
+   "fieldname": "column_break_dcjs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_furnace_running_time",
+   "fieldtype": "Data",
+   "label": "Total Furnace Running Time"
+  },
+  {
+   "fieldname": "furnace_timing_section",
+   "fieldtype": "Section Break",
+   "label": "Furnace Timing"
+  },
+  {
+   "fieldname": "power_consumption_section",
+   "fieldtype": "Section Break",
+   "label": "Power Consumption"
+  },
+  {
+   "fieldname": "furnace_meter_reading_start",
+   "fieldtype": "Float",
+   "label": "Furnace Meter Reading (Start)"
+  },
+  {
+   "fieldname": "column_break_nmpn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "furnace_meter_reading_end",
+   "fieldtype": "Float",
+   "label": "Furnace Meter Reading (End)"
+  },
+  {
+   "fieldname": "column_break_fdsi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_furnace_unit_consumed",
+   "fieldtype": "Float",
+   "label": "Total Furnace Unit Consumed"
+  },
+  {
+   "fieldname": "charge__mix_consumption_section",
+   "fieldtype": "Section Break",
+   "label": "Charge  Mix Consumption"
+  },
+  {
+   "fieldname": "section_break_bdla",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_upuj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "treatment_consumption_section",
+   "fieldtype": "Section Break",
+   "label": "Treatment Consumption"
+  },
+  {
+   "fieldname": "table_bych",
+   "fieldtype": "Table",
+   "options": "Charge Mix Component"
+  },
+  {
+   "fieldname": "section_break_ovpy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_treatment_quantity",
+   "fieldtype": "Float",
+   "label": "Total Treatment Quantity",
+   "precision": "2"
+  },
+  {
+   "fieldname": "column_break_ztnm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_treatment_valuation",
+   "fieldtype": "Currency",
+   "label": "Total Treatment Valuation",
+   "precision": "2"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-22 10:52:47.210145",
+ "modified": "2026-03-10 14:30:04.331481",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Heat",

@@ -1,9 +1,9 @@
-# Copyright (c) 2025, beetashokechakraborty and contributors
+# Copyright (c) 2026, beetashokechakraborty and contributors
 # For license information, please see license.txt
 
 # import frappe
 from frappe.model.document import Document
 
 
-class Heat(Document):
+class InductionFurnaceHeat(Document):
 	pass

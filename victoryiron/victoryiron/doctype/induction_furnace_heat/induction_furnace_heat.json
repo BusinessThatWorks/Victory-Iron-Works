@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:heat_no",
- "creation": "2025-10-18 17:04:00.650043",
+ "creation": "2026-03-10 15:48:28.423955",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
@@ -62,206 +62,19 @@
   "generated_liquid_metal_return_to_furnace",
   "furnace_holding_time",
   "liquid_balence",
-  "burning_loss"
+  "burning_loss",
+  "amended_from"
  ],
  "fields": [
-  {
-   "fieldname": "section_break_xp0p",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Heat",
-   "print_hide": 1,
-   "read_only": 1,
-   "search_index": 1
-  },
-  {
-   "fieldname": "section_break_cohj",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "shift_type",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Shift Timing",
-   "options": "\nDay Shift\nNight Shift",
-   "reqd": 1
-  },
-  {
-   "fieldname": "melter",
-   "fieldtype": "Select",
-   "label": "Melter",
-   "options": "Gourango Halder\nS K Borjahan\nBiswajit Bagdi"
-  },
-  {
-   "fieldname": "heat_no",
-   "fieldtype": "Data",
-   "label": "Heat No",
-   "unique": 1
-  },
-  {
-   "fieldname": "date",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Date",
-   "reqd": 1
-  },
-  {
-   "fieldname": "pouring_person",
-   "fieldtype": "Select",
-   "label": "Pouring Person",
-   "reqd": 1
-  },
-  {
-   "fieldname": "heat_start_at",
-   "fieldtype": "Time",
-   "label": "Heat Start At"
-  },
-  {
-   "fieldname": "furnace_no",
-   "fieldtype": "Data",
-   "label": "Furnace No",
-   "reqd": 1
-  },
-  {
-   "fieldname": "material_grade",
-   "fieldtype": "Select",
-   "label": "Material Grade",
-   "options": "\nCI\nDI",
-   "reqd": 1
-  },
-  {
-   "fieldname": "heat_end_at",
-   "fieldtype": "Time",
-   "label": "Heat End At"
-  },
-  {
-   "fieldname": "ladle_no",
-   "fieldtype": "Data",
-   "label": "Ladle No",
-   "reqd": 1
-  },
-  {
-   "fieldname": "lining_heat_no",
-   "fieldtype": "Int",
-   "label": "Lining Heat No"
-  },
-  {
-   "fieldname": "melting_time",
-   "fieldtype": "Time",
-   "label": "Melting Time"
-  },
-  {
-   "fieldname": "charge_mix_tab",
-   "fieldtype": "Tab Break",
-   "label": "Charge MIx"
-  },
-  {
-   "fieldname": "charge_mix_component_item",
-   "fieldtype": "Table",
-   "label": "Charge mix component item",
-   "options": "Charge Mix Component"
-  },
-  {
-   "fieldname": "total_charge_mix_valuation",
-   "fieldtype": "Float",
-   "label": "Total Charge MIx Valuation",
-   "precision": "2"
-  },
-  {
-   "fieldname": "total_charge_mix_kg",
-   "fieldtype": "Float",
-   "label": "Total Charge Mix (Kg)"
-  },
-  {
-   "fieldname": "generated_liquid_metal_return_to_furnace",
-   "fieldtype": "Float",
-   "label": "Generated Liquid Metal Return To Furnace",
-   "precision": "2"
-  },
-  {
-   "fieldname": "liquid_metal_pig",
-   "fieldtype": "Float",
-   "label": "Liquid Metal Pig"
-  },
-  {
-   "fieldname": "furnace_holding_time",
-   "fieldtype": "Float",
-   "label": "Furnace Holding Time",
-   "precision": "2"
-  },
-  {
-   "fieldname": "additional_cost_tab",
-   "fieldtype": "Tab Break",
-   "label": "Additional Cost"
-  },
-  {
-   "fieldname": "slag_30",
-   "fieldtype": "Float",
-   "label": "Slag 30"
-  },
-  {
-   "fieldname": "tap_temerature",
-   "fieldtype": "Int",
-   "label": "Tap Temperature (\u00b0C)"
-  },
-  {
-   "fieldname": "temperature_tips",
-   "fieldtype": "Int",
-   "label": "Temperature Tips"
-  },
-  {
-   "fieldname": "extra_tab",
-   "fieldtype": "Tab Break",
-   "label": "Extra"
-  },
-  {
-   "fieldname": "liquid_balence",
-   "fieldtype": "Float",
-   "label": "Liquid metal at weighing Bal.",
-   "precision": "2"
-  },
-  {
-   "fieldname": "burning_loss",
-   "fieldtype": "Float",
-   "label": "Burning Loss",
-   "precision": "2"
-  },
-  {
-   "fieldname": "column_break_ngoh",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_easb",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_ruov",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "column_break_fnas",
-   "fieldtype": "Column Break"
-  },
   {
    "fieldname": "firingprep_details_tab",
    "fieldtype": "Tab Break",
    "label": "Firing/Prep Details"
   },
   {
-   "fieldname": "details_tab",
-   "fieldtype": "Tab Break",
-   "label": "Details"
-  },
-  {
-   "default": "0",
-   "fieldname": "firingprep_details",
-   "fieldtype": "Check",
-   "label": "Firing/Prep Details"
+   "fieldname": "furnace_timing_section",
+   "fieldtype": "Section Break",
+   "label": "Furnace Timing"
   },
   {
    "fieldname": "furnace_on_time",
@@ -285,11 +98,6 @@
    "fieldname": "total_furnace_running_time",
    "fieldtype": "Data",
    "label": "Total Furnace Running Time"
-  },
-  {
-   "fieldname": "furnace_timing_section",
-   "fieldtype": "Section Break",
-   "label": "Furnace Timing"
   },
   {
    "fieldname": "power_consumption_section",
@@ -320,17 +128,152 @@
    "label": "Total Furnace Unit Consumed"
   },
   {
+   "fieldname": "details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "section_break_xp0p",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "firingprep_details",
+   "fieldtype": "Check",
+   "label": "Firing/Prep Details"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Heat",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "section_break_cohj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "shift_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Shift Timing",
+   "options": "\nDay Shift\nNight Shift",
+   "reqd": 1
+  },
+  {
+   "fieldname": "melter",
+   "fieldtype": "Select",
+   "label": "Melter",
+   "options": "Gourango Halder\nS K Borjahan\nBiswajit Bagdi"
+  },
+  {
+   "fieldname": "column_break_ngoh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "heat_no",
+   "fieldtype": "Data",
+   "label": "Heat No",
+   "unique": 1
+  },
+  {
+   "fieldname": "pouring_person",
+   "fieldtype": "Select",
+   "label": "Pouring Person",
+   "reqd": 1
+  },
+  {
+   "fieldname": "heat_start_at",
+   "fieldtype": "Time",
+   "label": "Heat Start At"
+  },
+  {
+   "fieldname": "column_break_easb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "furnace_no",
+   "fieldtype": "Data",
+   "label": "Furnace No",
+   "reqd": 1
+  },
+  {
+   "fieldname": "material_grade",
+   "fieldtype": "Select",
+   "label": "Material Grade",
+   "options": "\nCI\nDI",
+   "reqd": 1
+  },
+  {
+   "fieldname": "heat_end_at",
+   "fieldtype": "Time",
+   "label": "Heat End At"
+  },
+  {
+   "fieldname": "column_break_ruov",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ladle_no",
+   "fieldtype": "Data",
+   "label": "Ladle No",
+   "reqd": 1
+  },
+  {
+   "fieldname": "lining_heat_no",
+   "fieldtype": "Int",
+   "label": "Lining Heat No"
+  },
+  {
+   "fieldname": "melting_time",
+   "fieldtype": "Time",
+   "label": "Melting Time"
+  },
+  {
+   "fieldname": "charge_mix_tab",
+   "fieldtype": "Tab Break",
+   "label": "Charge MIx"
+  },
+  {
    "fieldname": "charge__mix_consumption_section",
    "fieldtype": "Section Break",
    "label": "Charge  Mix Consumption"
+  },
+  {
+   "fieldname": "charge_mix_component_item",
+   "fieldtype": "Table",
+   "label": "Charge mix component item",
+   "options": "Charge Mix Component"
   },
   {
    "fieldname": "section_break_bdla",
    "fieldtype": "Section Break"
   },
   {
+   "fieldname": "total_charge_mix_kg",
+   "fieldtype": "Float",
+   "label": "Total Charge Mix (Kg)"
+  },
+  {
    "fieldname": "column_break_upuj",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_charge_mix_valuation",
+   "fieldtype": "Float",
+   "label": "Total Charge MIx Valuation",
+   "precision": "2"
   },
   {
    "fieldname": "treatment_consumption_section",
@@ -361,6 +304,74 @@
    "fieldtype": "Currency",
    "label": "Total Treatment Valuation",
    "precision": "2"
+  },
+  {
+   "fieldname": "additional_cost_tab",
+   "fieldtype": "Tab Break",
+   "label": "Additional Cost"
+  },
+  {
+   "fieldname": "slag_30",
+   "fieldtype": "Float",
+   "label": "Slag 30"
+  },
+  {
+   "fieldname": "tap_temerature",
+   "fieldtype": "Int",
+   "label": "Tap Temperature (\u00b0C)"
+  },
+  {
+   "fieldname": "column_break_fnas",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "temperature_tips",
+   "fieldtype": "Int",
+   "label": "Temperature Tips"
+  },
+  {
+   "fieldname": "extra_tab",
+   "fieldtype": "Tab Break",
+   "label": "Extra"
+  },
+  {
+   "fieldname": "liquid_metal_pig",
+   "fieldtype": "Float",
+   "label": "Liquid Metal Pig"
+  },
+  {
+   "fieldname": "generated_liquid_metal_return_to_furnace",
+   "fieldtype": "Float",
+   "label": "Generated Liquid Metal Return To Furnace",
+   "precision": "2"
+  },
+  {
+   "fieldname": "furnace_holding_time",
+   "fieldtype": "Float",
+   "label": "Furnace Holding Time",
+   "precision": "2"
+  },
+  {
+   "fieldname": "liquid_balence",
+   "fieldtype": "Float",
+   "label": "Liquid metal at weighing Bal.",
+   "precision": "2"
+  },
+  {
+   "fieldname": "burning_loss",
+   "fieldtype": "Float",
+   "label": "Burning Loss",
+   "precision": "2"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Induction Furnace Heat",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "grid_page_length": 50,
@@ -370,7 +381,7 @@
  "modified": "2026-03-10 15:34:48.083441",
  "modified_by": "Administrator",
  "module": "victoryiron",
- "name": "Heat",
+ "name": "Induction Furnace Heat",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [

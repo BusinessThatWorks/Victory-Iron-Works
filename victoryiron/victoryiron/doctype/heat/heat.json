@@ -62,10 +62,7 @@
   "generated_liquid_metal_return_to_furnace",
   "furnace_holding_time",
   "liquid_balence",
-  "burning_loss",
-  "ladle_consumption_tab",
-  "total_ladle_consumption_valuation",
-  "table_vkjb"
+  "burning_loss"
  ],
  "fields": [
   {
@@ -235,17 +232,6 @@
    "precision": "2"
   },
   {
-   "fieldname": "ladle_consumption_tab",
-   "fieldtype": "Tab Break",
-   "label": "Ladle Consumption"
-  },
-  {
-   "fieldname": "total_ladle_consumption_valuation",
-   "fieldtype": "Float",
-   "label": "Total Ladle Consumption Valuation",
-   "precision": "2"
-  },
-  {
    "fieldname": "column_break_ngoh",
    "fieldtype": "Column Break"
   },
@@ -260,11 +246,6 @@
   {
    "fieldname": "column_break_fnas",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "table_vkjb",
-   "fieldtype": "Table",
-   "options": "Ladle consumption table"
   },
   {
    "fieldname": "firingprep_details_tab",
@@ -359,7 +340,7 @@
   {
    "fieldname": "table_bych",
    "fieldtype": "Table",
-   "options": "Charge Mix Component"
+   "options": "Treatment Mix Component Table"
   },
   {
    "fieldname": "section_break_ovpy",
@@ -386,7 +367,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-03-10 14:30:04.331481",
+ "modified": "2026-03-10 15:23:29.243782",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Heat",

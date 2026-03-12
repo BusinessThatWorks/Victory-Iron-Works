@@ -79,39 +79,47 @@
    "fieldtype": "Section Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "total_casting_weight",
    "fieldtype": "Float",
    "label": "Total Casting Weight (In Kg)",
-   "precision": "2"
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_yado",
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "bunch_weight",
    "fieldtype": "Float",
    "label": "Bunch Weight (In Kg)",
-   "precision": "2"
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_tvvq",
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "runner_riser_weight",
    "fieldtype": "Float",
    "label": "Runner Riser Weight (in Kg)",
-   "precision": "2"
+   "precision": "2",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_quul",
    "fieldtype": "Column Break"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "yield",
    "fieldtype": "Float",
-   "label": "Yield %"
+   "label": "Yield %",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_atzd",
@@ -281,7 +289,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-02-07 10:39:35.430583",
+ "modified": "2026-03-12 11:23:33.233526",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Production Tooling",

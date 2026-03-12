@@ -8,7 +8,7 @@
   "section_break_n7hk",
   "mould_batch_id",
   "column_break_yjqo",
-  "machine_mould",
+  "moulding_process",
   "column_break_gqju",
   "item_name",
   "treatment_no",
@@ -204,13 +204,13 @@
    "label": "Bunch Weight"
   },
   {
-   "fieldname": "machine_mould",
-   "fieldtype": "Select",
-   "label": "Machine Mould"
-  },
-  {
    "fieldname": "column_break_gqju",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "moulding_process",
+   "fieldtype": "Select",
+   "label": "Moulding Process"
   }
  ],
  "grid_page_length": 50,
@@ -218,7 +218,7 @@
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-03-10 10:24:15.113214",
+ "modified": "2026-03-12 11:30:12.673843",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Pouring Traceability Table",

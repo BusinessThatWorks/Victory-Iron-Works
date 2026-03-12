@@ -1,13 +1,20 @@
 // Copyright (c) 2026, Frappe Technologies Pvt. Ltd. and contributors
 // For license information, please see license.txt
 
+// Items to EXCLUDE from Total Charge Mix (Kg) calculation
+const EXCLUDE_FROM_WEIGHT_TOTAL = [
+    "Carburiser (D.I)",
+    "Ferro Silicon",
+    "Ferro Manganese"
+];
+
 frappe.ui.form.on("Induction Furnace Heat", {
     refresh(frm) {
         frm.trigger("firingprep_details");
         frm.trigger("material_grade");
     },
 
-        onload(frm) {
+    onload(frm) {
         frm.trigger("firingprep_details");
         frm.trigger("material_grade");
         
@@ -26,6 +33,25 @@ frappe.ui.form.on("Induction Furnace Heat", {
                             });
                         });
                         frm.refresh_field("charge_mix_component_item");
+                    }
+                }
+            });
+        }
+        // Add default treatment items only for new documents
+        if (frm.is_new() && (!frm.doc.table_bych || frm.doc.table_bych.length === 0)) {
+            frappe.call({
+                method: "victoryiron.victoryiron.doctype.induction_furnace_heat.induction_furnace_heat.get_default_treatment_mix_items",
+                callback: function(r) {
+                    if (r.message) {
+                        r.message.forEach(function(item_data) {
+                            frm.add_child("table_bych", {
+                                item: item_data.item,
+                                weight_in_kg: 0,
+                                rate: item_data.rate,
+                                amount: 0
+                            });
+                        });
+                        frm.refresh_field("table_bych");
                     }
                 }
             });
@@ -78,8 +104,9 @@ frappe.ui.form.on("Induction Furnace Heat", {
     furnace_meter_reading_end(frm) {
         calculate_furnace_unit_consumed(frm);
     },
+    
     heat_start_at(frm) {
-    calculate_melting_time(frm);
+        calculate_melting_time(frm);
     },
 
     heat_end_at(frm) {
@@ -116,13 +143,20 @@ function calculate_furnace_unit_consumed(frm) {
 }
 
 // 5. Calculate Charge Mix Totals
+// Weight EXCLUDES: Carburiser, Ferro Silicon, Ferro Manganese
+// Valuation INCLUDES: All items
 function calculate_charge_mix_totals(frm) {
     let total_weight = 0;
     let total_valuation = 0;
 
     (frm.doc.charge_mix_component_item || []).forEach(row => {
-        total_weight += flt(row.weight_in_kg);
+        // Add to valuation (ALL items)
         total_valuation += flt(row.amount);
+        
+        // Add to weight ONLY if NOT in exclude list
+        if (!EXCLUDE_FROM_WEIGHT_TOTAL.includes(row.item)) {
+            total_weight += flt(row.weight_in_kg);
+        }
     });
 
     frm.set_value("total_charge_mix_kg", total_weight);
@@ -142,6 +176,7 @@ function calculate_treatment_totals(frm) {
     frm.set_value("total_treatment_quantity", total_quantity);
     frm.set_value("total_treatment_valuation", total_valuation);
 }
+
 // Calculate Melting Time (Heat End - Heat Start)
 function calculate_melting_time(frm) {
     if (frm.doc.heat_start_at && frm.doc.heat_end_at) {

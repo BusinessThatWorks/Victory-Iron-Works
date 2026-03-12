@@ -15,9 +15,6 @@ DEFAULT_CHARGE_MIX_ITEMS = [
     "MS Scrap",
     "CI Foundry Return",
     "DI Foundry Return",
-    "Carburiser (D.I)",
-    "Ferro Silicon",
-    "Ferro Manganese"
 ]
 
 
@@ -123,9 +120,6 @@ def get_default_charge_mix_items():
         "MS Scrap",
         "CI Foundry Return",
         "DI Foundry Return",
-        "Carburiser (D.I)",
-        "Ferro Silicon",
-        "Ferro Manganese"
     ]
     
     items = []

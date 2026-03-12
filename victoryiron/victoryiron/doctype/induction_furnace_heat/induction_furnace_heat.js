@@ -77,7 +77,14 @@ frappe.ui.form.on("Induction Furnace Heat", {
 
     furnace_meter_reading_end(frm) {
         calculate_furnace_unit_consumed(frm);
-    }
+    },
+    heat_start_at(frm) {
+    calculate_melting_time(frm);
+    },
+
+    heat_end_at(frm) {
+        calculate_melting_time(frm);
+    },
 });
 
 // 6. Calculate Furnace Running Time (in hours)
@@ -135,7 +142,27 @@ function calculate_treatment_totals(frm) {
     frm.set_value("total_treatment_quantity", total_quantity);
     frm.set_value("total_treatment_valuation", total_valuation);
 }
-
+// Calculate Melting Time (Heat End - Heat Start)
+function calculate_melting_time(frm) {
+    if (frm.doc.heat_start_at && frm.doc.heat_end_at) {
+        let start = moment(frm.doc.heat_start_at, "HH:mm:ss");
+        let end = moment(frm.doc.heat_end_at, "HH:mm:ss");
+        
+        let diff_minutes = end.diff(start, 'minutes');
+        
+        // Handle next day case
+        if (diff_minutes < 0) {
+            diff_minutes += 1440; // 24 hours in minutes
+        }
+        
+        let hours = Math.floor(diff_minutes / 60);
+        let mins = diff_minutes % 60;
+        
+        // Format as HH:mm:ss for Time field
+        let time_str = String(hours).padStart(2, '0') + ":" + String(mins).padStart(2, '0') + ":00";
+        frm.set_value("melting_time", time_str);
+    }
+}
 
 // ============ CHARGE MIX COMPONENT CHILD TABLE ============
 frappe.ui.form.on("Charge Mix Component", {

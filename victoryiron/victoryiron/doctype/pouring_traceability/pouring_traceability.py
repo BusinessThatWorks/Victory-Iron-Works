@@ -10,43 +10,119 @@ class PouringTraceability(Document):
     def validate(self):
         self.calculate_child_values()
         self.validate_pouring_range()
+        self.validate_available_quantity()
         self.calculate_totals()
 
-    def on_update(self):
-        self.update_mould_batch_traceability()
+    def on_submit(self):
+        self.update_available_qty_in_mould_batch()
+
+    def on_cancel(self):
+        self.restore_available_qty_in_mould_batch()
 
     def calculate_child_values(self):
         for row in self.pouring_traceability:
-            # Calculate poured quantity
             if row.box_poured_from and row.box_poured_till:
-                if row.box_poured_till < row.box_poured_from:
-                    frappe.throw(f"Row #{row.idx}: Box Poured To cannot be less than Box Poured From")
-                row.poured_quantity = row.box_poured_till - row.box_poured_from + 1
+                row.poured_quantity = abs(row.box_poured_till - row.box_poured_from) + 1
             else:
                 row.poured_quantity = 0
 
-            # Calculate weights
             poured_qty = row.poured_quantity or 0
             row.total_cast_weight = (row.cast_weight or 0) * poured_qty
             row.total_bunch_weight = (row.bunch_weight or 0) * poured_qty
 
     def validate_pouring_range(self):
         for row in self.pouring_traceability:
-            if not row.box_poured_from or not row.box_poured_till:
+            if not row.box_poured_from and not row.box_poured_till:
+                continue
+                
+            if row.box_poured_from == 0 and row.box_poured_till == 0:
                 continue
 
             box_from = row.box_created_from or 0
             box_to = row.box_created_to or 0
 
-            if row.box_poured_from < box_from or row.box_poured_from > box_to:
+            if box_from == 0 and box_to == 0:
+                continue
+
+            range_min = min(box_from, box_to)
+            range_max = max(box_from, box_to)
+
+            poured_from = row.box_poured_from or 0
+            poured_till = row.box_poured_till or 0
+
+            if poured_from and (poured_from < range_min or poured_from > range_max):
                 frappe.throw(
-                    f"Row #{row.idx}: Box Poured From ({row.box_poured_from}) must be between {box_from} and {box_to}"
+                    f"Row #{row.idx}: Box Poured From ({poured_from}) must be between {range_min} and {range_max}"
                 )
 
-            if row.box_poured_till < box_from or row.box_poured_till > box_to:
+            if poured_till and (poured_till < range_min or poured_till > range_max):
                 frappe.throw(
-                    f"Row #{row.idx}: Box Poured To ({row.box_poured_till}) must be between {box_from} and {box_to}"
+                    f"Row #{row.idx}: Box Poured To ({poured_till}) must be between {range_min} and {range_max}"
                 )
+
+    def validate_available_quantity(self):
+        """Validate poured quantity against available quantity from MHM"""
+        # Group by batch, system, item, start_no, end_no (UNIQUE KEY)
+        poured_map = {}
+        
+        for row in self.pouring_traceability:
+            if not row.poured_quantity or row.poured_quantity == 0:
+                continue
+                
+            if not row.mould_batch_id or not row.item_name:
+                continue
+
+            # UNIQUE KEY: includes start_no and end_no
+            key = (
+                row.mould_batch_id, 
+                row.moulding_system or "", 
+                row.item_name,
+                row.box_created_from or 0,
+                row.box_created_to or 0
+            )
+            
+            if key not in poured_map:
+                poured_map[key] = {
+                    "total_poured": 0,
+                    "rows": []
+                }
+            
+            poured_map[key]["total_poured"] += row.poured_quantity
+            poured_map[key]["rows"].append(row.idx)
+
+        # Validate against MHM available_qty
+        for (batch_id, moulding_system, item_name, start_no, end_no), data in poured_map.items():
+            available = self.get_available_qty_from_mhm(batch_id, moulding_system, item_name, start_no, end_no)
+            
+            if data["total_poured"] > available:
+                rows_str = ", ".join([str(r) for r in data["rows"]])
+                frappe.throw(
+                    f"Rows #{rows_str}: Total poured quantity ({data['total_poured']}) for item '{item_name}' "
+                    f"(Range: {start_no}-{end_no}) exceeds available quantity ({available})"
+                )
+
+    def get_available_qty_from_mhm(self, batch_id, moulding_system, item_name, start_no, end_no):
+        """Get available qty from Machine and Hand Mould Table - EXACT ROW MATCH"""
+        filters = {
+            "parent": batch_id,
+            "item_name1": item_name,
+            "start_no": start_no,
+            "end_no": end_no,
+        }
+        
+        if moulding_system:
+            filters["machine_mould"] = moulding_system
+
+        result = frappe.get_all(
+            "Machine And Hand Mould Table",
+            filters=filters,
+            fields=["available_qty"],
+            limit=1,
+        )
+
+        if result:
+            return result[0].available_qty or 0
+        return 0
 
     def calculate_totals(self):
         total_cast = 0
@@ -59,145 +135,203 @@ class PouringTraceability(Document):
         self.total_cast_weight = total_cast
         self.total_bunch_weight = total_bunch
 
-    def update_mould_batch_traceability(self):
-        # Group rows by mould_batch_id
-        batch_updates = {}
+    def update_available_qty_in_mould_batch(self):
+        """Reduce available_qty in Machine and Hand Mould on submit"""
+        updates = {}
 
         for row in self.pouring_traceability:
             if not row.mould_batch_id or not row.item_name:
                 continue
-            if not row.box_poured_from or not row.box_poured_till:
+            if not row.poured_quantity or row.poured_quantity == 0:
                 continue
 
-            batch_id = row.mould_batch_id
-            if batch_id not in batch_updates:
-                batch_updates[batch_id] = []
+            # UNIQUE KEY: includes start_no and end_no
+            key = (
+                row.mould_batch_id, 
+                row.moulding_system or "", 
+                row.item_name,
+                row.box_created_from or 0,
+                row.box_created_to or 0
+            )
+            
+            if key not in updates:
+                updates[key] = 0
+            
+            updates[key] += row.poured_quantity
 
-            batch_updates[batch_id].append({
-                "pouring_id": self.name,
-                "treatment_id": row.treatment_no,
-                "item_name": row.item_name,
-                "box_poured_from": row.box_poured_from,
-                "box_poured_to": row.box_poured_till,
-                "poured_quantity": row.poured_quantity,
-            })
+        for (batch_id, moulding_system, item_name, start_no, end_no), poured_qty in updates.items():
+            self.reduce_available_qty(batch_id, moulding_system, item_name, start_no, end_no, poured_qty)
 
-        # Update each Machine and Hand Mould document
-        for batch_id, rows in batch_updates.items():
-            self.update_single_mould_batch(batch_id, rows)
+    def restore_available_qty_in_mould_batch(self):
+        """Restore available_qty in Machine and Hand Mould on cancel"""
+        updates = {}
 
-    def update_single_mould_batch(self, batch_id, rows):
-        mhm_doc = frappe.get_doc("Machine and Hand Mould", batch_id)
+        for row in self.pouring_traceability:
+            if not row.mould_batch_id or not row.item_name:
+                continue
+            if not row.poured_quantity or row.poured_quantity == 0:
+                continue
 
-        for row_data in rows:
-            # Check if entry already exists
-            existing = False
-            for trace_row in mhm_doc.table_xjpq:
-                if (
-                    trace_row.pouring_id == row_data["pouring_id"]
-                    and trace_row.item_name == row_data["item_name"]
-                    and trace_row.box_poured_from == row_data["box_poured_from"]
-                    and trace_row.box_poured_to == row_data["box_poured_to"]
-                ):
-                    existing = True
-                    break
+            key = (
+                row.mould_batch_id, 
+                row.moulding_system or "", 
+                row.item_name,
+                row.box_created_from or 0,
+                row.box_created_to or 0
+            )
+            
+            if key not in updates:
+                updates[key] = 0
+            
+            updates[key] += row.poured_quantity
 
-            if not existing:
-                # Get original item qty
-                original_qty = self.get_original_item_qty(batch_id, row_data["item_name"])
+        for (batch_id, moulding_system, item_name, start_no, end_no), poured_qty in updates.items():
+            self.increase_available_qty(batch_id, moulding_system, item_name, start_no, end_no, poured_qty)
 
-                # Calculate total poured for this item till now
-                total_poured = self.get_total_poured_for_item(mhm_doc, row_data["item_name"])
-                total_poured += row_data["poured_quantity"]
+    def reduce_available_qty(self, batch_id, moulding_system, item_name, start_no, end_no, poured_qty):
+        """Reduce available qty in child table - EXACT ROW MATCH"""
+        filters = {
+            "parent": batch_id,
+            "item_name1": item_name,
+            "start_no": start_no,
+            "end_no": end_no,
+        }
+        
+        if moulding_system:
+            filters["machine_mould"] = moulding_system
 
-                remaining_qty = original_qty - total_poured
-
-                mhm_doc.append("table_xjpq", {
-                    "pouring_id": row_data["pouring_id"],
-                    "treatment_id": row_data["treatment_id"],
-                    "item_name": row_data["item_name"],
-                    "box_poured_from": row_data["box_poured_from"],
-                    "box_poured_to": row_data["box_poured_to"],
-                    "available_quantity": max(0, remaining_qty),
-                })
-
-        mhm_doc.flags.ignore_permissions = True
-        mhm_doc.flags.ignore_validate_update_after_submit = True
-        mhm_doc.save()
-
-    def get_original_item_qty(self, batch_id, item_name):
-        item_row = frappe.get_all(
+        child_rows = frappe.get_all(
             "Machine And Hand Mould Table",
-            filters={"parent": batch_id, "item_name1": item_name},
-            fields=["total_good_mould_qty"],
-            limit=1,
+            filters=filters,
+            fields=["name", "available_qty"],
         )
-        if item_row:
-            return item_row[0].total_good_mould_qty or 0
-        return 0
 
-    def get_total_poured_for_item(self, mhm_doc, item_name):
-        total = 0
-        for trace_row in mhm_doc.table_xjpq:
-            if trace_row.item_name == item_name:
-                # Calculate from box range
-                box_from = trace_row.box_poured_from or 0
-                box_to = trace_row.box_poured_to or 0
-                if box_to >= box_from:
-                    total += (box_to - box_from + 1)
-        return total
+        for child in child_rows:
+            new_qty = (child.available_qty or 0) - poured_qty
+            new_qty = max(0, new_qty)
 
+            frappe.db.set_value(
+                "Machine And Hand Mould Table",
+                child.name,
+                "available_qty",
+                new_qty,
+                update_modified=False
+            )
+
+        frappe.db.commit()
+
+    def increase_available_qty(self, batch_id, moulding_system, item_name, start_no, end_no, poured_qty):
+        """Restore available qty on cancel - EXACT ROW MATCH"""
+        filters = {
+            "parent": batch_id,
+            "item_name1": item_name,
+            "start_no": start_no,
+            "end_no": end_no,
+        }
+        
+        if moulding_system:
+            filters["machine_mould"] = moulding_system
+
+        child_rows = frappe.get_all(
+            "Machine And Hand Mould Table",
+            filters=filters,
+            fields=["name", "available_qty", "total_good_mould_qty"],
+        )
+
+        for child in child_rows:
+            max_qty = child.total_good_mould_qty or 0
+            new_qty = (child.available_qty or 0) + poured_qty
+            new_qty = min(new_qty, max_qty)
+
+            frappe.db.set_value(
+                "Machine And Hand Mould Table",
+                child.name,
+                "available_qty",
+                new_qty,
+                update_modified=False
+            )
+
+        frappe.db.commit()
+
+
+# ========================
+# API METHODS
+# ========================
 
 @frappe.whitelist()
-def get_items_from_mould_batch(mould_batch_id):
+def get_moulding_systems_from_batch(mould_batch_id):
     if not mould_batch_id:
         return []
 
-    items = frappe.get_all(
+    systems = frappe.get_all(
         "Machine And Hand Mould Table",
         filters={"parent": mould_batch_id},
-        fields=["item_name1"],
+        fields=["machine_mould"],
         distinct=True,
     )
 
-    return [item.item_name1 for item in items if item.item_name1]
+    return [s.machine_mould for s in systems if s.machine_mould]
 
 
 @frappe.whitelist()
-def get_item_details_from_mould_batch(mould_batch_id, item_name):
+def get_items_from_mould_batch(mould_batch_id, moulding_system=None):
+    if not mould_batch_id:
+        return []
+
+    filters = {"parent": mould_batch_id}
+
+    if moulding_system:
+        filters["machine_mould"] = moulding_system
+
+    items = frappe.get_all(
+        "Machine And Hand Mould Table",
+        filters=filters,
+        fields=[
+            "item_name1 as item_name",
+            "start_no",
+            "end_no",
+            "cast_weight",
+            "bunch_weight",
+            "available_qty",
+        ],
+    )
+
+    return items
+
+
+@frappe.whitelist()
+def get_item_details(mould_batch_id, moulding_system, item_name, start_no=None, end_no=None):
     if not mould_batch_id or not item_name:
         return {}
 
-    # Get original item details
+    filters = {
+        "parent": mould_batch_id,
+        "item_name1": item_name,
+    }
+
+    if moulding_system:
+        filters["machine_mould"] = moulding_system
+    
+    if start_no is not None:
+        filters["start_no"] = start_no
+    
+    if end_no is not None:
+        filters["end_no"] = end_no
+
     item_row = frappe.get_all(
         "Machine And Hand Mould Table",
-        filters={"parent": mould_batch_id, "item_name1": item_name},
-        fields=["start_no", "end_no", "cast_weight", "bunch_weight", "total_good_mould_qty"],
+        filters=filters,
+        fields=[
+            "start_no",
+            "end_no",
+            "cast_weight",
+            "bunch_weight",
+            "available_qty",
+        ],
         limit=1,
     )
 
-    if not item_row:
-        return {}
+    if item_row:
+        return item_row[0]
 
-    data = item_row[0]
-    original_qty = data.get("total_good_mould_qty") or 0
-
-    # Check Mould Batch Traceability for already poured
-    traceability_rows = frappe.get_all(
-        "Mould Batch Traceability",
-        filters={"parent": mould_batch_id, "item_name": item_name},
-        fields=["available_quantity", "box_poured_to"],
-        order_by="idx desc",
-        limit=1,
-    )
-
-    if traceability_rows:
-        # Use last available quantity from traceability
-        data["available_quantity"] = traceability_rows[0].available_quantity or 0
-        data["last_poured_to"] = traceability_rows[0].box_poured_to or 0
-    else:
-        # First time — use original quantity
-        data["available_quantity"] = original_qty
-        data["last_poured_to"] = 0
-
-    return data
+    return {}

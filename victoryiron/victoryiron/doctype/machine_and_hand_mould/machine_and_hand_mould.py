@@ -10,6 +10,7 @@ class MachineandHandMould(Document):
         self.calculate_child_good_qty()
         self.calculate_child_weights()
         self.calculate_totals()
+        self.set_initial_available_qty()
 
     # 1️⃣ Calculate good qty in each row
     def calculate_child_good_qty(self):
@@ -65,3 +66,11 @@ class MachineandHandMould(Document):
         # Weight totals
         self.total_bunch_weight = total_bunch
         self.total_casting_weight = total_cast
+
+    # 4️⃣ Set available qty = good qty for each row
+    def set_initial_available_qty(self):
+        """Set available_qty = total_good_mould_qty if not already set or if good qty changed"""
+        for row in self.table_jelu:
+            # If available_qty is 0 or None, set it to total_good_mould_qty
+            if not row.available_qty:
+                row.available_qty = row.total_good_mould_qty or 0

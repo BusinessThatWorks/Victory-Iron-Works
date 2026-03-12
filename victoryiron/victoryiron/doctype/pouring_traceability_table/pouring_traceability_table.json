@@ -8,7 +8,7 @@
   "section_break_n7hk",
   "mould_batch_id",
   "column_break_yjqo",
-  "moulding_process",
+  "moulding_system",
   "column_break_gqju",
   "item_name",
   "treatment_no",
@@ -113,7 +113,7 @@
   },
   {
    "fieldname": "item_name",
-   "fieldtype": "Select",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Item Name"
   },
@@ -162,11 +162,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "available_quantity",
-   "fieldtype": "Int",
-   "label": "Available Quantity"
-  },
-  {
    "fieldname": "total_cast_weight",
    "fieldtype": "Float",
    "label": "Total Cast Weight"
@@ -208,9 +203,14 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "moulding_process",
-   "fieldtype": "Select",
-   "label": "Moulding Process"
+   "fieldname": "moulding_system",
+   "fieldtype": "Data",
+   "label": "Moulding System"
+  },
+  {
+   "fieldname": "available_quantity",
+   "fieldtype": "Int",
+   "label": "Available Quantity"
   }
  ],
  "grid_page_length": 50,
@@ -218,7 +218,7 @@
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-03-12 11:30:12.673843",
+ "modified": "2026-03-12 12:43:42.363407",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Pouring Traceability Table",

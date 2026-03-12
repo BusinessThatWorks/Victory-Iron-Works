@@ -1,0 +1,107 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-03-12 17:05:50.385478",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "pouring_id",
+  "item_name",
+  "column_break_hwry",
+  "available_quantiy",
+  "shot_blast_quantity",
+  "column_break_dbyt",
+  "rejected_quantiy",
+  "section_break_qiwp",
+  "item_cast_weight",
+  "total_cast_weight",
+  "column_break_ghfj",
+  "item_bunch_weight",
+  "total_bunch_weight"
+ ],
+ "fields": [
+  {
+   "fieldname": "pouring_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Pouring ID",
+   "options": "Pouring Traceability"
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "column_break_hwry",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "available_quantiy",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Available Quantiy"
+  },
+  {
+   "fieldname": "shot_blast_quantity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Shot Blast Quantity"
+  },
+  {
+   "fieldname": "column_break_dbyt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rejected_quantiy",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Rejected Quantiy"
+  },
+  {
+   "fieldname": "section_break_qiwp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "item_cast_weight",
+   "fieldtype": "Float",
+   "label": "Item Cast Weight"
+  },
+  {
+   "fieldname": "total_cast_weight",
+   "fieldtype": "Float",
+   "label": "Total Cast Weight"
+  },
+  {
+   "fieldname": "column_break_ghfj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "item_bunch_weight",
+   "fieldtype": "Float",
+   "label": "Item Bunch Weight"
+  },
+  {
+   "fieldname": "total_bunch_weight",
+   "fieldtype": "Float",
+   "label": "Total Bunch Weight"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-03-12 17:21:06.574495",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Shot Blast Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

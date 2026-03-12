@@ -1,0 +1,97 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:SB -{date}",
+ "creation": "2026-03-12 17:21:23.034717",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_rmp5",
+  "amended_from",
+  "date",
+  "section_break_bkqe",
+  "table_pwtp",
+  "section_break_fcpi",
+  "total_cast_weight",
+  "column_break_zuga",
+  "total_bunch_weight"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_rmp5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Shot Blast",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "section_break_bkqe",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_pwtp",
+   "fieldtype": "Table",
+   "options": "Shot Blast Table"
+  },
+  {
+   "fieldname": "total_cast_weight",
+   "fieldtype": "Float",
+   "label": "Total Cast Weight"
+  },
+  {
+   "fieldname": "total_bunch_weight",
+   "fieldtype": "Float",
+   "label": "Total Bunch Weight"
+  },
+  {
+   "fieldname": "section_break_fcpi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_zuga",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-03-12 17:23:43.347961",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "Shot Blast",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -74,6 +74,7 @@
  ],
  "fields": [
   {
+   "depends_on": "eval:doc.firingprep_details == 1",
    "fieldname": "firingprep_details_tab",
    "fieldtype": "Tab Break",
    "label": "Firing/Prep Details"
@@ -186,8 +187,9 @@
   },
   {
    "fieldname": "pouring_person",
-   "fieldtype": "Data",
-   "label": "Pouring Person"
+   "fieldtype": "Link",
+   "label": "Pouring Person",
+   "options": "Pouring Person"
   },
   {
    "fieldname": "heat_start_at",
@@ -201,8 +203,7 @@
   {
    "fieldname": "furnace_no",
    "fieldtype": "Data",
-   "label": "Furnace No",
-   "reqd": 1
+   "label": "Furnace No"
   },
   {
    "fieldname": "material_grade",
@@ -238,6 +239,7 @@
    "label": "Melting Time"
   },
   {
+   "depends_on": "eval:doc.firingprep_details == 0",
    "fieldname": "charge_mix_tab",
    "fieldtype": "Tab Break",
    "label": "Charge Mix"
@@ -305,6 +307,7 @@
    "precision": "2"
   },
   {
+   "depends_on": "eval:doc.firingprep_details == 0",
    "fieldname": "additional_cost_tab",
    "fieldtype": "Tab Break",
    "label": "Additional Cost"
@@ -329,6 +332,7 @@
    "label": "Temperature Tips"
   },
   {
+   "depends_on": "eval:doc.firingprep_details == 0",
    "fieldname": "extra_tab",
    "fieldtype": "Tab Break",
    "label": "Extra"
@@ -405,7 +409,8 @@
   {
    "fieldname": "facture_test",
    "fieldtype": "Select",
-   "label": "Facture Test"
+   "label": "Facture Test",
+   "options": "\nOK\nNOT OKAY"
   },
   {
    "fieldname": "column_break_pyjv",
@@ -416,7 +421,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-03-12 15:09:11.620983",
+ "modified": "2026-03-12 16:54:38.134032",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Induction Furnace Heat",

@@ -7,16 +7,15 @@
  "engine": "InnoDB",
  "field_order": [
   "date",
+  "grade",
   "column_break_uspi",
   "time",
+  "sample_type",
   "column_break_pgqr",
   "sample_id",
+  "furnace_type",
   "column_break_rvri",
   "casting_type",
-  "column_break_opbh",
-  "grade",
-  "column_break_ozoh",
-  "sample_type",
   "section_break_eqfx",
   "c",
   "cs",
@@ -126,6 +125,7 @@
    "precision": "4"
   },
   {
+   "depends_on": "eval:doc.sample_type ==\"Bath\" && doc.furnace_type == \"Holding Furnace\"",
    "fieldname": "addetives_added_section",
    "fieldtype": "Section Break",
    "label": "Addetives Added"
@@ -162,10 +162,6 @@
    "fieldtype": "Select",
    "label": "Sample Type",
    "options": "\nBath\nTreatment"
-  },
-  {
-   "fieldname": "column_break_opbh",
-   "fieldtype": "Column Break"
   },
   {
    "fieldname": "sample_id",
@@ -208,21 +204,23 @@
    "label": "Ferrite %"
   },
   {
-   "fieldname": "column_break_ozoh",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "grade",
    "fieldtype": "Select",
    "label": "Grade",
    "options": "CI\nDI"
+  },
+  {
+   "fieldname": "furnace_type",
+   "fieldtype": "Select",
+   "label": "Furnace Type",
+   "options": "\nHolding Furnace\nInduction Furnace"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-30 16:45:12.011519",
+ "modified": "2026-03-12 15:32:53.401283",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Furnace Bath",

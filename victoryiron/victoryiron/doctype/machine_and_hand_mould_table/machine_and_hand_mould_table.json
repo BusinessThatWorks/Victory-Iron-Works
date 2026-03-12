@@ -52,7 +52,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Moulding System",
-   "options": "\nHP 1\nHP 2\nSS-A\nSS-B\nJOY\nJOGENDRA"
+   "options": "\nHP 1\nHP 2\nSS-A\nSS-B\nHand Mould"
   },
   {
    "fieldname": "column_break_ohcz",
@@ -170,7 +170,7 @@
  "is_submittable": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-03-12 12:58:36.694154",
+ "modified": "2026-03-12 15:05:14.210992",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Machine And Hand Mould Table",

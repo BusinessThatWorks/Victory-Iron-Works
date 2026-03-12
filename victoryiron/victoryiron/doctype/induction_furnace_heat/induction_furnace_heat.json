@@ -9,10 +9,13 @@
   "firingprep_details_tab",
   "furnace_timing_section",
   "furnace_on_time",
+  "cooling_tower_on_time",
   "column_break_kmrf",
   "furnace_off_time",
+  "cooling_tower_off_time",
   "column_break_dcjs",
   "total_furnace_running_time",
+  "cooling_tower_running_time",
   "power_consumption_section",
   "furnace_meter_reading_start",
   "column_break_nmpn",
@@ -73,7 +76,7 @@
   {
    "fieldname": "furnace_timing_section",
    "fieldtype": "Section Break",
-   "label": "Furnace Timing"
+   "label": "Furnace & Cooling Tower Timing"
   },
   {
    "fieldname": "furnace_on_time",
@@ -142,16 +145,6 @@
    "label": "Firing/Prep Details"
   },
   {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Induction Furnace Heat",
-   "print_hide": 1,
-   "read_only": 1,
-   "search_index": 1
-  },
-  {
    "fieldname": "section_break_cohj",
    "fieldtype": "Section Break"
   },
@@ -172,9 +165,9 @@
   },
   {
    "fieldname": "melter",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Melter",
-   "options": "Gourango Halder\nS K Borjahan\nBiswajit Bagdi"
+   "options": "Melter Master"
   },
   {
    "fieldname": "column_break_ngoh",
@@ -188,9 +181,8 @@
   },
   {
    "fieldname": "pouring_person",
-   "fieldtype": "Select",
-   "label": "Pouring Person",
-   "reqd": 1
+   "fieldtype": "Data",
+   "label": "Pouring Person"
   },
   {
    "fieldname": "heat_start_at",
@@ -225,8 +217,9 @@
   },
   {
    "fieldname": "ladle_no",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "label": "Ladle No",
+   "options": "Ladle Master",
    "reqd": 1
   },
   {
@@ -240,7 +233,6 @@
    "label": "Melting Time"
   },
   {
-   "depends_on": "eval:!doc.firingprep_details;",
    "fieldname": "charge_mix_tab",
    "fieldtype": "Tab Break",
    "label": "Charge MIx"
@@ -272,6 +264,7 @@
   {
    "fieldname": "total_charge_mix_valuation",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Total Charge MIx Valuation",
    "precision": "2"
   },
@@ -302,11 +295,11 @@
   {
    "fieldname": "total_treatment_valuation",
    "fieldtype": "Currency",
+   "hidden": 1,
    "label": "Total Treatment Valuation",
    "precision": "2"
   },
   {
-   "depends_on": "eval:!doc.firingprep_details",
    "fieldname": "additional_cost_tab",
    "fieldtype": "Tab Break",
    "label": "Additional Cost"
@@ -331,7 +324,6 @@
    "label": "Temperature Tips"
   },
   {
-   "depends_on": "eval:!doc.firingprep_details",
    "fieldname": "extra_tab",
    "fieldtype": "Tab Break",
    "label": "Extra"
@@ -374,13 +366,28 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "cooling_tower_on_time",
+   "fieldtype": "Time",
+   "label": "Cooling Tower ON Time"
+  },
+  {
+   "fieldname": "cooling_tower_off_time",
+   "fieldtype": "Time",
+   "label": "Cooling Tower OFF Time"
+  },
+  {
+   "fieldname": "cooling_tower_running_time",
+   "fieldtype": "Data",
+   "label": "Cooling Tower Running Time"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-03-10 16:05:24.845058",
+ "modified": "2026-03-12 12:15:29.395705",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Induction Furnace Heat",

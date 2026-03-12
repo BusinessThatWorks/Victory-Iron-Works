@@ -10,29 +10,34 @@ class HoldingFurnaceHeat(Document):
 
 
 @frappe.whitelist()
-def get_ladle_metal_ids(date, source="Cupola"):
-	"""
-	Get all Ladle Metal docs where date matches and source matches.
+def get_ladle_metal_ids(date, source=None, destination=None):
+    """
+    Get all Ladle Metal docs where date matches and source/destination matches.
 
-	Args:
-	    date:   Date string to filter by (YYYY-MM-DD)
-	    source: Source to filter by (e.g. 'Cupola', 'Holding Furnace')
+    Args:
+        date:        Date string to filter by (YYYY-MM-DD)
+        source:      Source to filter by (e.g. 'Cupola', 'Holding Furnace')
+        destination: Destination to filter by (e.g. 'Holding Furnace')
 
-	Returns:
-	    List of dicts with: name, total_weight_in_kg, start_time, end_time, ladle_type, grade_type
-	"""
-	filters = {"date": date}
-	if source:
-		filters["source"] = source
+    Returns:
+        List of dicts with: name, total_weight_in_kg, start_time, end_time, ladle_type, grade_type
+    """
+    filters = {"date": date}
+    
+    if source:
+        filters["source"] = source
+    
+    if destination:
+        filters["destination"] = destination
 
-	ladle_metal_docs = frappe.get_all(
-		"Ladle Metal",
-		filters=filters,
-		fields=["name", "total_weight_in_kg", "start_time", "end_time", "ladle_type", "grade_type"],
-		order_by="name",
-	)
+    ladle_metal_docs = frappe.get_all(
+        "Ladle Metal",
+        filters=filters,
+        fields=["name", "total_weight_in_kg", "start_time", "end_time", "ladle_type", "grade_type"],
+        order_by="name",
+    )
 
-	return ladle_metal_docs
+    return ladle_metal_docs
 
 
 @frappe.whitelist()

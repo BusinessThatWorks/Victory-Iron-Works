@@ -20,50 +20,49 @@ frappe.ui.form.on("Holding Furnace Heat", {
 });
 
 function get_todays_data(frm) {
-    // Validate that date is selected
     if (!frm.doc.date) {
         frappe.msgprint(__("Please select a date first"));
         return;
     }
 
-    // Fetch and populate Cupola → table_fjdd
-    fetch_and_populate_ladle_rows(frm, "Cupola", "table_fjdd");
+    // table_fjdd - Source: Cupola, Destination: Holding Furnace
+    fetch_and_populate_ladle_rows(frm, "Cupola", "Holding Furnace", "table_fjdd");
 
-    // Fetch and populate Holding Furnace → table_ibpu
-    fetch_and_populate_ladle_rows(frm, "Holding Furnace", "table_ibpu");
+    // table_ibpu - Source: Holding Furnace (destination not needed)
+    fetch_and_populate_ladle_rows(frm, "Holding Furnace", null, "table_ibpu");
 
-    // Fetch and populate Furnace Bath → table_hdkp (only Bath sample_type)
+    // Other tables - no change
     fetch_and_populate_furnace_bath_rows(frm);
-
-    // Fetch and populate Treatment → table_ljur (only Treatment sample_type)
     fetch_and_populate_treatment_rows(frm);
 }
 
-function fetch_and_populate_ladle_rows(frm, source, childfield) {
+function fetch_and_populate_ladle_rows(frm, source, destination, childfield) {
+    let args = {
+        date: frm.doc.date,
+        source: source
+    };
+    
+    // Add destination only if provided
+    if (destination) {
+        args.destination = destination;
+    }
+
     frappe.call({
         method: "victoryiron.victoryiron.doctype.holding_furnace_heat.holding_furnace_heat.get_ladle_metal_ids",
-        args: {
-            date: frm.doc.date,
-            source: source
-        },
+        args: args,
         callback: function (r) {
-            if (!r.message) {
+            if (!r.message || r.message.length === 0) {
+                let msg = destination 
+                    ? __("No records found for Source: {0} → Destination: {1}", [source, destination])
+                    : __("No records found for Source: {0}", [source]);
+                frappe.msgprint(msg);
                 return;
             }
 
             let ladle_metal_docs = r.message;
 
-            if (!Array.isArray(ladle_metal_docs) || ladle_metal_docs.length === 0) {
-                frappe.msgprint(
-                    __("No Ladle Metal records found for the selected date with source '{0}'", [source])
-                );
-                return;
-            }
-
-            // Clear existing rows in the specific child table
             frm.clear_table(childfield);
 
-            // Add new rows for each Ladle Metal doc and map fields
             ladle_metal_docs.forEach(function (doc) {
                 let row = frm.add_child(childfield);
                 row.ladle_metal_id = doc.name;
@@ -71,50 +70,34 @@ function fetch_and_populate_ladle_rows(frm, source, childfield) {
                 row.start_time = doc.start_time;
                 row.end_time = doc.end_time;
 
-                // Map ladle_id and grade_type for table_ibpu (Holding Furnace source)
-                if (childfield === "table_ibpu" && doc.ladle_type) {
-                    row.ladle_id = doc.ladle_type;
-                }
-                if (childfield === "table_ibpu" && doc.grade_type) {
-                    row.grade_type = doc.grade_type;
+                // For table_ibpu only
+                if (childfield === "table_ibpu") {
+                    if (doc.ladle_type) row.ladle_id = doc.ladle_type;
+                    if (doc.grade_type) row.grade_type = doc.grade_type;
                 }
             });
 
-            // Refresh that child table
             frm.refresh_field(childfield);
 
-            // Calculate and set total weight
+            // Calculate total weight
             let totalWeight = 0;
             ladle_metal_docs.forEach(function (doc) {
-                if (doc.total_weight_in_kg) {
-                    totalWeight += parseFloat(doc.total_weight_in_kg) || 0;
-                }
+                totalWeight += parseFloat(doc.total_weight_in_kg) || 0;
             });
 
-            // Set the total in parent field based on childfield
+            // Set total based on childfield
             if (childfield === "table_fjdd") {
                 frm.set_value("total_metal_recieved", totalWeight);
             } else if (childfield === "table_ibpu") {
                 frm.set_value("total_metal_discharged", totalWeight);
             }
 
-            // Determine display name based on childfield
-            let displayName = childfield;
-            if (childfield === "table_fjdd") {
-                displayName = "Metal Recieved";
-            } else if (childfield === "table_ibpu") {
-                displayName = "Metal Discharged";
-            }
+            let displayName = childfield === "table_fjdd" ? "Metal Recieved" : "Metal Discharged";
 
             frappe.show_alert({
                 message: __("{0} record(s) added to {1}", [ladle_metal_docs.length, displayName]),
                 indicator: 'green'
             }, 5);
-        },
-        error: function (r) {
-            frappe.msgprint(
-                __("Error fetching data for source {0}: {1}", [source, (r.message || "Unknown error")])
-            );
         }
     });
 }

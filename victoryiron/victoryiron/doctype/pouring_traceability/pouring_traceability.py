@@ -15,10 +15,222 @@ class PouringTraceability(Document):
 
     def on_submit(self):
         self.update_available_qty_in_mould_batch()
+        self.create_stock_entry()
 
     def on_cancel(self):
         self.restore_available_qty_in_mould_batch()
+        self.cancel_linked_stock_entry()  # <-- ADD THIS LINE
 
+   # ========================
+    # STOCK ENTRY CREATION - NEW METHODS
+    # ========================
+
+    def create_stock_entry(self):
+        """Create Stock Entry on submit with items from pouring traceability"""
+        
+        try:
+            stock_entry = frappe.new_doc("Stock Entry")
+            stock_entry.stock_entry_type = "Pouring"
+            stock_entry.custom_pouring_id = self.name
+            
+            items_added = False
+            
+            for row in self.pouring_traceability:
+                if not row.mould_batch_id or not row.poured_quantity:
+                    continue
+                
+                # Get item details from the chain
+                item_details = self.get_item_details_for_stock_entry(row)
+                
+                if not item_details:
+                    frappe.throw(
+                        f"Row #{row.idx}: Could not find Item Code for '{row.item_name}'. "
+                        f"Please check Production Tooling and Pattern Manufacturing setup."
+                    )
+                
+                for item in item_details:
+                    if not item.get("item_code"):
+                        frappe.throw(
+                            f"Row #{row.idx}: Item Code not found in Pattern Manufacturing. "
+                            f"Please check the setup."
+                        )
+                    
+                    stock_entry.append("items", {
+                        "t_warehouse": "Pouring - VI",
+                        "item_code": item.get("item_code"),
+                        "qty": (row.poured_quantity or 0) * (item.get("cavity") or 1),
+                        "custom_pouring_id": self.name,
+                        "custom_cast_weight": row.cast_weight or 0,
+                        "custom_item_bunch_weight": row.bunch_weight or 0,
+                    })
+                    items_added = True
+            
+            if not items_added:
+                frappe.throw(
+                    "No valid items found to create Stock Entry. "
+                    "Please check Mould Batch and Item details."
+                )
+            
+            stock_entry.insert()
+            stock_entry.submit()
+            
+            # Save Stock Entry ID in Pouring Traceability
+            frappe.db.set_value(
+                "Pouring Traceability",
+                self.name,
+                "stock_entry_id",
+                stock_entry.name,
+                update_modified=False
+            )
+            
+            # Update current document's field (for immediate access)
+            self.db_set("stock_entry_id", stock_entry.name, update_modified=False)
+            
+            frappe.msgprint(
+                f"Stock Entry <b><a href='/app/stock-entry/{stock_entry.name}'>{stock_entry.name}</a></b> created successfully!",
+                alert=True,
+                indicator="green"
+            )
+            
+        except Exception as e:
+            frappe.log_error(
+                f"Stock Entry Creation Failed for {self.name}: {str(e)}",
+                "Pouring Stock Entry Error"
+            )
+            frappe.throw(
+                f"Failed to create Stock Entry: {str(e)}<br><br>"
+                f"Please fix the issue and try again."
+            )
+
+    def get_item_details_for_stock_entry(self, row):
+        """
+        Get Item Code and Cavity from the chain:
+        Mould Batch → Production Tooling → Pattern Manufacturing
+        """
+        items = []
+        
+        if not row.item_name:
+            return items
+        
+        # row.item_name is Production Tooling link
+        production_tooling_name = row.item_name
+        
+        # Check if Production Tooling exists
+        if not frappe.db.exists("Production Tooling", production_tooling_name):
+            frappe.throw(
+                f"Row #{row.idx}: Production Tooling '{production_tooling_name}' not found. "
+                f"Please check the Item Name."
+            )
+        
+        prod_tooling = frappe.get_doc("Production Tooling", production_tooling_name)
+        
+        # Check if Pattern Item Details table has data
+        if not prod_tooling.table_mfno:
+            frappe.throw(
+                f"Row #{row.idx}: Production Tooling '{production_tooling_name}' has no Pattern Item Details. "
+                f"Please add Pattern details in Production Tooling."
+            )
+        
+        # Loop through Pattern Item Details table (table_mfno)
+        for pattern_row in prod_tooling.table_mfno:
+            pattern_id_name = pattern_row.item_name  # Link to Pattern Manufacturing
+            cavity = pattern_row.cavity or 1
+            
+            if not pattern_id_name:
+                frappe.throw(
+                    f"Row #{row.idx}: Pattern ID Name is missing in Production Tooling '{production_tooling_name}'. "
+                    f"Please check Pattern Item Details table."
+                )
+            
+            # Check if Pattern Manufacturing exists
+            if not frappe.db.exists("Pattern Manufacturing", pattern_id_name):
+                frappe.throw(
+                    f"Row #{row.idx}: Pattern Manufacturing '{pattern_id_name}' not found. "
+                    f"Please check the Pattern ID Name in Production Tooling."
+                )
+            
+            # Get Item Code from Pattern Manufacturing
+            item_code = frappe.db.get_value(
+                "Pattern Manufacturing", 
+                pattern_id_name, 
+                "item_name"
+            )
+            
+            if not item_code:
+                frappe.throw(
+                    f"Row #{row.idx}: Item Code (item_name) is empty in Pattern Manufacturing '{pattern_id_name}'. "
+                    f"Please add Item Code in Pattern Manufacturing."
+                )
+            
+            # Validate Item Code exists in Item master
+            if not frappe.db.exists("Item", item_code):
+                frappe.throw(
+                    f"Row #{row.idx}: Item '{item_code}' does not exist in Item Master. "
+                    f"Please create the Item first."
+                )
+            
+            items.append({
+                "item_code": item_code,
+                "cavity": cavity
+            })
+        
+        return items
+
+    def cancel_linked_stock_entry(self):
+        """Cancel linked Stock Entry when Pouring Traceability is cancelled"""
+        
+        # First check from the field
+        if self.stock_entry_id:
+            try:
+                if frappe.db.exists("Stock Entry", self.stock_entry_id):
+                    stock_entry_doc = frappe.get_doc("Stock Entry", self.stock_entry_id)
+                    if stock_entry_doc.docstatus == 1:  # Only if submitted
+                        stock_entry_doc.cancel()
+                        frappe.msgprint(
+                            f"Stock Entry <b>{self.stock_entry_id}</b> cancelled",
+                            alert=True,
+                            indicator="blue"
+                        )
+            except Exception as e:
+                frappe.log_error(
+                    f"Error cancelling Stock Entry {self.stock_entry_id}: {str(e)}",
+                    "Stock Entry Cancel Error"
+                )
+                frappe.throw(
+                    f"Could not cancel Stock Entry {self.stock_entry_id}: {str(e)}<br><br>"
+                    f"Please cancel it manually first."
+                )
+            return
+        
+        # Fallback: Find Stock Entries linked to this Pouring Traceability
+        stock_entries = frappe.get_all(
+            "Stock Entry",
+            filters={
+                "custom_pouring_id": self.name,
+                "docstatus": 1  # Only submitted ones
+            },
+            fields=["name"]
+        )
+        
+        for se in stock_entries:
+            try:
+                stock_entry_doc = frappe.get_doc("Stock Entry", se.name)
+                stock_entry_doc.cancel()
+                frappe.msgprint(
+                    f"Stock Entry <b>{se.name}</b> cancelled",
+                    alert=True,
+                    indicator="blue"
+                )
+            except Exception as e:
+                frappe.log_error(
+                    f"Error cancelling Stock Entry {se.name}: {str(e)}",
+                    "Stock Entry Cancel Error"
+                )
+                frappe.throw(
+                    f"Could not cancel Stock Entry {se.name}: {str(e)}<br><br>"
+                    f"Please cancel it manually first."
+                )
+                
     def calculate_child_values(self):
         for row in self.pouring_traceability:
             if row.box_poured_from and row.box_poured_till:

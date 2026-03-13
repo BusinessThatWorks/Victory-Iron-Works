@@ -21,86 +21,67 @@ class PouringTraceability(Document):
         self.restore_available_qty_in_mould_batch()
         self.cancel_linked_stock_entry()  # <-- ADD THIS LINE
 
-   # ========================
+    # ========================
     # STOCK ENTRY CREATION - NEW METHODS
     # ========================
 
     def create_stock_entry(self):
         """Create Stock Entry on submit with items from pouring traceability"""
         
-        try:
-            stock_entry = frappe.new_doc("Stock Entry")
-            stock_entry.stock_entry_type = "Pouring"
-            stock_entry.custom_pouring_id = self.name
+        stock_entry = frappe.new_doc("Stock Entry")
+        stock_entry.stock_entry_type = "Pouring"
+        stock_entry.custom_pouring_id = self.name
+        
+        items_added = False
+        
+        for row in self.pouring_traceability:
+            if not row.mould_batch_id or not row.poured_quantity:
+                continue
             
-            items_added = False
+            # Get item details from the chain
+            item_details = self.get_item_details_for_stock_entry(row)
             
-            for row in self.pouring_traceability:
-                if not row.mould_batch_id or not row.poured_quantity:
-                    continue
-                
-                # Get item details from the chain
-                item_details = self.get_item_details_for_stock_entry(row)
-                
-                if not item_details:
-                    frappe.throw(
-                        f"Row #{row.idx}: Could not find Item Code for '{row.item_name}'. "
-                        f"Please check Production Tooling and Pattern Manufacturing setup."
-                    )
-                
-                for item in item_details:
-                    if not item.get("item_code"):
-                        frappe.throw(
-                            f"Row #{row.idx}: Item Code not found in Pattern Manufacturing. "
-                            f"Please check the setup."
-                        )
-                    
-                    stock_entry.append("items", {
-                        "t_warehouse": "Pouring - VI",
-                        "item_code": item.get("item_code"),
-                        "qty": (row.poured_quantity or 0) * (item.get("cavity") or 1),
-                        "custom_pouring_id": self.name,
-                        "custom_item_cast_weight": row.cast_weight or 0,
-                        "custom_item_bunch_weight": row.bunch_weight or 0,
-                    })
-                    items_added = True
-            
-            if not items_added:
+            if not item_details:
                 frappe.throw(
-                    "No valid items found to create Stock Entry. "
-                    "Please check Mould Batch and Item details."
+                    f"Row #{row.idx}: Could not find Item Code for '{row.item_name}'. "
+                    f"Please check Production Tooling and Pattern Manufacturing setup."
                 )
             
-            stock_entry.insert()
-            stock_entry.submit()
-            
-            # Save Stock Entry ID in Pouring Traceability
-            frappe.db.set_value(
-                "Pouring Traceability",
-                self.name,
-                "stock_entry_id",
-                stock_entry.name,
-                update_modified=False
-            )
-            
-            # Update current document's field (for immediate access)
-            self.db_set("stock_entry_id", stock_entry.name, update_modified=False)
-            
-            frappe.msgprint(
-                f"Stock Entry <b><a href='/app/stock-entry/{stock_entry.name}'>{stock_entry.name}</a></b> created successfully!",
-                alert=True,
-                indicator="green"
-            )
-            
-        except Exception as e:
-            frappe.log_error(
-                f"Stock Entry Creation Failed for {self.name}: {str(e)}",
-                "Pouring Stock Entry Error"
-            )
+            for item in item_details:
+                if not item.get("item_code"):
+                    frappe.throw(
+                        f"Row #{row.idx}: Item Code not found in Pattern Manufacturing. "
+                        f"Please check the setup."
+                    )
+                
+                stock_entry.append("items", {
+                    "t_warehouse": "Pouring - VI",
+                    "item_code": item.get("item_code"),
+                    "qty": (row.poured_quantity or 0) * (item.get("cavity") or 1),
+                    "custom_pouring_id": self.name,
+                    "custom_item_cast_weight": row.cast_weight or 0,
+                    "custom_item_bunch_weight": row.bunch_weight or 0,
+                })
+                items_added = True
+        
+        if not items_added:
             frappe.throw(
-                f"Failed to create Stock Entry: {str(e)}<br><br>"
-                f"Please fix the issue and try again."
+                "No valid items found to create Stock Entry. "
+                "Please check Mould Batch and Item details."
             )
+        
+        # Insert and Submit - if fails, exception will rollback everything
+        stock_entry.insert()
+        stock_entry.submit()
+        
+        # Save Stock Entry ID in Pouring Traceability
+        self.db_set("stock_entry_id", stock_entry.name, update_modified=False)
+        
+        frappe.msgprint(
+            f"Stock Entry <b><a href='/app/stock-entry/{stock_entry.name}'>{stock_entry.name}</a></b> created successfully!",
+            alert=True,
+            indicator="green"
+        )
 
     def get_item_details_for_stock_entry(self, row):
         """

@@ -11,7 +11,6 @@
   "column_break_plmw",
   "amended_from",
   "column_break_loob",
-  "moulding_machine",
   "section_break_xqfn",
   "pouring_traceability",
   "total_cast_weight",
@@ -46,12 +45,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "moulding_machine",
-   "fieldtype": "Select",
-   "label": "Moulding Machine",
-   "options": "\nHP-1\nHP-2\nSS-A\nSS-B\nJOY\nJOGENDRA"
-  },
-  {
    "fieldname": "section_break_xqfn",
    "fieldtype": "Section Break"
   },
@@ -77,7 +70,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-03-06 13:31:37.492054",
+ "modified": "2026-03-13 10:40:36.821579",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Pouring Traceability",

@@ -10,7 +10,6 @@
   "column_break_cuhn",
   "amended_from",
   "column_break_mvxx",
-  "moulding_system",
   "section_break_pgdn",
   "table_jelu",
   "total_casting_weight",
@@ -55,12 +54,6 @@
   {
    "fieldname": "column_break_mvxx",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "moulding_system",
-   "fieldtype": "Select",
-   "label": "Moulding System",
-   "options": "\nHand Mould\nMachine Mould"
   },
   {
    "fieldname": "section_break_pgdn",
@@ -149,7 +142,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-03-07 14:35:15.638583",
+ "modified": "2026-03-13 10:40:25.634142",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Machine and Hand Mould",

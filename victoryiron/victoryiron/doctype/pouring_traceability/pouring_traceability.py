@@ -60,7 +60,7 @@ class PouringTraceability(Document):
                         "item_code": item.get("item_code"),
                         "qty": (row.poured_quantity or 0) * (item.get("cavity") or 1),
                         "custom_pouring_id": self.name,
-                        "custom_cast_weight": row.cast_weight or 0,
+                        "custom_item_cast_weight": row.cast_weight or 0,
                         "custom_item_bunch_weight": row.bunch_weight or 0,
                     })
                     items_added = True

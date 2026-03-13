@@ -1,0 +1,122 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{date}",
+ "creation": "2026-03-13 13:55:56.923007",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_lrnj",
+  "amended_from",
+  "date",
+  "first_line_rejection_table_section",
+  "table_jcvk",
+  "section_break_rrgv",
+  "total_available_quantity",
+  "total_bunch_weight",
+  "column_break_badh",
+  "total_quantity_rejected",
+  "total_cast_weight",
+  "column_break_uuoz",
+  "rejection_"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_lrnj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "First Line Rejection",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "first_line_rejection_table_section",
+   "fieldtype": "Section Break",
+   "label": "First Line Rejection Table"
+  },
+  {
+   "fieldname": "table_jcvk",
+   "fieldtype": "Table",
+   "options": "First Line Rejection Table"
+  },
+  {
+   "fieldname": "section_break_rrgv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_available_quantity",
+   "fieldtype": "Int",
+   "label": "Total Available Quantity"
+  },
+  {
+   "fieldname": "column_break_badh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_quantity_rejected",
+   "fieldtype": "Int",
+   "label": "Total Quantity Rejected"
+  },
+  {
+   "fieldname": "column_break_uuoz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rejection_",
+   "fieldtype": "Percent",
+   "label": "Rejection %",
+   "precision": "2"
+  },
+  {
+   "fieldname": "total_bunch_weight",
+   "fieldtype": "Float",
+   "label": "Total Bunch Weight"
+  },
+  {
+   "fieldname": "total_cast_weight",
+   "fieldtype": "Float",
+   "label": "Total Cast Weight"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-03-13 14:03:35.580055",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "First Line Rejection",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

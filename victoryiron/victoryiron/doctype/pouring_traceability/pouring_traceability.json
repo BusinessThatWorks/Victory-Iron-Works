@@ -11,6 +11,7 @@
   "column_break_plmw",
   "amended_from",
   "column_break_loob",
+  "stock_entry_id",
   "section_break_xqfn",
   "pouring_traceability",
   "total_cast_weight",
@@ -64,13 +65,18 @@
    "fieldname": "total_bunch_weight",
    "fieldtype": "Float",
    "label": "Total Bunch Weight"
+  },
+  {
+   "fieldname": "stock_entry_id",
+   "fieldtype": "Data",
+   "label": "Stock Entry ID"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-03-13 10:40:36.821579",
+ "modified": "2026-03-13 14:29:29.684224",
  "modified_by": "Administrator",
  "module": "victoryiron",
  "name": "Pouring Traceability",

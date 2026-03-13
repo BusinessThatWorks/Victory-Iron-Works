@@ -1,0 +1,110 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-03-13 13:50:01.487313",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "pouring_id",
+  "rejected_qty",
+  "rejection_reason",
+  "column_break_tjwb",
+  "item_name",
+  "rejection_stage",
+  "available_quantity",
+  "section_break_hzgg",
+  "cast_weight",
+  "total_cast_weight",
+  "column_break_atco",
+  "bunch_weight",
+  "total_bunch_weight"
+ ],
+ "fields": [
+  {
+   "fieldname": "pouring_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Pouring ID",
+   "options": "Pouring Traceability"
+  },
+  {
+   "fieldname": "rejected_qty",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Rejected Qty"
+  },
+  {
+   "fieldname": "rejection_reason",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Rejection Reason"
+  },
+  {
+   "fieldname": "column_break_tjwb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "rejection_stage",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Rejection Stage",
+   "options": "Process"
+  },
+  {
+   "fieldname": "section_break_hzgg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "cast_weight",
+   "fieldtype": "Float",
+   "label": "Cast Weight"
+  },
+  {
+   "fieldname": "total_cast_weight",
+   "fieldtype": "Float",
+   "label": "Total Cast Weight"
+  },
+  {
+   "fieldname": "column_break_atco",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bunch_weight",
+   "fieldtype": "Float",
+   "label": "Bunch Weight"
+  },
+  {
+   "fieldname": "total_bunch_weight",
+   "fieldtype": "Float",
+   "label": "Total Bunch Weight"
+  },
+  {
+   "fieldname": "available_quantity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Available Quantity"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-03-13 13:55:40.036471",
+ "modified_by": "Administrator",
+ "module": "victoryiron",
+ "name": "First Line Rejection Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
